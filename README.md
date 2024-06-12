@@ -1,6 +1,6 @@
 **FONCTIONNEMENT DU PARSING** 🔄:
 
-- 1 le separateurs :
+**1 le separateurs** :
 - le pipe : `|`
 - Exemple : `commande1 | commande2`
 
