@@ -3,7 +3,7 @@ NAME	=	minishell
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g -lreadline
 
-LIB = lib/libft.a
+LIB = lib/include/libft.a
 #-L/opt/homebrew/lib 
 #------------------------Source-----------------------------
 
@@ -35,8 +35,8 @@ $(NAME): obj ${OBJS}
 		@$(CC) $(CFLAGS) -o $(NAME) $(LIB) ${OBJS}
 
 $(LIB):
-	make -C lib/Libft
-	cp lib/libft.a
+	make -C lib
+	cp lib/libft.a lib/
 
 obj/%.o: src/%.c
 	@$(call generate_random_color, $(CC) $(CFLAGS) -c $< -o $@)
@@ -49,7 +49,7 @@ fclean:	clean
 		rm -f ${NAME}
 		rm -rf obj
 		rm -f lib/libft.a
-		make fclean -C lib/Libft
+		make clean -C lib
 
 re:	fclean all
 
