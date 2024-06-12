@@ -1,7 +1,8 @@
 **FONCTIONNEMENT DU PARSING** 🔄:
 
-**1 le separateurs** :
-- le pipe : `|`
-- Exemple : `commande1 | commande2`
-
-`commande1` est executee, et sa sortie est envoyee directement a l'entree de `commande2`.
+Le parsing prend un char **
+- Ajout des nodes
+  - : `add_node(token_list, argc, argv, i)`
+- Lexer (metre tout dans une liste chainee et metre des enum sur les nodes)
+  - : `lexer(t_token *token, int argc, char **argv)`
+  - dans le lexer assigner les enum `assign_enum(token, index)`
