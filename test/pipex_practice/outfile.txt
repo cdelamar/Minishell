@@ -1,0 +1,21 @@
+total 116K
+-rw-r--r-- 1 cdelamar 2023_le-havre 2.1K Jun  5 23:36 pipex.h
+-rw-r--r-- 1 cdelamar 2023_le-havre  532 Jun  5 23:36 Makefile
+-rw-r--r-- 1 cdelamar 2023_le-havre 2.5K Jun  5 23:36 libft_split.c
+-rw-r--r-- 1 cdelamar 2023_le-havre 2.2K Jun  5 23:36 libft_misc.c
+drwxr-xr-x 8 cdelamar 2023_le-havre  163 Jun  5 23:36 .git
+-rw-r--r-- 1 cdelamar 2023_le-havre 1.8K Jun  5 23:36 ft_pipex.c
+-rw-r--r-- 1 cdelamar 2023_le-havre 1.2K Jun  5 23:36 ft_path.c
+-rw-r--r-- 1 cdelamar 2023_le-havre 1.5K Jun  5 23:36 ft_init.c
+-rw-r--r-- 1 cdelamar 2023_le-havre 2.2K Jun  5 23:36 ft_child.c
+drwxr-xr-x 6 cdelamar 2023_le-havre   64 Jun 11 14:57 ..
+-rw-r--r-- 1 cdelamar 2023_le-havre   69 Jun 12 17:34 infile.txt
+-rw-r--r-- 1 cdelamar 2023_le-havre 7.7K Jun 12 17:48 ft_child.o
+-rw-r--r-- 1 cdelamar 2023_le-havre 6.3K Jun 12 17:48 ft_init.o
+-rw-r--r-- 1 cdelamar 2023_le-havre 5.3K Jun 12 17:48 ft_path.o
+-rw-r--r-- 1 cdelamar 2023_le-havre 7.4K Jun 12 17:48 ft_pipex.o
+-rw-r--r-- 1 cdelamar 2023_le-havre 6.2K Jun 12 17:48 libft_split.o
+-rw-r--r-- 1 cdelamar 2023_le-havre 6.5K Jun 12 17:48 libft_misc.o
+drwxr-xr-x 3 cdelamar 2023_le-havre 4.0K Jun 12 17:48 .
+-rwxr-xr-x 1 cdelamar 2023_le-havre  26K Jun 12 17:48 pipex
+-rw-r--r-- 1 cdelamar 2023_le-havre    0 Jun 12 17:49 outfile.txt
