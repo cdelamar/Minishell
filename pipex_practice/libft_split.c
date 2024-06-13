@@ -6,33 +6,67 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:19:51 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/01/12 17:20:39 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:27:42 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static size_t		count_strings(
-						const char *str,
-						char c);
+static size_t	count_strings(const char *str, char c)
+{
+	size_t	string_count;
 
-static const char	*dup_until_c(
-						char **dst,
-						const char *src,
-						char c);
+	string_count = 0;
+	while (*str)
+	{
+		if (*str == c)
+		{
+			++str;
+			continue ;
+		}
+		while (*str && *str != c)
+			str++;
+		string_count++;
+	}
+	return (string_count);
+}
 
-static void			free_strs(
-						char ***strs,
-						size_t len);
+static const char	*dup_until_c(char **dst, const char *src, char c)
+{
+	size_t	len;
 
-static void			ft_memcpy(
-						void *x,
-						const void *y,
-						size_t n);
+	while (*src == c)
+		src++;
+	len = 0;
+	while (src[len] && src[len] != c)
+		len++;
+	*dst = (char *) malloc(sizeof(char) * (len + 1));
+	if (*dst == NULL)
+		return (NULL);
+	ft_memcpy(*dst, src, len);
+	(*dst)[len] = '\0';
+	src += len + 1;
+	return (src);
+}
 
-char	**ft_split(
-			const char *s,
-			char c)
+static void	free_strs(char ***strs, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+		free((*strs)[i++]);
+	free(*strs);
+	*strs = NULL;
+}
+
+static void	ft_memcpy(void *x, const void *y, size_t n)
+{
+	while (n--)
+		((char *)x)[n] = ((char *)y)[n];
+}
+
+char	**ft_split(const char *s, char c)
 {
 	char	**strs;
 	size_t	string_count;
@@ -52,68 +86,4 @@ char	**ft_split(
 		}
 	}
 	return (strs);
-}
-
-static size_t	count_strings(
-					const char *str,
-					char c)
-{
-	size_t	string_count;
-
-	string_count = 0;
-	while (*str)
-	{
-		if (*str == c)
-		{
-			++str;
-			continue ;
-		}
-		while (*str && *str != c)
-			str++;
-		string_count++;
-	}
-	return (string_count);
-}
-
-static const char	*dup_until_c(
-						char **dst,
-						const char *src,
-						char c)
-{
-	size_t	len;
-
-	while (*src == c)
-		src++;
-	len = 0;
-	while (src[len] && src[len] != c)
-		len++;
-	*dst = (char *) malloc(sizeof(char) * (len + 1));
-	if (*dst == NULL)
-		return (NULL);
-	ft_memcpy(*dst, src, len);
-	(*dst)[len] = '\0';
-	src += len + 1;
-	return (src);
-}
-
-static void	free_strs(
-				char ***strs,
-				size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len)
-		free((*strs)[i++]);
-	free(*strs);
-	*strs = NULL;
-}
-
-static void	ft_memcpy(
-				void *x,
-				const void *y,
-				size_t n)
-{
-	while (n--)
-		((char *)x)[n] = ((char *)y)[n];
 }

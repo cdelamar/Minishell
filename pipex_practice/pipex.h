@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/01/12 17:25:42 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:08:36 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_pipex
 	char	*paths;
 	char	**split_paths;
 	char	**envp;
+	int		cmd_nb;
 }	t_pipex;
 
 void	ft_init(int argc, char **argv, char **envp, t_pipex *pipex);
@@ -57,3 +58,8 @@ size_t	ft_strlcpy(char *dest, char *src, size_t size);
 void	free_tab(void **tab);
 
 #endif
+
+
+/*
+
+*/

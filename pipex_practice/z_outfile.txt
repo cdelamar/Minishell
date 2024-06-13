@@ -1,0 +1,20 @@
+total 120
+-rw-r--r-- 1 cdelamar 2023_le-havre  2204 Jun 13 11:40 ft_child.c
+-rw-r--r-- 1 cdelamar 2023_le-havre  6808 Jun 13 13:14 ft_child.o
+-rw-r--r-- 1 cdelamar 2023_le-havre  1494 Jun 13 13:10 ft_init.c
+-rw-r--r-- 1 cdelamar 2023_le-havre  5648 Jun 13 13:14 ft_init.o
+-rw-r--r-- 1 cdelamar 2023_le-havre  1186 Jun 13 10:37 ft_path.c
+-rw-r--r-- 1 cdelamar 2023_le-havre  4760 Jun 13 13:14 ft_path.o
+-rw-r--r-- 1 cdelamar 2023_le-havre  1799 Jun 13 10:37 ft_pipex.c
+-rw-r--r-- 1 cdelamar 2023_le-havre  6448 Jun 13 13:14 ft_pipex.o
+-rw-r--r-- 1 cdelamar 2023_le-havre    69 Jun 13 10:37 infile.txt
+-rw-r--r-- 1 cdelamar 2023_le-havre  2177 Jun 13 10:37 libft_misc.c
+-rw-r--r-- 1 cdelamar 2023_le-havre  6160 Jun 13 13:14 libft_misc.o
+-rw-r--r-- 1 cdelamar 2023_le-havre  2500 Jun 13 10:37 libft_split.c
+-rw-r--r-- 1 cdelamar 2023_le-havre  5840 Jun 13 13:14 libft_split.o
+-rw-r--r-- 1 cdelamar 2023_le-havre   532 Jun 13 10:37 Makefile
+-rw-r--r-- 1 cdelamar 2023_le-havre   279 Jun 13 13:07 multi_pipes.c
+-rw-r--r-- 1 cdelamar 2023_le-havre     0 Jun 13 13:15 outfile.txt
+-rwxr-xr-x 1 cdelamar 2023_le-havre 25488 Jun 13 13:14 pipex
+-rw-r--r-- 1 cdelamar 2023_le-havre  2116 Jun 13 13:08 pipex.h
+-rw-r--r-- 1 cdelamar 2023_le-havre    24 Jun 13 12:18 test_out

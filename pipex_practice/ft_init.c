@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:00:18 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/01/11 18:23:51 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:10:38 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_init(int argc, char **argv, char **envp, t_pipex *pipex)
 		ft_perror(OUT_FAILURE);
 	if (pipe(pipex->fd) == -1)
 		ft_perror(PIPE_FAILURE);
+	pipex->cmd_nb = 0;
 }
 
 void	ft_perror(char *s)

@@ -8,7 +8,7 @@ RM = rm -f
 FILES = ft_child \
 		ft_init \
 		ft_path \
-		ft_pipex \
+		main \
 		libft_split \
 		libft_misc \
 
