@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
+/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 01:43:40 by Laubry            #+#    #+#             */
-/*   Updated: 2023/10/23 16:33:45 by Laubry           ###   ########.fr       */
+/*   Created: 2024/06/13 17:43:48 by laubry            #+#    #+#             */
+/*   Updated: 2024/06/13 17:44:05 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+int	ft_strcmp(char *s1, char *s2)
 {
-	unsigned int	i;
+	int i;
 
 	i = 0;
-	if (!s || !f)
-		return ;
-	while (s[i])
-	{
-		f(i, &s[i]);
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
-	}
+	return (s1[i] - s2[i]);
 }
+
