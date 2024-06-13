@@ -6,23 +6,9 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:26:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/06/10 20:26:56 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/13 17:43:40 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-parsing :
-
-> struct
-> parse word after word
-> separate words by spaces
-> print result
-> free
-
-? readline
-? token
-*/
 
 #include <stdio.h>
 #include <unistd.h>
@@ -46,24 +32,6 @@ typedef struct s_token {    // "gcc" "./test.c" "|" "cat" "-e" >> echo ""ouais c
 	char *value;
 	struct s_token *next;
 } t_token;
-
-/*
-void	ft_lstadd_back(t_token **lst, t_token *new)
-{
-	t_token	*add_node;
-
-	if (!lst || !new)
-		return ;
-	if (!(*lst))
-	{
-		*lst = new;
-		return ;
-	}
-	add_node = *lst;
-	while (add_node->next)
-		add_node = add_node->next;
-	add_node->next = new;
-}*/
 
 enum token_type lexer (char *value)
 {
@@ -121,11 +89,6 @@ int main (int argc, char **argv, char **envp)
 	line = readline("rsh>");
 	//line = "ls -l"
 	tokenizer(line);
-
-
-	// printf("> %s\n", line);
-	// > parse word after word
-
 	free (line);
 	return (EXIT_SUCCESS);
 }

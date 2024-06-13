@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 15:50:12 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/06/13 18:28:30 by cdelamar         ###   ########.fr       */
+/*   Created: 2024/01/11 15:05:22 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/06/13 18:28:24 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "exec.h"
+#include "exec.h"
 
-int init_exec (t_ctx *ctx, t_exec *exec)
+static char	*ft_path_finder(char **envp)
 {
-	if (ft_path(ctx, exec) == 1)
-		return (1);
+	int	i;
 
-	return (0);
+	i = 0;
+	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	return (envp[i] + 5);
 }
 
-int main (int argc, char **argv, char **envp)
+int	ft_path(t_ctx *ctx, t_exec *exec)
 {
-	t_exec	exec;
-	t_ctx	ctx;
-	// init ctx
-	ctx.envp = envp;
-	// init exec
-	// error_checker
+	exec->paths = ft_path_finder(ctx->envp);
+	exec->split_paths = ft_split(exec->paths, ':');
+	if (!exec->split_paths)
+		return (1);
+	return(0);
 }
