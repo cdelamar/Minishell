@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 15:05:22 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/06/13 18:28:24 by cdelamar         ###   ########.fr       */
+/*   Created: 2024/06/14 18:23:21 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/06/14 18:23:41 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "execute.h"
 
-static char	*ft_path_finder(char **envp)
+void	ft_putendl_fd(char *s, int fd)
 {
 	int	i;
 
 	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
 		i++;
-	return (envp[i] + 5);
-}
-
-int	ft_path(t_ctx *ctx, t_exec *exec)
-{
-	exec->paths = ft_path_finder(ctx->envp);
-	exec->split_paths = ft_split(exec->paths, ':');
-	if (!exec->split_paths)
-		return (1);
-	return(0);
+	}
+	write(fd, "\n", 1);
 }

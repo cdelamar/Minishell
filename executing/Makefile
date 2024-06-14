@@ -1,13 +1,14 @@
-NAME = exec.a
+NAME = executing
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 AR = ar rcs
 RM = rm -f
 
-FILES = get_next_line \
-		get_next_line_utils \
-		exec
+FILES = lib \
+		path \
+		output \
+		main
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
@@ -19,7 +20,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 all: $(NAME)
 
