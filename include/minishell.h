@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/13 17:58:44 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/14 15:19:33 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "stdlib.h"
 # include "signal.h"
 # include "stdio.h"
+# include "readline/readline.h"
+# include "readline/history.h"
 //# include "./../lib/include/libft.h"
 
 /* ========== ENUM ================= */
@@ -46,6 +48,7 @@ typedef struct s_token
 /* ========== Error =================*/
 
 # define ERROR_NODE 1
+# define ERROR_ARGS 2
 
 /* ========== FONCTION ============= */
 
@@ -57,9 +60,11 @@ t_token	*token_lstnew(void *content);
 void	token_lstadd_back(t_token **lst, t_token *new);
 void	token_lstclear(t_token **lst, void (*del)(void*));
 int		ft_strcmp(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
 
-/*------------print------------------*/
+/*------------tools------------------*/
 void	print_node(t_token *token);
+int		nbr_of_argv(char **argv);
 
 /*------------parsing----------------*/
 void	lexer(t_token *token, char **argv);

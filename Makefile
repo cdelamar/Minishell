@@ -1,7 +1,8 @@
 #-----------------------Flags_and_Name---------------------
 NAME	=	minishell
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g #-lreadline
+CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g
+CREAD	=	-lreadline
 
 #-L/opt/homebrew/lib 
 #------------------------Source-----------------------------
@@ -12,7 +13,8 @@ FILES = main \
 		error \
 		tools \
 		libft/all_lst \
-		libft/ft_strcmp
+		libft/ft_strcmp \
+		libft/ft_split
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
@@ -33,11 +35,11 @@ obj:
 	mkdir -p obj/libft
 
 .c.o:
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(CREAD)
 
 $(NAME): obj ${OBJS}
 		@$(call generate_random_color, $(CC) $(CFLAGS) -o $@ $(OBJS))
-		@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+		@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CREAD)
 
 
 obj/%.o: src/%.c
