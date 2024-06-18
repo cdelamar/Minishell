@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/14 19:38:16 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:27:55 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ int	add_node(t_token **token_list, char **argv, int i)
 }
 
 
-void	make_token(char **argv)
+void	make_token(char **argv, t_token *token_list)
 {
-	t_token *token_list = NULL;
 	int	i;
 	int	argc;
 
 	argc = nbr_of_argv(argv);
+	if (argc == 0)
+		return;
 	i = 0;
 	while (i < argc)
 	{
@@ -40,12 +41,12 @@ void	make_token(char **argv)
 		i++;
 	}
 	print_node(token_list);
-	lexer(token_list, argv);
 }
 
-int	main(int argc ,char **argv)//, char **envp)
+int	main(int argc ,char **argv, char **envp)
 {
 	char *line;
+	t_token *token_list = NULL;
 
 	(void)argv;
 	if (argc > 1)
@@ -53,7 +54,12 @@ int	main(int argc ,char **argv)//, char **envp)
 	while (1)
 	{
 		line = readline("minishell>");
-		make_token(ft_split(line, ' '));// dans le split gerer les "" si tu croise un " ignore les espace et split a patire du prochain " et verifier si il est tout seul
+		if (!check_error_before_split(line))
+			return (0);
+		print_path(envp);
+		make_token(ft_split(line, ' '), token_list);
+		lexer(token_list, argv);
+		path_main(token_list, envp);
 	}
 
 

@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:27:38 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/14 16:46:45 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:49:09 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ void	print_node(t_token *token)
 	}
 }
 
+ void print_path (char **envp)
+{
+	int i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+}
+
 int	nbr_of_argv(char **argv)
 {
 	int	i;
@@ -34,3 +44,4 @@ int	nbr_of_argv(char **argv)
 		i++;
 	return (i);
 }
+

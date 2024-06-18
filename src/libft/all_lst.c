@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:45:29 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/13 17:49:59 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/18 12:01:20 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,22 @@ void	token_lstclear(t_token **lst, void (*del)(void*))
 	*lst = NULL;
 }
 
+int	ft_strlen2(char *word)
+{
+	int	i;
+
+	i = 0;
+	while(word[i])
+		i++;
+	return (i);
+}
+
+int	ft_strlen_after_equal(char **envp, int i)
+{
+	int	len;
+
+	len = i;
+	while(envp[i] != ' ')
+		i++;
+	return (len = i - len);
+}

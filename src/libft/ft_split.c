@@ -6,106 +6,79 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:33:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/14 15:04:33 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/15 20:24:06 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_word(const char *s, char c)
-{
-	int	i;
-	int	co;
+static size_t ft_countword(char const *s, char c) {
+    size_t count = 0;
+    int in_word = 0;
 
-	i = 0;
-	co = 0;
-	if (s[0] != c && s[0])
-		co++;
-	i++;
-	while (s[i])
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (s[i] != c && s[i - 1] == c && s[i] != '\0')
-			co++;
-		if (s[i])
-			i++;
-	}
-	return (co);
+    while (*s)
+   	{
+        if (*s == '"') {
+            s++;
+			while (*s && *s != '"')
+                s++;
+            if (*s == '"')
+                s++;
+			count++;
+            in_word = 0;
+        }
+	   	else if (*s != c && !in_word)
+	   	{
+            in_word = 1;
+            count++;
+        }
+	   	else if (*s == c)
+	   	{
+            in_word = 0;
+        }
+        s++;
+    }
+    return count;
 }
 
-static char	**mal1er(char **dest, const char *s, char c)
+char **ft_split(char const *s, char c)
 {
-	int	i;
-	int	co;
-	int	j;
+    char **lst;
+    size_t word_len;
+    int i;
+    const char *start;
 
-	j = 0;
-	i = 0;
-	co = 0;
-	while (s[i])
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		while (s[i] && s[i] != c)
-		{
-			co++;
-			i++;
-			if (s[i] == c || !s[i])
-			{
-				dest[j] = malloc(sizeof(char) * (co + 1));
-				co = 0;
-				j++;
-			}
-		}
-	}
-	dest[j] = NULL;
-	return (dest);
-}
-
-static char	**comp(char **dest, const char *s, char c)
-{
-	int	i;
-	int	co;
-	int	j;
-
-	j = 0;
-	i = 0;
-	co = 0;
-	while (s[i])
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		while (s[i] != c && s[i])
-		{
-			dest[j][co] = s[i];
-			co++;
-			i++;
-			if (s[i] == c || !s[i])
-			{
-				dest[j][co] = '\0';
-				co = 0;
-				j++;
-			}
-		}
-	}
-	return (dest);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**dest;
-
-	if (s == NULL || s[0] == '\0')
-	{
-		dest = malloc(sizeof(char *) * 1);
-		dest[0] = NULL;
-		return (dest);
-	}
-	dest = malloc(sizeof(char *) * (count_word(s, c) + 1));
-	if (!dest)
-		return (NULL);
-	dest = mal1er(dest, s, c);
-	dest = comp(dest, s, c);
-	return (dest);
+    lst = (char **)malloc((ft_countword(s, c) + 1) * sizeof(char *));
+    if (!s || !lst)
+        return (0);
+    i = 0;
+    while (*s)
+   	{
+        while (*s == c && *s)
+            s++;
+        if (*s)
+	   	{
+            start = s;
+            if (*s == '"')
+		   	{
+                s++;
+				start = s;
+                while (*s && *s != '"')
+                    s++;
+                word_len = s - start;
+                if (*s == '"')
+                    s++;
+				lst[i++] = ft_substr(start, 0, word_len);
+            }
+		   	else
+		   	{
+                while (*s && *s != c && *s != '"')
+                    s++;
+                word_len = s - start;
+                lst[i++] = ft_substr(start, 0, word_len);
+            }
+        }
+    }
+    lst[i] = NULL;
+    return (lst);
 }

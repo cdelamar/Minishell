@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/14 15:19:33 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:56:43 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,31 @@ typedef struct s_token
 
 # define ERROR_NODE 1
 # define ERROR_ARGS 2
+# define ERROR_QUOTE 3
 
 /* ========== FONCTION ============= */
 
 /*-------------error-----------------*/
 int	check_error(int code_error);
-
+int	check_error_before_split(char *line);
 /*-------------libft-----------------*/
 t_token	*token_lstnew(void *content);
 void	token_lstadd_back(t_token **lst, t_token *new);
 void	token_lstclear(t_token **lst, void (*del)(void*));
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+size_t	ft_strlen(const char *str);
+int		ft_strlen2(char	*word);
+int		ft_strlen_after_equal(char *envp, int i);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
 
 /*------------tools------------------*/
 void	print_node(t_token *token);
 int		nbr_of_argv(char **argv);
-
+void	print_path(char **evnp);
 /*------------parsing----------------*/
 void	lexer(t_token *token, char **argv);
+void	path_main(t_token *token_list, char **envp);
 
 
 
