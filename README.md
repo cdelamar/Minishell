@@ -19,8 +19,9 @@ Tests :
 - `set -ex`
 - pour aller plus loin, on peut utiliser -x pour afficher `chaque commande exécutée dans le terminal` avec ses arguments avant son exécution
 - exemple : `set -ex`
-if [ "$(./minishell 'echo hello')" = "hello" ]; then
+
+- if [ "$(./minishell 'echo hello')" = "hello" ]; then
     echo "Succes : le minishell renvoi bien 'hello'"
 else
-    echo "Echec : pas d'envoir de 'hello'"
+    echo "Echec : pas d'envoi de 'hello'"
 fi
