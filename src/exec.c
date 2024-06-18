@@ -31,6 +31,7 @@ static char *cmd_finder(char **split_line, t_cmd *cmd)
 	char	*command;
 
 	i = 0;
+
 	while (cmd->path_split[i])
 	{
 		command = cmd_cat(cmd->path_split[i], "/", split_line[0]);
@@ -49,6 +50,10 @@ int basic_execute (char *line, t_cmd *cmd)
 	int		i;
 
 	i = 0;
+	// exit_handler
+	if (strcmp(line, "exit") == 0)
+		return(EXIT_COMMAND);
+
 	ft_path(cmd);
 	cmd->pid1 = fork();
 	//  error fork

@@ -36,6 +36,10 @@
 # define MALLOC_FAILURE	"malloc failure\n"
 # define INIT_SUCCESS	"init succeed\n"
 
+// TEST
+# define EXIT_COMMAND	3
+
+
 // PARSING PART
 
 enum token_type {

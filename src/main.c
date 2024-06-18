@@ -2,7 +2,7 @@
 
 #include "../includes/minishell.h"
 
-// MAIN QUEST : summon a simple call to one command
+// MAIN QUEST : summon a simple call to one command > OK
 // SIDE QUEST : checking for varaible expansion ('$')
 
 int main(int argc, char **argv, char **envp)
@@ -21,12 +21,10 @@ int main(int argc, char **argv, char **envp)
 	cmd->env = envp;
 	while (1)
 	{
-		line = readline("wzd_sh>"); // i will type "ls"
-		// where should i fork
-		basic_execute(line, cmd);
-		//printf("line outputed : %s\n", line);
+		line = readline("wzd_sh>");
+		if (basic_execute(line, cmd) == EXIT_COMMAND)
+			return (0);
 	}
-
 	free_structs(cmd, ctx, token);
 	return (0);
 }
