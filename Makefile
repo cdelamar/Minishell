@@ -12,14 +12,23 @@
 
 NAME = minishell
 
+LIBFT = lib/libft.a
+
 CC = cc
 
-CFLAGS =	-g -Wall -Wextra -Werror -lreadline\
-			-Iinclude
+CFLAGS =	-g\
+			-Iincludes\
+			-Ilib/includes #is it mandatory ?
+
+LFLAGS =	-Llib -lft -lreadline
 
 SRC_DIR = src/
 OBJ_DIR = obj/
 FILES =	main \
+		exec \
+		memory \
+		path \
+		token \
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
@@ -33,11 +42,11 @@ fclean : clean
 	@rm -rf $(NAME)
 
 
-re: fclean all
+re: fclean $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[32m✔ Compilating sources files...\033[37m"
-	@$(CC) -o $@ $(OBJS)
+	@$(CC) -o $@ $(OBJS) $(LFLAGS)
 	@echo "\033[32m✔ Executable created.\033[37m"
 
 $(LIBFT):
@@ -48,3 +57,6 @@ obj/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: all clean fclean re bonus
+
+# Avoid to rebuild the lib
+$(OBJS) : | $(LIBFT)

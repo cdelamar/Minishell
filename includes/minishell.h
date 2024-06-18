@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -22,7 +22,8 @@
 # include <sys/stat.h>
 # include <sys/uio.h>
 # include <string.h>
-# include <stdbool.h>
+# include <readline/readline.h>
+# include "libft.h"
 
 # define FORK_FAILURE	"fork failure\n"
 # define PIPE_FAILURE	"pipe failure\n"
@@ -32,7 +33,29 @@
 # define PARENT_FAILURE	"parent failure\n"
 # define CHILD_FAILURE	"child failure\n"
 # define ENV_FAILURE	"environnement failure\n"
+# define MALLOC_FAILURE	"malloc failure\n"
 # define INIT_SUCCESS	"init succeed\n"
+
+// PARSING PART
+
+enum token_type {
+	WORD, // commands
+	OPERATOR, // | < >
+	APPEND, // truncate
+	HEREDOC, // TODO exec
+	VAR, // $[NAME]
+	ENV,
+	REDIRECT, // <<
+	DOUBLE_QUOTE
+};
+
+typedef struct s_token {
+	enum token_type type;
+	char *value;
+	struct s_token *next;
+} t_token;
+
+// EXECUTING
 
 typedef struct s_ctx
 {
@@ -49,35 +72,23 @@ typedef struct s_cmd
 	int		outfile;
 	char	*path;
 	char	**path_split;
-	char	**path_comps;
+	char	**path_command;
 	char	**env;
 }	t_cmd;
 
+// excecuting
+int basic_execute (char *line, t_cmd *cmd);
 
-/* WIP */
-void	ft_child(char **argv, t_cmd *cmd);
-void	ft_parent(char **argv, t_cmd *cmd);
-int		executing(t_ctx *ctx, t_cmd *cmd, char **argv);
+// lexer / tokenizer
+enum token_type lexer (char *value);
+t_token *tokenizer(char *line);
+t_token *create_token (char *value, enum token_type);
 
+// memory
+int malloc_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
+void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
 
-/* init*/
-char	*init_cmd(t_ctx *ctx, t_cmd *cmd, char **argv);
+// envp
+void	ft_path(t_cmd *cmd);
 
-/* path */
-int		get_path(t_cmd *cmd);
-
-/* error */
-void	ft_putendl_fd(char *s, int fd);
-
-/* memory */
-void	free_tab(void **tab);
-
-/* array */
-size_t	ft_strlen(char *s);
-char	**ft_split(char *s, char c);
-int		ft_strncmp(char *s1, char *s2, size_t n);
-int		ft_strcmp(char *s1, char *s2);
-size_t	ft_strlcat(char *dest, char *src, size_t size);
-size_t	ft_strlcpy(char *dest, char *src, size_t size);
-char	*ft_triple_strjoin(char *s1, char *s2, char *s3);
 #endif
