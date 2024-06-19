@@ -38,6 +38,9 @@ VALGRIND :
    		readline_memory_leak
    		Memcheck:Leak
    		fun:readline
+   		fun:_rl_init_terminal_io
+   		fun:rl_initialize
+   		fun:xmalloc
 	} // copie / colle ca dans le fichier valgrind.supp 
 
 - `2. Gerer valgrind par le Makefile` :
