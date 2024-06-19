@@ -29,7 +29,7 @@ fi
 
 VALGRIND :
 
-- Le sujet, on nous dit que `La fonction readline() peut cause des fuites de memoire. Vous n'avez pas a les gerer'
+- Dans le sujet, on nous dit que `La fonction readline() peut cause des fuites de memoire. Vous n'avez pas a les gerer'
 - Je sais pas si c'est autorise, mais j'ai trouve une combine pour virer l'affichage des leaks de readline()
 
 - `1. Creer un fichier valgrind.supp` : 
