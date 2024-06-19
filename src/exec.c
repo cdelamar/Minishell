@@ -59,6 +59,7 @@ int basic_execute (char *line, t_cmd *cmd)
 	//  error fork
 	if (cmd->pid1 < 0)
 		return (1);
+
 	// child fork
 	else if (cmd->pid1 == 0)
 	{
@@ -66,9 +67,10 @@ int basic_execute (char *line, t_cmd *cmd)
 		command = cmd_finder(split_line, cmd);
 		if(command)
 			execve(command, split_line, cmd->env);
-		free(split_line);
+		ft_freetab(split_line);
 		return (1); // error
 	}
+
 	// parent fork
 	else
 		sleep(1);

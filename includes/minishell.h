@@ -89,8 +89,10 @@ t_token *tokenizer(char *line);
 t_token *create_token (char *value, enum token_type);
 
 // memory
-int malloc_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
+int malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token);
 void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
+void ft_freetab (char **tab);
+
 
 // envp
 void	ft_path(t_cmd *cmd);

@@ -1,0 +1,9 @@
+{
+   readline_memory_leak
+   Memcheck:Leak
+   fun:readline
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline_internal_teardown
+   fun:xmalloc
+}
