@@ -10,7 +10,8 @@ Pour push ➡️:
 - `git commit -m "msg"`
 - `git push origin "nom de la branche"`
 
-Tests :
+TESTS :
+
 - `set -e`
 - `exemple : set -e ["$(./minishell 'echo hello')" = hello]`
 - `set -e indique au shell de quitter immédiatement si une commande échoue.`
@@ -25,3 +26,27 @@ Tests :
 else
     echo "Echec : pas d'envoi de 'hello'"
 fi
+
+VALGRIND :
+
+- Le sujet, on nous dit que `La fonction readline() peut cause des fuites de memoire. Vous n'avez pas a les gerer'
+- Je sais pas si c'est autorise, mais j'ai trouve une combine pour virer l'affichage des leaks de readline()
+
+- `1. Creer un fichier valgrind.supp` : 
+	A l'interieur on va expliquer a Valgrind qu'on veut pas gerer readline :
+	{
+   		readline_memory_leak
+   		Memcheck:Leak
+   		fun:readline
+	} // copie / colle ca dans le fichier valgrind.supp 
+
+- `2. Gerer valgrind par le Makefile` :
+	Je sais pas pourquoi on a pas fait ca avant, mais on peut build direct avec les
+	flag de Valgrind. Refere toi a mon Makefile et utilise 'make valgrind' pour build ton code
+	et gerer des leak plus facilement
+	
+	Grace a `--suppressions=$(VALGRIND_SUPP)`, on affiche plus les leaks de readline et c'est plus lisible
+	pour gerer ses leaks, super pratique 
+	(J'attend de voir si yen a un qui vient me mp discord pour me dire 'tu peux pas faire ca')
+	J'ajouterais des flags au fur et a mesure pour avoir un truc bien propre
+
