@@ -24,11 +24,11 @@ int malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token)
 		return (1);
 	}
 
-	//ft_memset(*cmd, 0, sizeof(t_cmd));
-    //ft_memset(*ctx, 0, sizeof(t_ctx));
-    //(*token)->type = WORD;  // Example initialization for t_token
-    //(*token)->value = NULL;
-    //(*token)->next = NULL;
+	ft_memset(*cmd, 0, sizeof(t_cmd));
+    ft_memset(*ctx, 0, sizeof(t_ctx));
+    (*token)->type = WORD;  // Example initialization for t_token
+    (*token)->value = NULL;
+    (*token)->next = NULL;
 	return (0);
 }
 void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token)

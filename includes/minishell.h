@@ -81,6 +81,7 @@ typedef struct s_cmd
 }	t_cmd;
 
 // excecuting
+int execute (char *line, t_cmd *cmd);
 int basic_execute (char *line, t_cmd *cmd);
 
 // lexer / tokenizer
@@ -93,6 +94,9 @@ int malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token);
 void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
 void ft_freetab (char **tab);
 
+// command
+char *cmd_cat(const char *path_split, char *slash, char *command);
+char *cmd_finder(char **split_line, t_cmd *cmd);
 
 // envp
 void	ft_path(t_cmd *cmd);
