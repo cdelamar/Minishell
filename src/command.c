@@ -1,5 +1,7 @@
 #include "../includes/minishell.h"
 
+// TODO : refactoring cmd_cat
+
 char *cmd_cat(const char *path_split, char *slash, char *command)
 {
 	size_t	s1_len;

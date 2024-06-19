@@ -99,6 +99,7 @@ char *cmd_cat(const char *path_split, char *slash, char *command);
 char *cmd_finder(char **split_line, t_cmd *cmd);
 
 // envp
+char	*path_finder(t_cmd *cmd, char *path, int size);
 void	ft_path(t_cmd *cmd);
 
 #endif

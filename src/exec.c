@@ -1,17 +1,9 @@
 #include "../includes/minishell.h"
 
-// check man fork
-// when pid < 0				: error
-// when pid == 0			: child process
-// else pid == child's ID	: parent process
-
-// TODO : refactoring a more readable 'cmd_cat'
 int execute (char *line, t_cmd *cmd)
 {
 	// if simple_command
-	return(basic_execute(line, cmd));
-	// if '$'
-	//return(path_execute(line, cmd));
+	return(basic_execute(line, cmd));;
 }
 
 int basic_execute (char *line, t_cmd *cmd)
@@ -41,7 +33,6 @@ int basic_execute (char *line, t_cmd *cmd)
 		ft_freetab(split_line);
 		return (1); // error
 	}
-
 	// parent fork
 	else
 		sleep(1);
