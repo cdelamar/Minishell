@@ -58,7 +58,7 @@ VALGRIND :
 - super pratique pour eviter de push les fichiers qui nous interessent pas
 - il suffit de creer un fichier `.gitignore` et de creer une liste
 - les `wildcards` fonctionnent 
-exemple de truc a mettre dans ton .gitignore :
+- exemples de truc a mettre dans ton .gitignore :
 *.out
 *.swp
 *.o
