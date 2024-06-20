@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/18 12:03:04 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/21 01:12:48 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,50 +55,49 @@ int	find_the_dollar(t_token *token)
 
 	head = token;
 	while (ft_strcmp(head->content, "$") != 0)
+	{
 		head = head->next;
+	}
 	return (head->index);
 }
 
-
-
-void	ft_path_finder(t_token *token_list, char **envp, char *word)
+void	put_word_in_token(char **envp, t_token *token_list, char *word)
 {
-    int	i;
-	int	j;
-	int	len;
-	int	len_after_equal;
+	char		**env = envp;
+	size_t		len;
+	char		*start;
+	char		*end;
 
-    i = 0;
-	j = 0;
-	len = ft_strlen2(word);
-    while (ft_strncmp(envp[i], &word, len) != 0)//danger la decu si ca marche pas cest possible cest le path finder modifer
-		i++;
-	if (envp[i] == "=") // ca jsp si cest bon a teste mais skip le egale il est moche
-		i++;
-	len_after_equal = (ft_strlen_after_equal(envp, i));
-	len = find_the_dollar(token_list);
-	while (token_list->index != len)
-		token_list = token_list->next;	
-	token_list->content = realloc(len_after_equal);
-	len = 0;
-	while(envp[i] != " ")
+	len = ft_strlen(word);
+	while(*env != NULL)
 	{
-		token_list->content[len] = envp[i];
-		i++;
-		len++;
+		if (ft_strncmp(*env, word, len) == 0)
+		{
+			start = *env + len;
+			end = ft_strchr(start, ' ');
+			if (end)
+				len = end - start;
+			else
+				len = ft_strlen(start);
+			token_list->content = realloc(token_list->content, len + 1);
+			ft_strncpy(token_list->content, start, len);
+			token_list->content[len] = '\0';
+			break;
+		}
+		env++;
 	}
 }
 
 void	path_main(t_token *token_list, char **envp)
 {
+
 	int	place_of_dollar;
 	t_token	*head;
 
-	place_of_dollar = find_the_dollar(token);
+	place_of_dollar = find_the_dollar(token_list);// segfault
 	head = token_list;
 	while (head->index != place_of_dollar)
 		head = head->next;
-	head = head->next;
-	ft_path_finder(token_list, envp, head->content);
+	put_word_in_token(envp, token_list, head->content);
 }
 

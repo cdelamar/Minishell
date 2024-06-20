@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/18 11:27:55 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/20 22:05:57 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,23 @@ int	add_node(t_token **token_list, char **argv, int i)
 }
 
 
-void	make_token(char **argv, t_token *token_list)
+int	make_token(char **argv, t_token *token_list)
 {
 	int	i;
 	int	argc;
 
 	argc = nbr_of_argv(argv);
 	if (argc == 0)
-		return;
+		return (0);
 	i = 0;
 	while (i < argc)
 	{
 		if (!add_node(&token_list, argv, i))
-			return ;
+			return (0);
 		i++;
-	}
+	}	
 	print_node(token_list);
+	return (1);
 }
 
 int	main(int argc ,char **argv, char **envp)
@@ -56,8 +57,10 @@ int	main(int argc ,char **argv, char **envp)
 		line = readline("minishell>");
 		if (!check_error_before_split(line))
 			return (0);
-		print_path(envp);
-		make_token(ft_split(line, ' '), token_list);
+		//print_path(envp);
+		if (!make_token(ft_split(line, ' '), token_list))
+			return (0);
+		printf("dhzzzzzzzzzzzzdkhd");
 		lexer(token_list, argv);
 		path_main(token_list, envp);
 	}

@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:43:48 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/13 17:44:05 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/20 18:59:39 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,16 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+int	ft_strncmp(char *s1, char *s2, size_t n)
+{
+	size_t i;
+
+	i = 0;
+	while(i < n)
+	{
+		if (s1[i] != s2[i] || s1[i] == '\0' || s2[i] == '\0')
+			return (unsigned char)s1[i] - (unsigned char)s2[i];
+		i++;
+	}
+	return (0);
+}
