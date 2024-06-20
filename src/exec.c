@@ -3,8 +3,9 @@
 int execute (char *line, t_cmd *cmd)
 {
 	// if simple_command
-	if (ft_builtin(line, cmd) == 0)
-		return(ft_builtin(line, cmd));
+	if (ft_builtin(line, cmd) == EXIT_SUCCESS)
+		return(0);
+	// else if (le builtin marche pas) ->error_message
 	else
 		return(basic_execute(line, cmd));;
 }

@@ -8,6 +8,7 @@ int ft_env(t_cmd *cmd)
 	while (cmd->env[i])
 	{
 		ft_putstr_fd(cmd->env[i], 1);
+		ft_putchar_fd('\n', 1);
 		i++;
 	}
 	return (0);

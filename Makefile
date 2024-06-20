@@ -21,7 +21,7 @@ LFLAGS =	-Llib -lft -lreadline
 SRC_DIRS = src/ builtins/
 OBJ_DIR = obj/
 SRC_FILES =	command main exec memory path token
-BUILTIN_FILES =	call_builtins ft_echo ft_env
+BUILTIN_FILES =	call_builtins ft_echo ft_env ft_pwd
 
 SRC_SRCS = $(addprefix src/, $(addsuffix .c, $(SRC_FILES)))
 BUILTIN_SRCS = $(addprefix builtins/, $(addsuffix .c, $(BUILTIN_FILES)))

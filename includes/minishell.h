@@ -13,29 +13,31 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <string.h>
+# include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <sys/uio.h>
-# include <string.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <linux/limits.h>
 # include <readline/readline.h>
-# include "libft.h"
 
+# define INIT_SUCCESS	"init succeed\n"
 # define FORK_FAILURE	"fork failure\n"
 # define PIPE_FAILURE	"pipe failure\n"
 # define ARGC_FAILURE	"argc failure\n"
-# define IN_FAILURE		"infile failure\n"
-# define OUT_FAILURE	"outfile failure\n"
-# define PARENT_FAILURE	"parent failure\n"
 # define CHILD_FAILURE	"child failure\n"
-# define ENV_FAILURE	"environnement failure\n"
+# define IN_FAILURE		"infile failure\n"
+# define PARENT_FAILURE	"parent failure\n"
 # define MALLOC_FAILURE	"malloc failure\n"
-# define INIT_SUCCESS	"init succeed\n"
+# define OUT_FAILURE	"outfile failure\n"
+# define ENV_FAILURE	"environnement failure\n"
 
 // TEST
 # define EXIT_COMMAND	3
@@ -59,9 +61,7 @@ typedef struct s_token {
 	char *value;
 	struct s_token *next;
 } t_token;
-
 // EXECUTING
-
 typedef struct s_ctx
 {
 	int ac;
@@ -107,5 +107,6 @@ void	ft_path(t_cmd *cmd);
 int ft_builtin(char *line, t_cmd *cmd);
 int ft_echo (char **split_line, t_cmd *cmd);
 int ft_env(t_cmd *cmd);
+int ft_pwd (void);
 
 #endif
