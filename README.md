@@ -53,3 +53,15 @@ VALGRIND :
 	(J'attend de voir si yen a un qui vient me mp discord pour me dire 'tu peux pas faire ca')
 	J'ajouterais des flags au fur et a mesure pour avoir un truc bien propre
 
+.GITIGNORE :
+
+- super pratique pour eviter de push les fichiers qui nous interessent pas
+- il suffit de creer un fichier `.gitignore` et de creer une liste
+- les `wildcards` fonctionnent 
+exemple de truc a mettre dans ton .gitignore :
+*.out
+*.swp
+*.o
+*.a
+*.json
+
