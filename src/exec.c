@@ -3,7 +3,10 @@
 int execute (char *line, t_cmd *cmd)
 {
 	// if simple_command
-	return(basic_execute(line, cmd));;
+	if (ft_builtin(line, cmd) == 0)
+		return(ft_builtin(line, cmd));
+	else
+		return(basic_execute(line, cmd));;
 }
 
 int basic_execute (char *line, t_cmd *cmd)
@@ -31,10 +34,10 @@ int basic_execute (char *line, t_cmd *cmd)
 		if(command)
 			execve(command, split_line, cmd->env);
 		ft_freetab(split_line);
-		return (1); // error
+		return (EXIT_FAILURE); // error
 	}
 	// parent fork
 	else
 		sleep(1);
-	return (0);
+	return (EXIT_SUCCESS);
 }

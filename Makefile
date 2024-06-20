@@ -18,12 +18,18 @@ CC = cc
 CFLAGS =	-g -Iincludes -Ilib/includes
 LFLAGS =	-Llib -lft -lreadline
 
-SRC_DIR = src/
+SRC_DIRS = src/ builtins/
 OBJ_DIR = obj/
-FILES =	command main exec memory path token
+SRC_FILES =	command main exec memory path token
+BUILTIN_FILES =	call_builtins ft_echo ft_env
 
-SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
-OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
+SRC_SRCS = $(addprefix src/, $(addsuffix .c, $(SRC_FILES)))
+BUILTIN_SRCS = $(addprefix builtins/, $(addsuffix .c, $(BUILTIN_FILES)))
+SRCS = $(SRC_SRCS) $(BUILTIN_SRCS)
+
+SRC_OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+BUILTIN_OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(BUILTIN_FILES)))
+OBJS = $(SRC_OBJS) $(BUILTIN_OBJS)
 
 VALGRIND_SUPP = valgrind.supp
 
@@ -40,14 +46,19 @@ fclean : clean
 re: fclean $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@echo "\033[35m✔ Compilating sources files...\033[37m"
+	@echo "\033[35m✔ Compiling source files...\033[37m"
 	@$(CC) -o $@ $(OBJS) $(LFLAGS)
 	@echo "\033[0;35m✔ Executable created.\033[37m"
 
 $(LIBFT):
 	@make -C lib
 
-obj/%.o: src/%.c
+$(OBJ_DIR)%.o: src/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "\033[32m✔ Compiled $<.\033[37m"
+
+$(OBJ_DIR)%.o: builtins/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "\033[32m✔ Compiled $<.\033[37m"
@@ -63,4 +74,4 @@ rl_on: $(NAME)
 .PHONY: all clean fclean re valgrind
 
 # Avoid to rebuild the lib
-$(OBJS) : | $(LIBFT)
+$(OBJS): | $(LIBFT)

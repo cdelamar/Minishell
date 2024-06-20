@@ -3,9 +3,10 @@
 #include "../includes/minishell.h"
 
 // succeed : summon a simple call to one command
-// MAIN QUEST : checking for variable expansion ('$')
-// SIDE QUEST : checking for free issues
-// SIDE QUEST : refactoring lib, especially ft_split
+// succeed : checking for free issues
+// succeed : refactoring lib, especially ft_split
+// MAIN QUEST : ft_echo
+// SIDE QUEST : put char *line in a struct
 
 int main(int argc, char **argv, char **envp)
 {

@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -101,5 +102,10 @@ char *cmd_finder(char **split_line, t_cmd *cmd);
 // envp
 char	*path_finder(t_cmd *cmd, char *path, int size);
 void	ft_path(t_cmd *cmd);
+
+// builtins
+int ft_builtin(char *line, t_cmd *cmd);
+int ft_echo (char **split_line, t_cmd *cmd);
+int ft_env(t_cmd *cmd);
 
 #endif

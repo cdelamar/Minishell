@@ -78,6 +78,8 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_error_message(char *str);
 void				ft_flood_fill(char **tab, t_point size, t_point begin);
 
+int					ft_strcmp(const char *s1, const char *s2);
+
 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);

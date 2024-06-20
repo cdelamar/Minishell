@@ -23,7 +23,7 @@ int malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token)
 		free(*ctx);
 		return (1);
 	}
-
+	//maybe init_struct next to gain lines
 	ft_memset(*cmd, 0, sizeof(t_cmd));
     ft_memset(*ctx, 0, sizeof(t_ctx));
     (*token)->type = WORD;  // Example initialization for t_token
