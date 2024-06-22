@@ -27,6 +27,41 @@ else
     echo "Echec : pas d'envoi de 'hello'"
 fi
 
+- check : env
+
+set -ex
+if [ "$(./minishell 'env' | grep 'PATH')" != "" ]; then
+    echo "Success: PATH variable is found in env output"
+else
+    echo "Failure: PATH variable is not found in env output"
+fi
+
+- check pwd
+
+set -ex
+mkdir -p /tmp/minishell_test
+cd /tmp/minishell_test
+if [ "$(./minishell 'pwd')" = "/tmp/minishell_test" ]; then
+    echo "Success: pwd output matches changed directory"
+else
+    echo "Failure: pwd output does not match changed directory"
+fi
+cd - # Go back to previous directory
+rm -r /tmp/minishell_test
+
+
+- check export
+
+set -ex
+export TEST_VARIABLE="test_value"
+if [ "$(./minishell 'env' | grep 'TEST_VARIABLE=test_value')" != "" ]; then
+    echo "Success: Custom variable TEST_VARIABLE is found in env output"
+else
+    echo "Failure: Custom variable TEST_VARIABLE is not found in env output"
+fi
+
+
+
 VALGRIND :
 
 - Dans le sujet, on nous dit que `La fonction readline() peut cause des fuites de memoire. Vous n'avez pas a les gerer'
