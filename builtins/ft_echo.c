@@ -1,5 +1,8 @@
 #include "../includes/minishell.h"
 
+//if [ "$(./minishell 'echo hello')" = "hello" ]; then echo "Succes : le minishell renvoi bien 'hello'"; else echo "Echec : pas d'envoi de 'hello'"; fi
+
+
 int ft_echo (char **split_line, t_cmd *cmd)
 {
 	int		i;

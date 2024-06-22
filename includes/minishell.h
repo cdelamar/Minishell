@@ -106,6 +106,7 @@ void	ft_path(t_cmd *cmd);
 // builtins
 int ft_builtin(char *line, t_cmd *cmd);
 int ft_echo (char **split_line, t_cmd *cmd);
+int ft_unset (char **split_line, t_cmd *cmd);
 int ft_env(t_cmd *cmd);
 int ft_pwd (void);
 

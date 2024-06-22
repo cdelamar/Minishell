@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 		}
 
 		cmd->env = envp;
-		line = readline("wzd_sh>");
+		line = readline("minispell>");
 		if (execute(line, cmd) == EXIT_COMMAND) // define OK ?
 		{
 			free_structs(cmd, ctx, token);
