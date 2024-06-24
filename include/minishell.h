@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/20 18:59:33 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/23 18:02:37 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char	**ft_split(char const *s, char c);
 size_t	ft_strlen(const char *str);
 int		ft_strlen2(char	*word);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-char	*ft_strchr(char *s, int c);
+char	*ft_strchr(char *s, int	c);
+int		ft_strchr2(char *s, char c);
 char	*ft_strncpy(char *dst, char *src, size_t n);
 
 /*------------tools------------------*/

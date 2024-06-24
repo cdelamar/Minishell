@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/21 01:12:48 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/23 21:26:31 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,19 @@ void	lexer(t_token *token, char **argv)
 
 }
 
-int	find_the_dollar(t_token *token)
+int find_the_dollar(t_token *token)
 {
-	t_token	*head;
-
-	head = token;
-	while (ft_strcmp(head->content, "$") != 0)
-	{
-		head = head->next;
-	}
-	return (head->index);
+    while (token)
+    {
+		printf("token in while\n");
+        if (ft_strchr2(token->content, '$') == 1)
+		{
+			printf("index :dddddddddddddddd %d\n", token->index);
+            return (token->index);
+		}
+        token = token->next;
+    }
+    return -1; // une erreur quoi
 }
 
 void	put_word_in_token(char **envp, t_token *token_list, char *word)
@@ -91,10 +94,13 @@ void	put_word_in_token(char **envp, t_token *token_list, char *word)
 void	path_main(t_token *token_list, char **envp)
 {
 
-	int	place_of_dollar;
+	int	place_of_dollar = 10;
 	t_token	*head;
 
 	place_of_dollar = find_the_dollar(token_list);// segfault
+	printf("place : %d\n", place_of_dollar);
+	if (place_of_dollar == -1)
+		return ;//erreur
 	head = token_list;
 	while (head->index != place_of_dollar)
 		head = head->next;
