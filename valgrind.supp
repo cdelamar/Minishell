@@ -7,3 +7,11 @@
    fun:readline_internal_teardown
    fun:xmalloc
 }
+
+{
+   readline_internal_teardown
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.*
+}

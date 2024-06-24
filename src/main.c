@@ -5,8 +5,10 @@
 // succeed : summon a simple call to one command
 // succeed : checking for free issues
 // succeed : refactoring lib, especially ft_split
-// MAIN QUEST : ft_echo
+// succeed : ft_echo
+// MAIN QUEST : proper loop error handling
 // SIDE QUEST : put char *line in a struct
+// SIDE QUEST : define WEXITSTATUS and WIFEXITED by hands
 
 int main(int argc, char **argv, char **envp)
 {

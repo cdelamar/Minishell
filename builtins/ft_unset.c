@@ -18,7 +18,7 @@ int ft_unset (char **split_line, t_cmd *cmd)
 	if (!cmd->env[i])
 	{
 		printf("ECHEC\n\n");
-		ft_freetab(split_line);
+		// ft_freetab(split_line);
         return (EXIT_FAILURE);
 	}
 	j = i;
@@ -29,6 +29,6 @@ int ft_unset (char **split_line, t_cmd *cmd)
 		j++;
 	}
 	printf ("ca a marcher\n\n");
-	ft_freetab(split_line);
+	// ft_freetab(split_line);
 	return (EXIT_SUCCESS);
 }
