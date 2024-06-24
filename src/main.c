@@ -6,17 +6,17 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/23 18:47:34 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/24 16:01:14 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	add_node(t_token **token_list, char **argv, int i)
+int	add_node(t_token **token_list, char **strs, int i)
 {
 	t_token *new_node;
 
-	new_node = token_lstnew(argv[i]);
+	new_node = token_lstnew(strs[i]);
 	if (new_node == NULL)
 		return (check_error(ERROR_NODE));
 	new_node->index = i;
@@ -24,29 +24,30 @@ int	add_node(t_token **token_list, char **argv, int i)
 	return (1);
 }
 
-
-int	make_token(char **argv, t_token **token_list)
+int	make_token(char **strs, t_token **token_list)
 {
 	int	i;
 	int	argc;
 
-	argc = nbr_of_argv(argv);
+	argc = nbr_of_argv(strs);
 	if (argc == 0)
 		return (0);
 	i = 0;
 	while (i < argc)
 	{
-		if (!add_node(token_list, argv, i))
+		if (!add_node(token_list, strs, i))
 			return (0);
 		i++;
 	}	
+	//lexer(*token_list, strs);
 	print_node(*token_list);
 	return (1);
 }
 
-int	main(int argc ,char **argv, char **envp)
+int	main(int argc ,char **argv)//, char **envp)
 {
 	char *line;
+	char **split_line;
 	t_token *token_list = NULL;
 
 	(void)argv;
@@ -58,10 +59,10 @@ int	main(int argc ,char **argv, char **envp)
 		if (!check_error_before_split(line))
 			return (0);
 		//print_path(envp);
-		if (!make_token(ft_split(line, ' '), &token_list))
+		split_line = ft_split(line, ' ');
+		if (!make_token(split_line, &token_list))
 			return (0);
-		lexer(token_list, argv);
-		path_main(token_list, envp);
+	//	path_main(token_list, envp);
 	}
 
 

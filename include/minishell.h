@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/23 18:02:37 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/24 14:29:50 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,13 @@ void	print_node(t_token *token);
 int		nbr_of_argv(char **argv);
 void	print_path(char **evnp);
 /*------------parsing----------------*/
-void	lexer(t_token *token, char **argv);
+void	lexer(t_token *token, char **strs);
 void	path_main(t_token *token_list, char **envp);
+
+/*--------------free-----------------*/
+void	free_token_list(t_token *token_list);
+void	free_split(char **strs);
+
 
 
 

@@ -15,7 +15,8 @@ FILES = main \
 		libft/all_lst \
 		libft/ft_strcmp \
 		libft/ft_split \
-		libft/ft_strlen
+		libft/ft_strlen \
+		free_all
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))

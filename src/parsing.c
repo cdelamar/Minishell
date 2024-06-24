@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/23 21:26:31 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/24 14:17:46 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	assign_enum(t_token *token)
 }
 
 //lexer = metre tout dans une liste chainee et metre des enum sur les args
-void	lexer(t_token *token, char **argv)
+void	lexer(t_token *token, char **strs)
 {
 	int	i;
 	t_token *head;
@@ -36,7 +36,7 @@ void	lexer(t_token *token, char **argv)
 	head = token;
 	while(token)
 	{
-		token->content = argv[i];
+		token->content = strs[i];
 		token = token->next;
 		i++;
 	}
@@ -46,14 +46,13 @@ void	lexer(t_token *token, char **argv)
 		token->type = assign_enum(token);
 		token = token->next;
 	}	
-
 }
 
 int find_the_dollar(t_token *token)
 {
     while (token)
     {
-		printf("token in while\n");
+		printf("token content %s\n", token->content);
         if (ft_strchr2(token->content, '$') == 1)
 		{
 			printf("index :dddddddddddddddd %d\n", token->index);
