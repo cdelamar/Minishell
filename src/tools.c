@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:27:38 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/21 03:03:53 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/24 17:34:26 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_node(t_token *token)
 	//printf("%d", temp->index);
 	while (temp)
 	{
-		printf("index: %d, content: %s\n", temp->index, temp->content);
+		printf("temp ::%p, index: %d, content: %s\n",temp, temp->index, temp->content);
 		temp = temp->next;
 	}
 }
@@ -35,7 +35,7 @@ void	print_node(t_token *token)
 	}
 }
 
-int	nbr_of_argv(char **argv)
+int	nbr_of_strs(char **argv)
 {
 	int	i;
 

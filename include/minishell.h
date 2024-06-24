@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/24 14:29:50 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/24 17:38:35 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ char	*ft_strncpy(char *dst, char *src, size_t n);
 
 /*------------tools------------------*/
 void	print_node(t_token *token);
-int		nbr_of_argv(char **argv);
+int		nbr_of_strs(char **strs);
 void	print_path(char **evnp);
 /*------------parsing----------------*/
 void	lexer(t_token *token, char **strs);
 void	path_main(t_token *token_list, char **envp);
 
 /*--------------free-----------------*/
-void	free_token_list(t_token *token_list);
 void	free_split(char **strs);
 
 

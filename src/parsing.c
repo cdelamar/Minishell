@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/24 14:17:46 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/24 18:11:58 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,9 @@ void	lexer(t_token *token, char **strs)
 	while(token)
 	{
 		token->content = strs[i];
-		token = token->next;
-		i++;
-	}
-	token = head;
-	while(token)
-	{
 		token->type = assign_enum(token);
 		token = token->next;
+		i++;
 	}	
 }
 
@@ -52,12 +47,8 @@ int find_the_dollar(t_token *token)
 {
     while (token)
     {
-		printf("token content %s\n", token->content);
         if (ft_strchr2(token->content, '$') == 1)
-		{
-			printf("index :dddddddddddddddd %d\n", token->index);
             return (token->index);
-		}
         token = token->next;
     }
     return -1; // une erreur quoi
@@ -84,6 +75,7 @@ void	put_word_in_token(char **envp, t_token *token_list, char *word)
 			token_list->content = realloc(token_list->content, len + 1);
 			ft_strncpy(token_list->content, start, len);
 			token_list->content[len] = '\0';
+			printf("token_list->content ; %s", token_list->content);
 			break;
 		}
 		env++;
@@ -93,7 +85,7 @@ void	put_word_in_token(char **envp, t_token *token_list, char *word)
 void	path_main(t_token *token_list, char **envp)
 {
 
-	int	place_of_dollar = 10;
+	int	place_of_dollar;
 	t_token	*head;
 
 	place_of_dollar = find_the_dollar(token_list);// segfault

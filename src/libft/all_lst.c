@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:45:29 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/23 18:49:16 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/06/24 16:22:14 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,17 @@ void	token_lstclear(t_token **lst, void (*del)(void*))
 
 char *ft_substr(const char *s, unsigned int start, size_t len)
 {
+	size_t	i;
+
+	i = 0;
     char *substr = (char *)malloc((len + 1) * sizeof(char));
     if (!substr)
         return NULL;
-    for (size_t i = 0; i < len; i++)
+    while (i < len)
+	{
         substr[i] = s[start + i];
+		i++;
+	}
     substr[len] = '\0';
     return substr;
 }

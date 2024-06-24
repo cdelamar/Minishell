@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/24 16:01:14 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/24 17:45:02 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	make_token(char **strs, t_token **token_list)
 	int	i;
 	int	argc;
 
-	argc = nbr_of_argv(strs);
+	argc = nbr_of_strs(strs);
 	if (argc == 0)
 		return (0);
 	i = 0;
@@ -39,12 +39,12 @@ int	make_token(char **strs, t_token **token_list)
 			return (0);
 		i++;
 	}	
-	//lexer(*token_list, strs);
+	lexer(*token_list, strs);
 	print_node(*token_list);
 	return (1);
 }
 
-int	main(int argc ,char **argv)//, char **envp)
+int	main(int argc ,char **argv, char **envp)
 {
 	char *line;
 	char **split_line;
@@ -62,7 +62,8 @@ int	main(int argc ,char **argv)//, char **envp)
 		split_line = ft_split(line, ' ');
 		if (!make_token(split_line, &token_list))
 			return (0);
-	//	path_main(token_list, envp);
+		path_main(token_list, envp);
+		token_lstclear(&token_list, free);
 	}
 
 
@@ -77,7 +78,6 @@ int	main(int argc ,char **argv)//, char **envp)
 
 
 	//free
-//	token_lstclear(&token_list, free);
 }
 
 
