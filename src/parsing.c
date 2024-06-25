@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/24 18:11:58 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/25 14:25:21 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,25 @@ int find_the_dollar(t_token *token)
     return -1; // une erreur quoi
 }
 
-void	put_word_in_token(char **envp, t_token *token_list, char *word)
+void	getenv_in_list(char **envp, t_token *token_list, char *word)
 {
-	char		**env = envp;
+	char		**env;
 	size_t		len;
 	char		*start;
-	char		*end;
+	int			place_of_dollar;
 
+	place_of_dollar = find_the_dollar(token_list);
+	env = envp;
 	len = ft_strlen(word);
 	while(*env != NULL)
 	{
-		if (ft_strncmp(*env, word, len) == 0)
+		if (ft_strncmp(*env, word, len) == 0 && (*env)[len] == '=')
 		{
-			start = *env + len;
-			end = ft_strchr(start, ' ');
-			if (end)
-				len = end - start;
-			else
-				len = ft_strlen(start);
-			token_list->content = realloc(token_list->content, len + 1);
-			ft_strncpy(token_list->content, start, len);
-			token_list->content[len] = '\0';
-			printf("token_list->content ; %s", token_list->content);
+			start = *env + len +1;
+			while (place_of_dollar != token_list->index)
+				token_list = token_list->next;
+			token_list->content = realloc(token_list->content, ft_strlen(start) + 1);
+			strcpy(token_list->content, start);
 			break;
 		}
 		env++;
@@ -84,17 +81,15 @@ void	put_word_in_token(char **envp, t_token *token_list, char *word)
 
 void	path_main(t_token *token_list, char **envp)
 {
-
 	int	place_of_dollar;
 	t_token	*head;
 
-	place_of_dollar = find_the_dollar(token_list);// segfault
-	printf("place : %d\n", place_of_dollar);
+	place_of_dollar = find_the_dollar(token_list);
 	if (place_of_dollar == -1)
-		return ;//erreur
+		return ;
 	head = token_list;
-	while (head->index != place_of_dollar)
+	while (head->index < place_of_dollar)
 		head = head->next;
-	put_word_in_token(envp, token_list, head->content);
+	getenv_in_list(envp, token_list, head->content +1);// le +1 cest pour skip le $
 }
 
