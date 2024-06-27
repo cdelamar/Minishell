@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/24 17:38:35 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/27 16:27:07 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	token_lstadd_back(t_token **lst, t_token *new);
 void	token_lstclear(t_token **lst, void (*del)(void*));
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(char *s1, char *s2, size_t n);
-char	**ft_split(char const *s, char c);
 size_t	ft_strlen(const char *str);
 int		ft_strlen2(char	*word);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strchr(char *s, int	c);
 int		ft_strchr2(char *s, char c);
 char	*ft_strncpy(char *dst, char *src, size_t n);
+void	ft_bzero(void *s, size_t n);
+char	**ft_split_boosted(char *s);
+int		ft_isalpha(int c);
 
 /*------------tools------------------*/
 void	print_node(t_token *token);
@@ -82,6 +84,8 @@ void	path_main(t_token *token_list, char **envp);
 void	free_split(char **strs);
 
 
+
+size_t	count_word(char *s);
 
 
 #endif

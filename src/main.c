@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/25 14:27:55 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/27 13:02:20 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	make_token(char **strs, t_token **token_list)
 	return (1);
 }
 
-int	main(int argc ,char **argv, char **envp)
+int	main(int argc ,char **argv)//, char **envp)
 {
 	char *line;
-	char **split_line;
-	t_token *token_list = NULL;
+//	char **split_line;
+//	t_token *token_list = NULL;
 
 	(void)argv;
 	if (argc > 1)
@@ -56,15 +56,16 @@ int	main(int argc ,char **argv, char **envp)
 	while (1)
 	{
 		line = readline("minishell>");
-		if (!check_error_before_split(line))
-			return (0);
+	//	if (!check_error_before_split(line)) // pas obligatoir si je check apres avoir mis les token
+		//	return (0);
 		//print_path(envp);
-		split_line = ft_split(line, ' ');
-		if (!make_token(split_line, &token_list))
-			return (0);
-		path_main(token_list, envp);
-		print_node(token_list);
-		token_lstclear(&token_list, free);
+		printf("%zu\n", count_word(line));
+		//split_line = ft_split_boosted(line);
+		//if (!make_token(split_line, &token_list))
+		//	return (0);
+		//path_main(token_list, envp);
+		//print_node(token_list);
+		//token_lstclear(&token_list, free);
 	}
 
 
@@ -72,8 +73,8 @@ int	main(int argc ,char **argv, char **envp)
 /* 						PARSING
  *  			TRIER LE LEXER ET DONNER DES FD EX...*/
 
-
-
+//gere les ? apres les $ il revoie la dernier erreur
+// si il y a ""apres $ c laubry si cest '' cest user
 
 
 

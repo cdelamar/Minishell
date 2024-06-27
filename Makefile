@@ -16,7 +16,10 @@ FILES = main \
 		libft/ft_strcmp \
 		libft/ft_split \
 		libft/ft_strlen \
-		free_all
+		free_all \
+		ft_split_boosted \
+		libft/ft_bzero \
+		libft/ft_isalpha
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))

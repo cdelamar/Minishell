@@ -12,24 +12,54 @@ int	check_error(int code_error)
 	return (0);
 }
 
-int	check_error_before_split(char *line)
+
+
+int	check_quote_error(char *line)
 {
+	int	in_simple_quote;
+	int	in_dbl_quote;
+	int	simple_count;
+	int	dbl_count;
 	int	i;
-	int	dbl_quote;
-	int	spl_quote;
 
 	i = 0;
-	dbl_quote = 0;
-	spl_quote = 0;
-	while(line[i])
+	in_simple_quote = 0;
+	in_dbl_quote = 0;
+	simple_count = 0;
+	dbl_count = 0;
+	while (line[i])
 	{
 		if (line[i] == '"')
-			dbl_quote += 1;
+		{
+			if (!in_simple_quote)
+			{
+				in_dbl_quote = !in_dbl_quote;
+				if (!in_dbl_quote)
+					dbl_count++;
+			}
+		}
 		else if (line[i] == '\'')
-			spl_quote +=1;
+		{
+			if (!in_dbl_quote)
+			{
+				in_simple_quote = !in_simple_quote;
+				if (!in_simple_quote)
+					simple_count++;
+			}
+		}
 		i++;
 	}
-	if (dbl_quote % 2 != 0 || spl_quote % 2 != 0)
-		return (check_error(ERROR_QUOTE));
+	if (dbl_count % 2 != 0 || simple_count % 2 != 0)
+	{
+		check_error(ERROR_QUOTE);
+		return (1);
+	}
+	return (0);
+}
+
+int	check_error_before_split(char *line)
+{
+	if (check_quote_error(line) != 0)
+		return (0);
 	return (1);
 }

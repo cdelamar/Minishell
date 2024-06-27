@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/25 14:25:21 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/25 14:57:44 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word)
 			while (place_of_dollar != token_list->index)
 				token_list = token_list->next;
 			token_list->content = realloc(token_list->content, ft_strlen(start) + 1);
+			token_list->type = VAR;// lui atribuer lenum VAR
 			strcpy(token_list->content, start);
 			break;
 		}
