@@ -6,84 +6,11 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:55:05 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/27 18:33:44 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/28 11:35:27 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	if_quote(char *s, int i)
-{
-	if (s[i] == '"')
-	{
-		while (s[i] != '"' || s[i])
-			i++;
-		if (s[i] == '\0')
-			return (0); // erreur pas de dexieme "
-		//word++;
-	}
-	else if (s[i] == '\'')
-	{
-		while (s[i] != '\'' || s[i])
-			i++;
-		if (s[i] == '\0')
-			return (0); // erreur pas de dexieme '
-		//word++;
-	}
-	return (i);
-}
-
-void	skip_space(char *s, unsigned long i, int tab[3])
-{
-	int	word;
-
-	word = 0;
-	if (i < ft_strlen(s) || s[i] == ' ')
-		word = -1;
-	if (s[i] == ' ' || s[i])
-	{
-		while (s[i] == ' ')
-			i++;
-	}
-	if (s[i] == '\0')
-		return ;
-	if (word == -1)
-		tab[1] = 0;
-	else
-		tab[1] = 1;
-	tab[0] = i;
-	tab[2] = 1;
-}
-
-//size_t	count_word(char	*s)
-//{
-//	size_t	word;
-//	unsigned long	i;
-//	int		tab[3];
-//
-//	ft_bzero(tab, 3);
-//	word = 0;
-//	i = 0;
-//	while (s[i])
-//	{
-//		skip_space(s, i, tab);
-//		if (tab[2] == 0)
-//			return (0); // erreur fin de la chaine apres les espace	
-//		i = tab[0];
-//		word += tab[1];
-//		if (s[i] == '"' || s[i] == '\'')
-//		{
-//			i = if_quote(s, i);
-//			if (i == 0)
-//				return (0); // erreur pas de deuxieme quote
-//			word++;
-//		}
-//		i++;	
-//	}
-//	return (word);
-//}
-
-
 
 int	is_char(char s)
 {
@@ -94,6 +21,30 @@ int	is_char(char s)
 		return (1);	
 }
 
+int	is_quote(char *s, int i)
+{
+	char	c;
+
+	c = '\0';
+	if (s[i] == '"')
+		c = '"';
+	else if (s[i] == '\'')
+		c = '\'';
+	i++;
+	while (s[i] != c && s[i])
+		i++;
+	if (s[i] == '\0')
+		return (0);
+	i++;
+	return (i);
+}
+
+int	skip_space(char *s, int i)
+{
+	while (s[i] == ' ' && s[i])
+		i++;
+	return (i);
+}
 size_t	count_word(char *s)
 {
 	size_t	word;
@@ -108,30 +59,12 @@ size_t	count_word(char *s)
 			if (s[i] == '\0')
 				return (0);
 			if (s[i] == ' ')
+				i = skip_space(s, i);
+			else if (s[i] == '"' || s[i] == '\'')
 			{
-				while (s[i] == ' ' && s[i])
-					i++;
-			}
-			else if (s[i] == '"')
-			{
-				i++;
-				while (s[i] != '"' && s[i])
-					i++;
-				if (s[i] == '\0')
+				i = is_quote(s, i);	
+				if (i == 0)
 					return (0);
-				else
-					i++;
-				word++;
-			}
-			else if (s[i] == '\'')
-			{
-				i++;
-				while (s[i] != '\'' && s[i])
-					i++;
-				if (s[i] == '\0')
-					return (0);
-				else
-					i++;
 				word++;
 			}
 			else if (s[i] == '|' || s[i] == '>' || s[i] == '<')
@@ -146,11 +79,11 @@ size_t	count_word(char *s)
 				i++;
 			word++;
 		}
+		else
+			return (0);
 	}
 	return (word);
 }
-
-
 
 //si echo"oui" print echooui en faite les "" concataine meme deriere
 
