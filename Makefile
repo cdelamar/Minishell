@@ -17,9 +17,10 @@ FILES = main \
 		libft/ft_split \
 		libft/ft_strlen \
 		free_all \
-		ft_split_boosted \
 		libft/ft_bzero \
-		libft/ft_isalpha
+		libft/ft_isalpha \
+		split_dop/ft_split_boosted \
+		split_dop/split_count_word
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
@@ -38,6 +39,7 @@ all:	${NAME}
 obj:
 	mkdir -p obj
 	mkdir -p obj/libft
+	mkdir -p obj/split_dop
 
 .c.o:
 		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(CREAD)

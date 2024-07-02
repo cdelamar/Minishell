@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_boosted.c                                 :+:      :+:    :+:   */
+/*   count_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/26 09:55:05 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/28 11:35:27 by laubry           ###   ########.fr       */
+/*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
+/*   Updated: 2024/07/01 13:34:33 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,62 +41,58 @@ int	is_quote(char *s, int i)
 
 int	skip_space(char *s, int i)
 {
-	while (s[i] == ' ' && s[i])
+	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 		i++;
 	return (i);
 }
+
+int	word_plus(char *s, int i, int *tab)
+{
+	int	word;
+
+	word = 0;
+	i = skip_space(s, i);
+	if (s[i] == '"' || s[i] == '\'')
+	{
+		i = is_quote(s, i);	
+		if (i == 0)
+			return (0);
+		word++;
+	}
+	else if (s[i] == '|' || s[i] == '>' || s[i] == '<')
+	{
+		word++;
+		i++;
+	}
+	tab[0] = i;
+	tab[1] += word;
+	return (1);
+}
+
 size_t	count_word(char *s)
 {
-	size_t	word;
-	int		i;
+	int		tab[3];
 
-	i = 0;
-	word = 0;
-	while (s[i])
+	ft_bzero(tab, 3*4);
+	while (s[tab[0]])
 	{
-		if (!is_char(s[i]))
+		if (!is_char(s[tab[0]]))
 		{
-			if (s[i] == '\0')
+			if (!word_plus(s, tab[0], tab))
 				return (0);
-			if (s[i] == ' ')
-				i = skip_space(s, i);
-			else if (s[i] == '"' || s[i] == '\'')
-			{
-				i = is_quote(s, i);	
-				if (i == 0)
-					return (0);
-				word++;
-			}
-			else if (s[i] == '|' || s[i] == '>' || s[i] == '<')
-			{
-				word++;
-				i++;
-			}
 		}
-		else if (ft_isalpha(s[i]))
+		else if (ft_isalpha(s[tab[0]]))
 		{
-			while (ft_isalpha(s[i]))
-				i++;
-			word++;
+			while (ft_isalpha(s[tab[0]]))
+				tab[0]++;
+			tab[1]++;
 		}
 		else
 			return (0);
 	}
-	return (word);
+	return (tab[1]);
 }
 
 //si echo"oui" print echooui en faite les "" concataine meme deriere
-
-char **ft_split_boosted(char *s)
-{
-	char	**lst = NULL;
-//
-//	lst = (char **)malloc((count_word(s) +1) * sizeof(char *));
-//	if (!lst || !s)
-//		return (0); // erreur malloc ou chaine vide
-	printf("%zu\n", count_word(s));
-	return (lst);
-}
-
 
 
