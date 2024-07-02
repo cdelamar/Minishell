@@ -37,17 +37,17 @@ void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token)
 		ft_freetab(cmd->path_split);
 	if(cmd)
 	{
-		printf("free cmd\n");
+		// printf("free cmd\n");
 		free(cmd);
 	}
 	if(ctx)
 	{
-		printf("free ctx\n");
+		// printf("free ctx\n");
 		free(ctx);
 	}
 	if(token)
 	{
-		printf("free cmd\n");
+		// printf("free cmd\n");
 		free(token);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/06/03 17:15:37 by cdelamar         ###   ########.fr        #
+#    Updated: 2024/07/01 15:50:24 by cdelamar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LFLAGS =	-Llib -lft -lreadline
 
 SRC_DIRS = src/ builtins/
 OBJ_DIR = obj/
-SRC_FILES =	command main exec memory path token
+SRC_FILES =	command main exec memory path #token
 BUILTIN_FILES =	call_builtins ft_echo ft_env ft_pwd ft_unset
 
 SRC_SRCS = $(addprefix src/, $(addsuffix .c, $(SRC_FILES)))

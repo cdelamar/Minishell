@@ -1,8 +1,5 @@
 {
 	"files.associations": {
-		"minishell.h": "c",
-		"limits.h": "c",
-		"libft.h": "c",
-		"unistd.h": "c"
+		"libft.h": "c"
 	}
 }

@@ -1,27 +1,50 @@
 #include "../includes/minishell.h"
 
-// waitpid : les MACROS '<sys/wait.h>'
-
-// WIFEXITED(status)
-// retourne soit un non-zero(vrai) ou un zero(faux)
-// vrai si le child s'est fini normalement
-
-// WEXITSTATUS(status)
-// #define WEXITSTATUS(status) (((status) & 0xff00) >> 8)
-// is a macro that extracts the exit status of the child process
-// (the value passed to exit or returned by main).
-// nous nous intéressons aux bits de poids fort (bits 8 à 15) 
-// car c'est là que le statut de sortie est stocké lorsque le processus se termine normalement. 
-// WEXITSTATUS nous permet d'extraire ces bits pour obtenir le statut de sortie réel du processus enfant.
-
 int execute (char *line, t_cmd *cmd)
 {
-	// if simple_command
-	if (ft_builtin(line, cmd) == EXIT_SUCCESS)
+	if (ft_strchr(line, '|'))
+		return(pipe_execute(line, cmd));
+	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
 		return(0);
 	// else if (le builtin marche pas) ->error_message
 	else
 		return(basic_execute(line, cmd));;
+}
+
+int pipe_execute(char *line, t_cmd *cmd)
+{
+    char **commands;
+    int pipes[2];
+    int fd_in = 0;
+    int status;
+
+    commands = ft_split(line, '|');
+    while (*commands)
+    {
+        if (pipe(pipes) < 0)
+            return (PIPE_FAILURE);
+        cmd->pid1 = fork();
+        if (cmd->pid1 < 0)
+            return (FORK_FAILURE);
+        else if (cmd->pid1 == 0)
+        {
+            dup2(fd_in, 0);
+            if (*(commands + 1))
+                dup2(pipes[1], 1);
+            close(pipes[0]);
+            if (basic_execute(*commands, cmd) == EXIT_FAILURE)
+                exit(EXIT_FAILURE);
+            exit(EXIT_SUCCESS);
+        }
+        else
+        {
+            waitpid(cmd->pid1, &status, 0);
+            close(pipes[1]);
+            fd_in = pipes[0];
+            commands++;
+        }
+    }
+    return (EXIT_SUCCESS);
 }
 
 int basic_execute (char *line, t_cmd *cmd)

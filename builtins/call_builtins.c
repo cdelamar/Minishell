@@ -14,4 +14,5 @@ int ft_builtin(char *line, t_cmd *cmd)
 		return (ft_env(cmd));
 	if(ft_strcmp(line, "pwd") == 0)
 		return (ft_pwd());
+	return (1);
 }

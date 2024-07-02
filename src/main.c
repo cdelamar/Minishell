@@ -26,7 +26,7 @@ int main(int argc, char **argv, char **envp)
 		}
 
 		cmd->env = envp;
-		line = readline("minispell>");
+		line = readline("minigroseille>");
 		if (execute(line, cmd) == EXIT_COMMAND) // define OK ?
 		{
 			free_structs(cmd, ctx, token);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/06/14 21:59:06 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:56:58 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_cmd
 
 // excecuting
 int execute (char *line, t_cmd *cmd);
+int pipe_execute(char *line, t_cmd *cmd);
 int basic_execute (char *line, t_cmd *cmd);
 
 // lexer / tokenizer
