@@ -2,13 +2,10 @@
 
 #include "../includes/minishell.h"
 
-// succeed : summon a simple call to one command
-// succeed : checking for free issues
-// succeed : refactoring lib, especially ft_split
-// succeed : ft_echo
 // MAIN QUEST : proper loop error handling
-// SIDE QUEST : put char *line in a struct
-// SIDE QUEST : define WEXITSTATUS and WIFEXITED by hands
+
+// SIDE QUEST : find out grep issue > DOESNT WORK WITH DOUBLE QUOTES
+
 
 int main(int argc, char **argv, char **envp)
 {

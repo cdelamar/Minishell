@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/02 09:56:58 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:26:52 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_cmd
 	int		fd[2];
 	pid_t	pid1;
 	pid_t	pid2;
+	int		fd_in;
+	int		status;
 	int		infile;
 	int		outfile;
 	char	*path;
