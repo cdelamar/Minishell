@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/28 15:38:18 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/02 17:39:07 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ void	free_split(char **strs);
 
 
 size_t	count_word(char *s);
+int		is_char(char s);
+int		skip_space(char *s, int i);
+
 
 
 #endif

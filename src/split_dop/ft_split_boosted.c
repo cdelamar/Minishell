@@ -12,36 +12,76 @@ int	check_is_quote(int i, char *s, char **lst, int j)
 		c = '"';
 	else
 		c = '\'';
-	if (!is_char[s -1])
-		start = i;	
+//	if (!is_char(s[i -1]))
+	start = i;	
 	i++;
 	while (s[i] && s[i] != c)
 		i++;
+	i++;
 	word_len = i - start;
-	lst[j++] = ft_substr(start, 0, word_len);	
-	return (i)
+	lst[j++] = ft_substr(s + start, 0, word_len);	
+	return (i);
 }
 
+int	check_is_compar(int i, char *s, char **lst, int j)
+{
+	char	c;
+	int		word_len;
+	int		start;
+
+	start = i;
+	word_len = 0;
+	if (s[i] == '<')
+		c = '<';
+	else
+		c = '>';
+	if (s[i + 1] == c)
+		i++;
+	i++;
+	word_len = i - start;
+	lst[j] = ft_substr(s + start, 0, word_len);
+	return (i);
+}
 
 void	split_in_tab(char *s, char **lst)
 {
 	int	i;
 	int	j;
+	int	start;
+	int	word_len;
 
 	i = 0;
 	j = 0;
+	word_len = 0;
+	start = 0;
 	while (s[i])
 	{
 		i = skip_space(s, i);
 		start = i;
-		if (s[i] == '"' || s[i] == '\'')
+		if (s[i] == '<' || s[i] == '>')
+			i = check_is_compar(i, s, lst, j);
+		else if (s[i] == '"' || s[i] == '\'')
+			i = check_is_quote(i, s, lst, j);
+		else
 		{
-			 i = check_is_quote(i, s, lst, j);
-			 j++;
+			while (is_char(s[i]))
+				i++;
+	//	{
+		//	while (is_char(s[i]))
+		//		i++;
+		//	if (s[i] == '"' || s[i] == '\'')
+		//		i = check_is_quote(i, s, lst, j);
+		//	if (is_char(s[i]))
+		//	{
+		//		while (is_char(s[i]))
+		//			i++;
+		//	}
+			word_len = i - start;
+			lst[j] = ft_substr(s + start, 0, word_len);
 		}
-		else if (
+		j++;
 	}
-	i++;
+	lst[j] = NULL;
 }
 
 //si echo"oui" print echooui en faite les "" concataine meme deriere
@@ -56,7 +96,7 @@ char **ft_split_boosted(char *s)
 		free(lst);
 		return (0); // erreur malloc ou chaine vide
 	}
-//	split_in_tab(s, lst);	
+	split_in_tab(s, lst);	
 //	printf("%zu\n", count_word(s));
 	return (lst);
 }

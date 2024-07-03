@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/01 13:34:33 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/03 18:32:07 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_quote(char *s, int i)
 	else if (s[i] == '\'')
 		c = '\'';
 	i++;
-	while (s[i] != c && s[i])
+	while (s[i] && s[i] != c)
 		i++;
 	if (s[i] == '\0')
 		return (0);
@@ -49,15 +49,25 @@ int	skip_space(char *s, int i)
 int	word_plus(char *s, int i, int *tab)
 {
 	int	word;
+//	int	is_oneword;
 
 	word = 0;
+//	is_oneword = 0;
 	i = skip_space(s, i);
 	if (s[i] == '"' || s[i] == '\'')
 	{
+	//	if (is_char(s[i -1]))
+	//		is_oneword += 1;
 		i = is_quote(s, i);	
+	//	if (is_char(s[i +1]))
+	//		is_oneword += 1;
 		if (i == 0)
 			return (0);
 		word++;
+	//	if (is_oneword == 0)
+	//		word++;
+	//	else if (is_oneword == 2)
+	//		word--;
 	}
 	else if (s[i] == '|' || s[i] == '>' || s[i] == '<')
 	{

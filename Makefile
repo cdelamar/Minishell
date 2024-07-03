@@ -20,7 +20,7 @@ FILES = main \
 		libft/ft_bzero \
 		libft/ft_isalpha \
 		split_dop/ft_split_boosted \
-		split_dop/split_count_word
+		split_dop/count_word
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
