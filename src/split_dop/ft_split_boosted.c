@@ -43,6 +43,11 @@ int	check_is_compar(int i, char *s, char **lst, int j)
 	return (i);
 }
 
+int	check_is_pipe(int i, char *s, char **lst, int j)
+{
+	lst[j] = ft_substr(s + i, 0, 1);
+	return (i + 1);
+}
 void	split_in_tab(char *s, char **lst)
 {
 	int	i;
@@ -62,20 +67,12 @@ void	split_in_tab(char *s, char **lst)
 			i = check_is_compar(i, s, lst, j);
 		else if (s[i] == '"' || s[i] == '\'')
 			i = check_is_quote(i, s, lst, j);
+		else if (s[i] == '|')
+			i = check_is_pipe(i, s, lst, j);
 		else
 		{
 			while (is_char(s[i]))
 				i++;
-	//	{
-		//	while (is_char(s[i]))
-		//		i++;
-		//	if (s[i] == '"' || s[i] == '\'')
-		//		i = check_is_quote(i, s, lst, j);
-		//	if (is_char(s[i]))
-		//	{
-		//		while (is_char(s[i]))
-		//			i++;
-		//	}
 			word_len = i - start;
 			lst[j] = ft_substr(s + start, 0, word_len);
 		}
@@ -89,13 +86,14 @@ void	split_in_tab(char *s, char **lst)
 char **ft_split_boosted(char *s)
 {
 	char	**lst = NULL;
+	int		word;
 
-	lst = (char **)malloc((count_word(s) +1) * sizeof(char *));
-	if (!lst || !s)
-	{
-		free(lst);
-		return (0); // erreur malloc ou chaine vide
-	}
+	word = count_word(s);
+	if (word == 0)
+		return (NULL);
+	lst = (char **)malloc((word +1) * sizeof(char *));
+	if (!lst)
+		return (0); // erreur malloc
 	split_in_tab(s, lst);	
 //	printf("%zu\n", count_word(s));
 	return (lst);

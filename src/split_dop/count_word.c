@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/03 18:32:07 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/04 16:04:20 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,15 @@ int	skip_space(char *s, int i)
 int	word_plus(char *s, int i, int *tab)
 {
 	int	word;
-//	int	is_oneword;
 
 	word = 0;
-//	is_oneword = 0;
 	i = skip_space(s, i);
 	if (s[i] == '"' || s[i] == '\'')
 	{
-	//	if (is_char(s[i -1]))
-	//		is_oneword += 1;
 		i = is_quote(s, i);	
-	//	if (is_char(s[i +1]))
-	//		is_oneword += 1;
 		if (i == 0)
 			return (0);
 		word++;
-	//	if (is_oneword == 0)
-	//		word++;
-	//	else if (is_oneword == 2)
-	//		word--;
 	}
 	else if (s[i] == '|' || s[i] == '>' || s[i] == '<')
 	{
@@ -91,9 +81,9 @@ size_t	count_word(char *s)
 			if (!word_plus(s, tab[0], tab))
 				return (0);
 		}
-		else if (ft_isalpha(s[tab[0]]))
+		else if (is_char(s[tab[0]]))
 		{
-			while (ft_isalpha(s[tab[0]]))
+			while (is_char(s[tab[0]]))
 				tab[0]++;
 			tab[1]++;
 		}

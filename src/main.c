@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/03 15:47:58 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/04 14:56:24 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ int	make_token(char **strs, t_token **token_list)
 		i++;
 	}	
 	lexer(*token_list, strs);
-	print_node(*token_list);
+//	print_node(*token_list);
 	return (1);
 }
 
-int	main(int argc ,char **argv)//, char **envp)
+int	main(int argc ,char **argv, char **envp)
 {
 	char *line;
 	char **split_line;
-	int	i = 0;
-//	t_token *token_list = NULL;
+	t_token *token_list = NULL;
 
 	(void)argv;
 	if (argc > 1)
@@ -58,22 +57,17 @@ int	main(int argc ,char **argv)//, char **envp)
 	{
 		line = readline("minishell>");
 	//	if (!check_error_before_split(line)) // pas obligatoir si je check apres avoir mis les token
-		//	return (0);
+	//		return (0);
 		//print_path(envp);
 		printf("%zu\n", count_word(line));
 		split_line = ft_split_boosted(line);
-		i = 0;
-		while (split_line[i])
-		{
-		  	printf("line splited : %d ::  %s\n", i, split_line[i]);
-			i++;
-		}
-	
-		//if (!make_token(split_line, &token_list))
-		//	return (0);
-		//path_main(token_list, envp);
-		//print_node(token_list);
-		//token_lstclear(&token_list, free);
+		if (split_line == NULL)
+			return(0);
+		if (!make_token(split_line, &token_list))
+			return (0);
+		path_main(token_list, envp);
+		print_node(token_list);
+		token_lstclear(&token_list, free);
 	}
 
 

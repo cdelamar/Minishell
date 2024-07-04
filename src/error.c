@@ -12,8 +12,6 @@ int	check_error(int code_error)
 	return (0);
 }
 
-
-
 int	check_quote_error(char *line)
 {
 	int	in_simple_quote;
@@ -51,11 +49,14 @@ int	check_quote_error(char *line)
 	}
 	if (dbl_count % 2 != 0 || simple_count % 2 != 0)
 	{
-		check_error(ERROR_QUOTE);
 		return (1);
 	}
+	check_error(ERROR_QUOTE);
 	return (0);
 }
+
+
+
 
 int	check_error_before_split(char *line)
 {
