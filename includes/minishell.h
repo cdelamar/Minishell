@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/02 16:26:52 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:10:54 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <signal.h>
 # include <string.h>
 # include <limits.h>
 # include <unistd.h>
@@ -26,6 +27,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <linux/limits.h>
+# include <readline/history.h>
 # include <readline/readline.h>
 
 # define INIT_SUCCESS	"init succeed\n"
@@ -38,6 +40,7 @@
 # define MALLOC_FAILURE	"malloc failure\n"
 # define OUT_FAILURE	"outfile failure\n"
 # define ENV_FAILURE	"environnement failure\n"
+# define BUFFER_SIZE	5000
 
 // TEST
 # define EXIT_COMMAND	3
@@ -112,5 +115,8 @@ int ft_echo (char **split_line, t_cmd *cmd);
 int ft_unset (char **split_line, t_cmd *cmd);
 int ft_env(t_cmd *cmd);
 int ft_pwd (void);
+
+// signal handler
+void handle_sigint(int sig);
 
 #endif

@@ -33,6 +33,7 @@ int pipe_execute(char *line, t_cmd *cmd)
             close(cmd->fd[0]);
             if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
                 exit(EXIT_FAILURE);
+			// ft_freetab(cmd->path_command);
             exit(EXIT_SUCCESS);
         }
         else
@@ -43,6 +44,7 @@ int pipe_execute(char *line, t_cmd *cmd)
             i++;
         }
     }
+	ft_freetab(cmd->path_command);
     return (EXIT_SUCCESS);
 }
 
@@ -54,12 +56,13 @@ int basic_execute (char *line, t_cmd *cmd)
 	int		i;
 
 	i = 0;
+
 	// exit_handler
 	if (strcmp(line, "exit") == 0)
 		return(EXIT_COMMAND);
-
 	ft_path(cmd);
 	cmd->pid1 = fork();
+
 	//  error fork
 	if (cmd->pid1 < 0)
 		return (1);
@@ -75,6 +78,7 @@ int basic_execute (char *line, t_cmd *cmd)
 		ft_freetab(split_line);
 		return (EXIT_FAILURE); // error
 	}
+	
 	// parent fork
 	else
 	{

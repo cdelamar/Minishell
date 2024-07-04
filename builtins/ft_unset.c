@@ -28,7 +28,7 @@ int ft_unset (char **split_line, t_cmd *cmd)
 		cmd->env[j] = cmd->env[j + 1];
 		j++;
 	}
-	printf ("ca a marcher\n\n");
+	printf ("unset succeed\n\n");
 	// ft_freetab(split_line);
 	return (EXIT_SUCCESS);
 }

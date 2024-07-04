@@ -14,6 +14,8 @@ int main(int argc, char **argv, char **envp)
 	t_ctx *ctx;
 	t_token *token;
 
+	// CTRL - C setter (SIGINT)
+	signal(SIGINT, handle_sigint);
 	while (1)
 	{
 		if (malloc_structs(&cmd, &ctx, &token) != 0)
@@ -23,7 +25,14 @@ int main(int argc, char **argv, char **envp)
 		}
 
 		cmd->env = envp;
-		line = readline("minigroseille>");
+		line = readline("minicario>");
+		if (line == NULL)
+		{
+			free_structs(cmd, ctx, token);
+			return (0);
+		}
+		if (*line)
+			add_history(line);
 		if (execute(line, cmd) == EXIT_COMMAND) // define OK ?
 		{
 			free_structs(cmd, ctx, token);
