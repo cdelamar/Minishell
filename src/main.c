@@ -14,8 +14,10 @@ int main(int argc, char **argv, char **envp)
 	t_ctx *ctx;
 	t_token *token;
 
-	// CTRL - C setter (SIGINT)
-	signal(SIGINT, handle_sigint);
+	// CTRL + C and CTRL + '\'
+	signals();
+
+	// SHELL LOOP
 	while (1)
 	{
 		if (malloc_structs(&cmd, &ctx, &token) != 0)
@@ -25,14 +27,20 @@ int main(int argc, char **argv, char **envp)
 		}
 
 		cmd->env = envp;
-		line = readline("minicario>");
+		line = readline("minishell>");
+
+		// CTRL + D
 		if (line == NULL)
 		{
 			free_structs(cmd, ctx, token);
 			return (0);
 		}
+
+		// HISTORY LINE
 		if (*line)
 			add_history(line);
+
+		// EXECUTING
 		if (execute(line, cmd) == EXIT_COMMAND) // define OK ?
 		{
 			free_structs(cmd, ctx, token);
@@ -40,9 +48,10 @@ int main(int argc, char **argv, char **envp)
 			return (0);
 		}
 		free_structs(cmd, ctx, token);
+		free(line);
 	}
-	free_structs(cmd, ctx, token);
-	free(line);
+	// free_structs(cmd, ctx, token);
+	// free(line);
 	return (0);
 }
 

@@ -2,6 +2,13 @@
 
 int execute (char *line, t_cmd *cmd)
 {
+	printf("exec\n\n");
+	if (line[0] == '\0')
+	{
+		printf("free\n");
+
+		return(0);
+	}
 	if (ft_strchr(line, '|'))
 		return(pipe_execute(line, cmd));
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
@@ -78,7 +85,7 @@ int basic_execute (char *line, t_cmd *cmd)
 		ft_freetab(split_line);
 		return (EXIT_FAILURE); // error
 	}
-	
+
 	// parent fork
 	else
 	{

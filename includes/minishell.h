@@ -116,7 +116,7 @@ int ft_unset (char **split_line, t_cmd *cmd);
 int ft_env(t_cmd *cmd);
 int ft_pwd (void);
 
-// signal handler
-void handle_sigint(int sig);
+void	sigint_handler(int sig);
+void	signals(void);
 
 #endif
