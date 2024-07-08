@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/02 17:39:07 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/04 18:38:51 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*ft_strncpy(char *dst, char *src, size_t n);
 void	ft_bzero(void *s, size_t n);
 char	**ft_split_boosted(char *s);
 int		ft_isalpha(int c);
+char	*ft_strjoin(char *s1, char *s);
 
 /*------------tools------------------*/
 void	print_node(t_token *token);

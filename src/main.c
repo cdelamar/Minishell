@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/04 14:56:24 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:09:46 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int	main(int argc ,char **argv, char **envp)
 	while (1)
 	{
 		line = readline("minishell>");
-	//	if (!check_error_before_split(line)) // pas obligatoir si je check apres avoir mis les token
-	//		return (0);
 		//print_path(envp);
 		printf("%zu\n", count_word(line));
 		split_line = ft_split_boosted(line);
@@ -80,6 +78,7 @@ int	main(int argc ,char **argv, char **envp)
 
 
 
+	//le realoc tu doit le recoder dans parsing.c
 
 	//free
 }

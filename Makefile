@@ -12,6 +12,7 @@ FILES = main \
 		parsing \
 		error \
 		tools \
+		environment \
 		libft/all_lst \
 		libft/ft_strcmp \
 		libft/ft_split \
@@ -19,6 +20,7 @@ FILES = main \
 		free_all \
 		libft/ft_bzero \
 		libft/ft_isalpha \
+		libft/ft_strjoin \
 		split_dop/ft_split_boosted \
 		split_dop/count_word
 
