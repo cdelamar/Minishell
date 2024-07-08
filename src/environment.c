@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:59:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/08 12:07:57 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/08 18:43:34 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*path_in_tab(t_token *token_list, char *start)
 	i = 0;
 	while (token_list->content[i] != '$')
 		i++;
-	s = malloc(sizeof(char) * i);
+	s = malloc(sizeof(char) * i +1);
 	i = 0;
 	while (token_list->content[i] != '$')
 	{
@@ -66,6 +66,7 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word)
 	place_of_dollar = find_the_dollar(token_list);
 	env = envp;
 	len = ft_strlen(word);
+	
 	while (*env != NULL)
 	{
 		if (ft_strncmp(*env, word, len) == 0 && (*env)[len] == '=')
@@ -81,18 +82,41 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word)
 	}
 }
 
+char	*skip_sufix(char *word)
+{
+	int	i;
+
+	i = 0;
+	while (word[i] != 'R')
+		i++;
+	i++;
+	word[i] = '\0';
+	return (word);
+}
+
 void	path_main(t_token *token_list, char **envp)
 {
 	int		place_of_dollar;
 	t_token	*head;
 	int		prefix;
+	char	*word_clean;
+	char	c;
 
 	place_of_dollar = find_the_dollar(token_list);
 	if (place_of_dollar == -1)
 		return ;
-	head = token_list;
-	while (head->index < place_of_dollar)
-		head = head->next;
-	prefix = skip_prefix(head->content);
-	getenv_in_list(envp, token_list, head->content + prefix);
+	c = 0;
+	if (token_list->type != SIMPLE_QUOTE)
+	{
+		head = token_list;
+		while (head->index < place_of_dollar)
+			head = head->next;
+		prefix = skip_prefix(head->content);
+		word_clean = skip_sufix(head->content);
+		getenv_in_list(envp, token_list, word_clean + prefix);
+		token_list->content[2] = 'G';
+	}
+	return ;
 }
+//"$USER"
+//USER/""

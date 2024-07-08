@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/04 18:38:51 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:53:36 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ enum token_enum
 	REDIRECTION, // <<
 	VAR, // $[un truc]  ? //dans le truc que jenvoie a clement enlever la var et la remplacer par ce quelle va chercher et metre enum word
 	DOUBLE_QUOTE, // ""
+	SIMPLE_QUOTE,
 	END, // \0
 };
 
