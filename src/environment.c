@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:59:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/08 18:43:34 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/09 18:17:48 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	find_the_dollar(t_token *token)
 			return (token->index);
 		token = token->next;
 	}
-	return -1; // une erreur quoi
+	return (-1); // une erreur quoi
 }
 
 int	skip_prefix(char *word)
@@ -31,6 +31,18 @@ int	skip_prefix(char *word)
 	while (word[i] != '$')
 		i++;
 	return (i +1);
+}
+
+char	*skip_sufix(char *word)
+{
+	int	i;
+
+	i = 0;
+	while (word[i] != 'R')
+		i++;
+	i++;
+	word[i] = '\0';
+	return (word);
 }
 
 char	*path_in_tab(t_token *token_list, char *start)
@@ -66,7 +78,6 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word)
 	place_of_dollar = find_the_dollar(token_list);
 	env = envp;
 	len = ft_strlen(word);
-	
 	while (*env != NULL)
 	{
 		if (ft_strncmp(*env, word, len) == 0 && (*env)[len] == '=')
@@ -82,41 +93,31 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word)
 	}
 }
 
-char	*skip_sufix(char *word)
-{
-	int	i;
-
-	i = 0;
-	while (word[i] != 'R')
-		i++;
-	i++;
-	word[i] = '\0';
-	return (word);
-}
-
 void	path_main(t_token *token_list, char **envp)
 {
 	int		place_of_dollar;
 	t_token	*head;
 	int		prefix;
 	char	*word_clean;
-	char	c;
 
 	place_of_dollar = find_the_dollar(token_list);
 	if (place_of_dollar == -1)
 		return ;
-	c = 0;
-	if (token_list->type != SIMPLE_QUOTE)
+	head = token_list;
+	while (head->index < place_of_dollar)
+		head = head->next;
+	if (head->type != SIMPLE_QUOTE)
 	{
-		head = token_list;
-		while (head->index < place_of_dollar)
-			head = head->next;
 		prefix = skip_prefix(head->content);
 		word_clean = skip_sufix(head->content);
 		getenv_in_list(envp, token_list, word_clean + prefix);
-		token_list->content[2] = 'G';
+		prefix = 0;
+		if (head->type == DOUBLE_QUOTE)
+		{
+			while (head->content[prefix])
+				prefix++;
+			head->content[prefix] = '"';
+		}
 	}
 	return ;
 }
-//"$USER"
-//USER/""
