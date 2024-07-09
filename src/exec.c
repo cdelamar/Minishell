@@ -2,7 +2,6 @@
 
 int execute (char *line, t_cmd *cmd)
 {
-	printf("exec\n\n");
 	if (line[0] == '\0')
 	{
 		printf("free\n");
@@ -78,6 +77,12 @@ int basic_execute (char *line, t_cmd *cmd)
 	else if (cmd->pid1 == 0)
 	{
 		split_line = ft_split(line, ' ');
+
+		if (handle_redirections(split_line) < 0)
+		{
+			printf("coucou\n");
+			return (EXIT_FAILURE);
+		}
 		command = cmd_finder(split_line, cmd);
 		if(command)
 			execve(command, split_line, cmd->env);

@@ -115,6 +115,9 @@ int ft_echo (char **split_line, t_cmd *cmd);
 int ft_unset (char **split_line, t_cmd *cmd);
 int ft_env(t_cmd *cmd);
 int ft_pwd (void);
+int	ft_cd(char *path, t_cmd *cmd);
+int ft_export(char *arg);
+int handle_redirections(char **args);
 
 void	sigint_handler(int sig);
 void	signals(void);

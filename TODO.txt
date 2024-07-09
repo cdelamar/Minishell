@@ -1,0 +1,33 @@
+>>> APPRENDRE
+
+- getcwd
+- set_pwd
+- chdir
+- revoir les signals
+- export
+______________
+
+>>> DEBUG
+
+- refactoriser cmd_cat
+
+gestion des pipes
+
+- creer un message d'erreur en cas de pipes sans deux arguments
+- ex : 'ls |'
+______________
+
+ft_echo
+
+- segfault avec double quote sur plusieurs '-n'
+- echo -nnnnn "salut" : segfault
+
+- echo -n : pas de retour a la ligne et chevauche le prompt
+- ex : echo -n salut
+- salutminishell>  : moche
+______________
+
+ft_cd
+
+
+

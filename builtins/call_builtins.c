@@ -8,9 +8,11 @@ int ft_builtin(char *line, t_cmd *cmd)
 
 	if(ft_strncmp(split_line[0], "unset", 5) == 0)
 		return (ft_unset(split_line, cmd));
-	else if(ft_strncmp(split_line[0], "echo", 4) == 0)
-		return (ft_echo(split_line, cmd));
-	else if(ft_strcmp(line, "env") == 0)
+	// else if(ft_strncmp(split_line[0], "echo", 4) == 0)
+		// return (ft_echo(split_line, cmd));
+	else if(ft_strcmp(split_line[0], "cd") == 0)
+		return (ft_cd(split_line[1], cmd));
+	else if(ft_strcmp(line, "env") == 0 || ft_strcmp(line, "export") == 0)
 	{
 		ft_freetab(split_line);
 		return (ft_env(cmd));
