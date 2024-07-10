@@ -6,13 +6,12 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/08 13:47:53 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 18:46:54 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// atribu un enum au args
 int	assign_enum(t_token *token)
 {
 	if (ft_strcmp(token->content, "|") == 0)
@@ -22,7 +21,7 @@ int	assign_enum(t_token *token)
 		|| ft_strcmp(token->content, ">>") == 0
 		|| ft_strcmp(token->content, "<<") == 0)
 		return (REDIRECTION);
-	else if (!*token->content) // si largument c un \0
+	else if (!*token->content)
 		return (END);
 	else
 		return (WORD);
@@ -30,7 +29,7 @@ int	assign_enum(t_token *token)
 
 int	quote_verif(char *str, int j)
 {
-	int	i;
+	int		i;
 	char	c;
 
 	i = 0;
@@ -43,7 +42,7 @@ int	quote_verif(char *str, int j)
 		return (1);
 	return (0);
 }
-//lexer = metre tout dans une liste chainee et metre des enum sur les args
+
 void	lexer(t_token *token, char **strs)
 {
 	int		i;

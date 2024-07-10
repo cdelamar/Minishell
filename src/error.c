@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/10 18:42:17 by laubry            #+#    #+#             */
+/*   Updated: 2024/07/10 18:42:33 by laubry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-//faire un enum si c plus beau pour clement
 int	check_error(int code_error)
 {
 	if (code_error == ERROR_NODE)
@@ -54,9 +65,6 @@ int	check_quote_error(char *line)
 	check_error(ERROR_QUOTE);
 	return (0);
 }
-
-
-
 
 int	check_error_before_split(char *line)
 {

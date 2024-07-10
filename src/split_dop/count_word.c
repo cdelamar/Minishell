@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/04 16:04:20 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 18:10:45 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	is_char(char s)
 {
-	if (s == ' ' || s == '"' || s == '\'' ||
-		   	s == '|' || s == '<' || s == '>' || s == '\0')
+	if (s == ' ' || s == '"' || s == '\''
+		|| s == '|' || s == '<' || s == '>' || s == '\0')
 		return (0);
 	else
-		return (1);	
+		return (1);
 }
 
 int	is_quote(char *s, int i)
@@ -54,7 +54,7 @@ int	word_plus(char *s, int i, int *tab)
 	i = skip_space(s, i);
 	if (s[i] == '"' || s[i] == '\'')
 	{
-		i = is_quote(s, i);	
+		i = is_quote(s, i);
 		if (i == 0)
 			return (0);
 		word++;
@@ -73,7 +73,7 @@ size_t	count_word(char *s)
 {
 	int		tab[3];
 
-	ft_bzero(tab, 3*4);
+	ft_bzero(tab, 3 * 4);
 	while (s[tab[0]])
 	{
 		if (!is_char(s[tab[0]]))
@@ -92,7 +92,3 @@ size_t	count_word(char *s)
 	}
 	return (tab[1]);
 }
-
-//si echo"oui" print echooui en faite les "" concataine meme deriere
-
-

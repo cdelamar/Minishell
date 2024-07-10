@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:59:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/10 10:41:14 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 18:41:37 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,4 @@ void	path_main(t_token *token_list, char **envp)
 	else
 		path_other(envp, token_list, place_of_dollar);
 }
-// gere le $? et faire en sorte que le $autre ne segfault pas
+// gere le $?

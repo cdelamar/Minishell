@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/10 10:15:37 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 18:37:51 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ enum token_enum
 	VAR, // $[un truc]  ? //dans le truc que jenvoie a clement enlever la var et la remplacer par ce quelle va chercher et metre enum word
 	DOUBLE_QUOTE, // 
 	SIMPLE_QUOTE,
+	GLOBAL,
 	ERROR,
 	END, // \0
 };
@@ -72,6 +73,7 @@ int		ft_strchr2(char *s, char c);
 char	*ft_strncpy(char *dst, char *src, size_t n);
 void	ft_bzero(void *s, size_t n);
 char	**ft_split_boosted(char *s);
+int		check_char(char *s, int i, char **lst, int j);
 int		ft_isalpha(int c);
 char	*ft_strjoin(char *s1, char *s);
 
@@ -83,6 +85,7 @@ void	print_path(char **evnp);
 int		find_the_dollar(t_token *token);
 int		skip_prefix(char *word);
 char	*skip_sufix(char *word);
+
 
 /*------------parsing----------------*/
 void	lexer(t_token *token, char **strs);

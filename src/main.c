@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/08 12:09:46 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 17:39:58 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	make_token(char **strs, t_token **token_list)
 	return (1);
 }
 
+int	global_variable = 0;
+
 int	main(int argc ,char **argv, char **envp)
 {
 	char *line;
@@ -64,10 +66,11 @@ int	main(int argc ,char **argv, char **envp)
 		if (!make_token(split_line, &token_list))
 			return (0);
 		path_main(token_list, envp);
+			
 		print_node(token_list);
 		token_lstclear(&token_list, free);
 	}
-
+}
 
 
 /* 						PARSING
@@ -81,7 +84,7 @@ int	main(int argc ,char **argv, char **envp)
 	//le realoc tu doit le recoder dans parsing.c
 
 	//free
-}
+
 
 
 //tout ce qui suit un commande est un argument jusqua un | ou < >

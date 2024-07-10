@@ -14,16 +14,17 @@ FILES = main \
 		tools \
 		libft/all_lst \
 		libft/ft_strcmp \
-		libft/ft_split \
 		libft/ft_strlen \
 		free_all \
 		libft/ft_bzero \
 		libft/ft_isalpha \
 		libft/ft_strjoin \
+		libft/sub_chr_cpy \
 		path/environement \
 		path/tool_of_environement \
 		split_dop/ft_split_boosted \
-		split_dop/count_word
+		split_dop/count_word \
+		split_dop/check_char
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
