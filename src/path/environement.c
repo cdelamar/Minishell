@@ -1,49 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:59:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/10 09:35:50 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:41:14 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	find_the_dollar(t_token *token)
-{
-	while (token)
-	{
-		if (ft_strchr2(token->content, '$') == 1)
-			return (token->index);
-		token = token->next;
-	}
-	return (-1); // une erreur quoi
-}
-
-int	skip_prefix(char *word)
-{
-	int	i;
-
-	i = 0;
-	while (word[i] != '$')
-		i++;
-	return (i +1);
-}
-
-char	*skip_sufix(char *word)
-{
-	int	i;
-
-	i = 1;
-	while (word[i] != '"') // metre '"' a la place de R
-		i++;
-//	i++;
-	word[i] = '\0';
-	return (word);
-}
 
 char	*path_in_tab(t_token *token_list, char *start)
 {
@@ -94,7 +61,7 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word)
 
 void	path_double_quote(char **envp, t_token *token_list, int place_of_dollar)
 {
-	t_token *head;
+	t_token	*head;
 	char	*word_clean;
 	int		prefix;
 	int		i;
@@ -113,14 +80,14 @@ void	path_double_quote(char **envp, t_token *token_list, int place_of_dollar)
 
 void	path_other(char **envp, t_token *token_list, int place_of_dollar)
 {
-	t_token *head;
+	t_token	*head;
 	int		prefix;
 	int		i;
 
 	i = 0;
 	head = token_list;
 	while (head->index < place_of_dollar)
-	head = head->next;
+		head = head->next;
 	prefix = skip_prefix(head->content);
 	getenv_in_list(envp, token_list, head->content + prefix);
 }

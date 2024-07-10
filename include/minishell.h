@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/10 09:02:18 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:15:37 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ char	*ft_strjoin(char *s1, char *s);
 void	print_node(t_token *token);
 int		nbr_of_strs(char **strs);
 void	print_path(char **evnp);
+/*------tools of environement--------*/
+int		find_the_dollar(t_token *token);
+int		skip_prefix(char *word);
+char	*skip_sufix(char *word);
+
 /*------------parsing----------------*/
 void	lexer(t_token *token, char **strs);
 void	path_main(t_token *token_list, char **envp);

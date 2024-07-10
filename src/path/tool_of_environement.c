@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   tool_of_environement.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 17:43:48 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/10 10:46:55 by laubry           ###   ########.fr       */
+/*   Created: 2024/07/10 10:11:13 by laubry            #+#    #+#             */
+/*   Updated: 2024/07/10 10:43:02 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	find_the_dollar(t_token *token)
+{
+	while (token)
+	{
+		if (ft_strchr2(token->content, '$') == 1)
+			return (token->index);
+		token = token->next;
+	}
+	return (-1);
+}
+
+int	skip_prefix(char *word)
 {
 	int	i;
 
 	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+	while (word[i] != '$')
 		i++;
-	return (s1[i] - s2[i]);
+	return (i +1);
 }
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+char	*skip_sufix(char *word)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (i < n)
-	{
-		if (s1[i] != s2[i] || s1[i] == '\0' || s2[i] == '\0')
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	i = 1;
+	while (word[i] != '"')
 		i++;
-	}
-	return (0);
+	word[i] = '\0';
+	return (word);
 }

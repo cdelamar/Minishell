@@ -12,7 +12,6 @@ FILES = main \
 		parsing \
 		error \
 		tools \
-		environment \
 		libft/all_lst \
 		libft/ft_strcmp \
 		libft/ft_split \
@@ -21,6 +20,8 @@ FILES = main \
 		libft/ft_bzero \
 		libft/ft_isalpha \
 		libft/ft_strjoin \
+		path/environement \
+		path/tool_of_environement \
 		split_dop/ft_split_boosted \
 		split_dop/count_word
 
@@ -42,6 +43,7 @@ obj:
 	mkdir -p obj
 	mkdir -p obj/libft
 	mkdir -p obj/split_dop
+	mkdir -p obj/path
 
 .c.o:
 		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(CREAD)
