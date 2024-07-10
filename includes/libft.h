@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <ctype.h>
+# include <stddef.h>
 //# include <bsd/string.h>
 
 typedef struct s_list
@@ -79,6 +80,8 @@ void				ft_error_message(char *str);
 void				ft_flood_fill(char **tab, t_point size, t_point begin);
 
 int					ft_strcmp(const char *s1, const char *s2);
+size_t				ft_strcspn(const char *s1, const char *s2);
+
 
 
 t_list				*ft_lstnew(void *content);
@@ -91,5 +94,10 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void*),
 						void (*del)(void *));
+
+char				*get_next_line(int fd);
+char				*ft_trim_storage(char *storage);
+char				*ft_getline(char *storage);
+char				*ft_readline(int fd, char *storage);
 
 #endif

@@ -5,6 +5,8 @@
 - chdir
 - revoir les signals
 - export
+- ft_strcspn
+- unlink
 ______________
 
 >>> DEBUG

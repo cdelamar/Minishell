@@ -110,16 +110,21 @@ char	*path_finder(t_cmd *cmd, char *path, int size);
 void	ft_path(t_cmd *cmd);
 
 // builtins
-int ft_builtin(char *line, t_cmd *cmd);
-int ft_echo (char **split_line, t_cmd *cmd);
-int ft_unset (char **split_line, t_cmd *cmd);
-int ft_env(t_cmd *cmd);
-int ft_pwd (void);
-int	ft_cd(char *path, t_cmd *cmd);
-int ft_export(char *arg);
-int handle_redirections(char **args);
+int		ft_builtin(char *line, t_cmd *cmd);
+int 	ft_echo (char **split_line, t_cmd *cmd);
+int 	ft_unset (char **split_line, t_cmd *cmd);
+int 	ft_env(t_cmd *cmd);
+int 	ft_pwd (void);
+int		ft_cd(char *path, t_cmd *cmd);
+int 	ft_export(char *arg);
 
+// signals
 void	sigint_handler(int sig);
 void	signals(void);
+
+// redirections
+int		handle_redirections(char **args);
+int		ft_heredoc(char *limit);
+
 
 #endif
