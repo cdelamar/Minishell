@@ -1,6 +1,0 @@
-incorrect inputs
-[?2004hminishell>
-[?2004lfree (exec.c : line 7)
-[?2004hminishell>
-[?2004lfree (exec.c : line 7)
-[?2004hminishell>[?2004l
