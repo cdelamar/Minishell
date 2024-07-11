@@ -6,7 +6,6 @@
 
 // SIDE QUEST : find out grep issue > DOESNT WORK WITH DOUBLE QUOTES
 
-
 int main(int argc, char **argv, char **envp)
 {
 	char *line;

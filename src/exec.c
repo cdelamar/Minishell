@@ -4,8 +4,7 @@ int execute (char *line, t_cmd *cmd)
 {
 	if (line[0] == '\0')
 	{
-		printf("free\n");
-
+		printf("free (exec.c : line 7)\n");
 		return(0);
 	}
 	if (ft_strchr(line, '|'))
@@ -27,11 +26,19 @@ int pipe_execute(char *line, t_cmd *cmd)
     while (cmd->path_command[i])
     {
         if (pipe(cmd->fd) < 0)
+		{
+			printf ("ERROR (exec.c line 30)\n");
+			ft_freetab(cmd->path_command);
             return (EXIT_FAILURE);
-        cmd->pid1 = fork();
+		}
+		cmd->pid1 = fork();
         if (cmd->pid1 < 0)
+		{
+			printf ("ERROR (exec.c line 37)\n");
+			ft_freetab(cmd->path_command);
             return (EXIT_FAILURE);
-        else if (cmd->pid1 == 0)
+		}
+		else if (cmd->pid1 == 0)
         {
             dup2(cmd->fd_in, 0);
             if (cmd->path_command[i + 1])
@@ -80,13 +87,13 @@ int basic_execute (char *line, t_cmd *cmd)
 
 		if (handle_redirections(split_line) < 0)
 		{
-			printf("coucou\n");
+			printf("ERROR (exec.c line 90)\n");
 			return (EXIT_FAILURE);
 		}
 		command = cmd_finder(split_line, cmd);
 		if(command)
 			execve(command, split_line, cmd->env);
-		printf ("incorrect inputs\n");
+		printf ("incorrect inputs : exec.c (line 88)\n");
 		ft_freetab(split_line);
 		return (EXIT_FAILURE); // error
 	}

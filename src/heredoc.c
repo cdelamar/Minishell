@@ -2,14 +2,15 @@
 
 int ft_heredoc(char *limit)
 {
-    char *line = NULL;
+    char *line;
     int fd;
 
+	line = NULL;
     // heredoc temporaire : buffer
-    fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0)
+	fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
     {
-        printf("Failed HEREDOC\n");
+        printf("ERROR heredoc.c : line 13\n");
         return(EXIT_FAILURE);
     }
 
@@ -30,10 +31,18 @@ int ft_heredoc(char *limit)
             break;
         }
 
+		// WORK IN PROGRESS, test pour eviter de planter en cas de mauvais commande
+		if (write(fd, line, strlen(line)) == -1 || write(fd, "\n", 1) == -1)
+        {
+            printf("ERROR (heredoc.c line 37)\n");
+            free(line);
+            close(fd);
+            return (EXIT_FAILURE);
+        }
+
         // et la bam affichage
-        printf("%s\n", line);
+        //printf("%s\n", line);
         free(line);
-        //printf("ALORS COUOUC OUAAAIs\n");
     }
 
     close(fd);
@@ -42,7 +51,7 @@ int ft_heredoc(char *limit)
     fd = open("/tmp/heredoc_tmp", O_RDONLY);
     if (fd < 0)
     {
-        perror("open");
+        printf("ERROR heredoc.c : line 45\n");
         return(EXIT_FAILURE);
     }
     dup2(fd, STDIN_FILENO);
