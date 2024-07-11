@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/10 18:46:54 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/11 14:07:22 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,37 @@ void	lexer(t_token *token, char **strs)
 		i++;
 	}
 }
+
+//
+//int	have_quote(char *word)
+//{
+//	int	i;
+//
+//	i = 0;
+//	if (word[i] == '"' || word[i] == '\'')
+//		return (1);
+//	else
+//		return (0);
+//}
+//
+//
+//void	conca_quote(t_token *token)
+//{
+//	int		j;
+//	t_token *head;
+//
+//	j = 0;
+//	head = token;
+//	while (head->next)
+//	{
+//		if (have_quote(head->next->content))
+//		{
+//			if (head->content
+//		}
+//		else
+//		{
+//			head = head->next;
+//			j++;
+//		}
+//	}
+//}

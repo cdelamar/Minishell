@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:42:17 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/10 18:42:33 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/11 18:11:00 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,26 @@ int	check_error(int code_error)
 
 int	check_quote_error(char *line)
 {
-	int	in_simple_quote;
-	int	in_dbl_quote;
-	int	simple_count;
-	int	dbl_count;
+	int	tab[3];
 	int	i;
 
+	ft_bzero(tab, sizeof(tab));
 	i = 0;
-	in_simple_quote = 0;
-	in_dbl_quote = 0;
-	simple_count = 0;
-	dbl_count = 0;
 	while (line[i])
 	{
 		if (line[i] == '"')
 		{
-			if (!in_simple_quote)
-			{
-				in_dbl_quote = !in_dbl_quote;
-				if (!in_dbl_quote)
-					dbl_count++;
-			}
+			if (!tab[1])
+				tab[2] = !tab[2];
 		}
 		else if (line[i] == '\'')
 		{
-			if (!in_dbl_quote)
-			{
-				in_simple_quote = !in_simple_quote;
-				if (!in_simple_quote)
-					simple_count++;
-			}
+			if (!tab[2])
+				tab[1] = !tab[1];
 		}
 		i++;
 	}
-	if (dbl_count % 2 != 0 || simple_count % 2 != 0)
-	{
+	if (tab[2] || tab[1])
 		return (1);
-	}
-	check_error(ERROR_QUOTE);
-	return (0);
-}
-
-int	check_error_before_split(char *line)
-{
-	if (check_quote_error(line) != 0)
-		return (0);
-	return (1);
+	return (check_error(ERROR_QUOTE));
 }

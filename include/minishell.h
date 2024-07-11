@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/10 18:37:51 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/11 16:07:03 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,31 @@
 # include "readline/history.h"
 //# include "./../lib/include/libft.h"
 
+extern volatile int	g_var;
 /* ========== ENUM ================= */
 
-enum token_enum
+typedef enum token_num
 {
 	WORD, //commande
 	PIPE, // |
 	REDIRECTION, // <<
-	VAR, // $[un truc]  ? //dans le truc que jenvoie a clement enlever la var et la remplacer par ce quelle va chercher et metre enum word
-	DOUBLE_QUOTE, // 
+	VAR, // $
+	DOUBLE_QUOTE, //
 	SIMPLE_QUOTE,
-	GLOBAL,
-	ERROR,
+	GLOBAL, // $?
+	ERROR, // erreur
 	END, // \0
-};
+}	t_token_enum;
 
 /* ========== STRUCTURE ============= */
 
 typedef struct s_token
 {
-	enum token_enum type; // COMMANDE 
-	char *content; // LS..cd ex...
-	int	index; // 1 2 3
-	struct s_token *next; // next
-} t_token;
+	t_token_enum	type; // COMMANDE 
+	char			*content; // LS..cd ex...
+	int				index; // 1 2 3
+	struct s_token	*next; // next
+}	t_token;
 
 /* ========== Error =================*/
 
@@ -57,49 +58,46 @@ typedef struct s_token
 /* ========== FONCTION ============= */
 
 /*-------------error-----------------*/
-int	check_error(int code_error);
-int	check_error_before_split(char *line);
+int			check_error(int code_error);
+int			check_error_before_split(char *line);
+
 /*-------------libft-----------------*/
-t_token	*token_lstnew(void *content);
-void	token_lstadd_back(t_token **lst, t_token *new);
-void	token_lstclear(t_token **lst, void (*del)(void*));
-int		ft_strcmp(char *s1, char *s2);
-int		ft_strncmp(char *s1, char *s2, size_t n);
-size_t	ft_strlen(const char *str);
-int		ft_strlen2(char	*word);
-char	*ft_substr(const char *s, unsigned int start, size_t len);
-char	*ft_strchr(char *s, int	c);
-int		ft_strchr2(char *s, char c);
-char	*ft_strncpy(char *dst, char *src, size_t n);
-void	ft_bzero(void *s, size_t n);
-char	**ft_split_boosted(char *s);
-int		check_char(char *s, int i, char **lst, int j);
-int		ft_isalpha(int c);
-char	*ft_strjoin(char *s1, char *s);
+t_token		*token_lstnew(void *content);
+void		token_lstadd_back(t_token **lst, t_token *new);
+void		token_lstclear(t_token **lst, void (*del)(void*));
+int			ft_strcmp(char *s1, char *s2);
+int			ft_strncmp(char *s1, char *s2, size_t n);
+size_t		ft_strlen(const char *str);
+int			ft_strlen2(char	*word);
+char		*ft_substr(const char *s, unsigned int start, size_t len);
+char		*ft_strchr(char *s, int c);
+int			ft_strchr2(char *s, char c);
+char		*ft_strncpy(char *dst, char *src, size_t n);
+void		ft_bzero(void *s, size_t n);
+char		**ft_split_boosted(char *s);
+int			check_char(char *s, int i, char **lst, int j);
+int			ft_isalpha(int c);
+char		*ft_strjoin(char *s1, char *s);
 
 /*------------tools------------------*/
-void	print_node(t_token *token);
-int		nbr_of_strs(char **strs);
-void	print_path(char **evnp);
-/*------tools of environement--------*/
-int		find_the_dollar(t_token *token);
-int		skip_prefix(char *word);
-char	*skip_sufix(char *word);
+void		print_node(t_token *token);
+int			nbr_of_strs(char **strs);
+void		print_path(char **evnp);
 
+/*------tools of environement--------*/
+int			find_the_dollar(t_token *token);
+int			skip_prefix(char *word);
+char		*skip_sufix(char *word);
 
 /*------------parsing----------------*/
-void	lexer(t_token *token, char **strs);
-void	path_main(t_token *token_list, char **envp);
+void		lexer(t_token *token, char **strs);
+void		path_main(t_token *token_list, char **envp);
 
 /*--------------free-----------------*/
-void	free_split(char **strs);
+void		free_split(char **strs);
 
-
-
-size_t	count_word(char *s);
-int		is_char(char s);
-int		skip_space(char *s, int i);
-
-
+size_t		count_word(char *s);
+int			is_char(char s);
+int			skip_space(char *s, int i);
 
 #endif
