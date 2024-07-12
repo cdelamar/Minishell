@@ -93,18 +93,47 @@ int basic_execute (char *line, t_cmd *cmd)
 		command = cmd_finder(split_line, cmd);
 		if(command)
 			execve(command, split_line, cmd->env);
-		printf ("incorrect inputs : exec.c (line 88)\n");
+		printf ("incorrect inputs : exec.c (line 96)\n");
 		ft_freetab(split_line);
-		return (EXIT_FAILURE); // error
+		//return (EXIT_FAILURE); // error
+
+		// WIP : copie infame du parent fork()
+		// /!\ si on garde jsute le waitpid de else ()
+		// les erreur se refresh pas correctements et les signals se dedouble
+		// ft_chantier
+		if(waitpid(cmd->pid1, &status, 0) == -1)
+		{
+			printf("freetab (exec.c TEST line 107)\n");
+			ft_freetab(split_line);
+			return (EXIT_FAILURE);
+		}
+		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
+		{ // TODO
+			printf("freetab (exec.c TEST line 113)\n");
+			ft_freetab(split_line);
+			return (EXIT_FAILURE);
+		}
+		printf("parent fork() (exec.c TEST line 117)\n");
 	}
 
 	// parent fork
+	// WIP : pas sur de celle ci, les freetab m'ont l'air de trop
 	else
 	{
 		if(waitpid(cmd->pid1, &status, 0) == -1)
+		{
+			printf("freetab (exec.c line 107)\n");
+			ft_freetab(split_line);
 			return (EXIT_FAILURE);
-		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE) // TODO
+		}
+		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
+		{ // TODO
+			printf("freetab (exec.c line 113)\n");
+			ft_freetab(split_line);
 			return (EXIT_FAILURE);
+		}
+		printf("parent fork() (exec.c line 117)\n");
+		//ft_freetab(split_line);
 	}
 	return (EXIT_SUCCESS);
 }

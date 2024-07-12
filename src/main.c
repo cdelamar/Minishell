@@ -26,12 +26,13 @@ int main(int argc, char **argv, char **envp)
 		}
 
 		cmd->env = envp;
-		line = readline("minishell>");
+		line = readline("main>");
 
 		// CTRL + D
 		if (line == NULL)
 		{
 			free_structs(cmd, ctx, token);
+			printf("CTRL + D\n");
 			return (0);
 		}
 
