@@ -96,7 +96,6 @@ int basic_execute (char *line, t_cmd *cmd)
 		printf ("incorrect inputs : exec.c (line 96)\n");
 		ft_freetab(split_line);
 		//return (EXIT_FAILURE); // error
-
 		// WIP : copie infame du parent fork()
 		// /!\ si on garde jsute le waitpid de else ()
 		// les erreur se refresh pas correctements et les signals se dedouble
