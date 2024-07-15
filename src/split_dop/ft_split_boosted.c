@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/11 15:51:41 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:50:31 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,12 @@ void	split_in_tab(char *s, char **lst)
 	start = 0;
 	while (s[i])
 	{
-	//le PRBLEME VIENT DICI 
-		i = skip_space(s, i);
-		//if (skip_space(s, i) != i)
-		//{
-		//	i = skip_space(s, i);
-		//	lst[j] = " ";
-		//	j++;
-		//}
+		if (skip_space(s, i) != i)
+		{
+			i = skip_space(s, i);
+			lst[j] = ft_strdup(" ");
+			j++;
+		}
 		start = i;
 		if (check_char(s, i, lst, j) != i)
 			i = check_char (s, i, lst, j);
@@ -54,6 +52,7 @@ char	**ft_split_boosted(char *s)
 	int			word;
 
 	lst = NULL;
+	s = ft_strtrim(s, " ");
 	word = count_word(s);
 	if (word == 0)
 		return (NULL);
@@ -62,4 +61,4 @@ char	**ft_split_boosted(char *s)
 		return (0);
 	split_in_tab(s, lst);
 	return (lst);
-}
+}	

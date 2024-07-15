@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/11 16:07:03 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:58:26 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ extern volatile int	g_var;
 typedef enum token_num
 {
 	WORD, //commande
+	SPACES,
 	PIPE, // |
 	REDIRECTION, // <<
 	VAR, // $
@@ -78,6 +79,9 @@ char		**ft_split_boosted(char *s);
 int			check_char(char *s, int i, char **lst, int j);
 int			ft_isalpha(int c);
 char		*ft_strjoin(char *s1, char *s);
+char		*ft_strdup(const char *src);
+char		*ft_strtrim(char const *s1, char const *set);
+size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 
 /*------------tools------------------*/
 void		print_node(t_token *token);

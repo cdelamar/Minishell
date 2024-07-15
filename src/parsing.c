@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/11 14:07:22 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/15 15:57:40 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	assign_enum(t_token *token)
 		|| ft_strcmp(token->content, ">>") == 0
 		|| ft_strcmp(token->content, "<<") == 0)
 		return (REDIRECTION);
+	else if (ft_strcmp(token->content, " ") == 0)
+		return (SPACES);
 	else if (!*token->content)
 		return (END);
 	else
@@ -63,6 +65,40 @@ void	lexer(t_token *token, char **strs)
 		i++;
 	}
 }
+
+
+char	is_spaces(t_token *head, int i)
+{
+	while (i != 0)
+	{
+		head = head->next;
+		i--;
+	}
+	if (head->type == SPACES)
+		return (1);
+	else
+		return (0);
+}
+
+void	conca_quote(t_token *token)
+{
+	t_toke *head;
+	int	i;
+
+	i = 0;
+	head = token;
+	while (head->next)
+	{
+		if (head->type == DOUBLE_QUOTE || head->type == SIMPLE_QUOTE)
+		{
+			if (is_spaces(head, i-1)
+				concat_node(head->
+		}	
+		i++;
+		head = head->next;
+	}	
+}
+
 
 //
 //int	have_quote(char *word)

@@ -20,6 +20,9 @@ FILES = main \
 		libft/ft_isalpha \
 		libft/ft_strjoin \
 		libft/sub_chr_cpy \
+		libft/ft_strdup \
+		libft/ft_strtrim \
+		libft/ft_strlcpy \
 		path/environement \
 		path/tool_of_environement \
 		split_dop/ft_split_boosted \
@@ -57,6 +60,13 @@ $(NAME): obj ${OBJS}
 obj/%.o: src/%.c
 	@$(call generate_random_color, $(CC) $(CFLAGS) -c $< -o $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+
+valgrind: $(NAME)
+	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+
+rl_on: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 clean:
 		rm -f ${OBJS}
