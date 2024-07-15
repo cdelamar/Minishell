@@ -43,6 +43,7 @@ int main(int argc, char **argv, char **envp)
 		// EXECUTING
 		if (execute(line, cmd) == EXIT_COMMAND) // define OK ?
 		{
+			// modif de var_g
 			free_structs(cmd, ctx, token);
 			free(line);
 			return (0);

@@ -1,5 +1,7 @@
 #include "../includes/minishell.h"
 
+// TODO : handle export A=0i0i0i
+
 void print_env(t_cmd *cmd)
 {
     int i = 0;

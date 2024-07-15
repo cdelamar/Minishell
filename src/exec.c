@@ -74,6 +74,11 @@ int basic_execute (char *line, t_cmd *cmd)
 	if (strcmp(line, "exit") == 0)
 		return(EXIT_COMMAND);
 	ft_path(cmd);
+	if (!cmd->path)
+	{
+		printf("command not found\n");
+		return (EXIT_SUCCESS);
+	}
 	cmd->pid1 = fork();
 
 	//  error fork
@@ -96,10 +101,8 @@ int basic_execute (char *line, t_cmd *cmd)
 		printf ("incorrect inputs : exec.c (line 96)\n");
 		ft_freetab(split_line);
 		//return (EXIT_FAILURE); // error
+
 		// WIP : copie infame du parent fork()
-		// /!\ si on garde jsute le waitpid de else ()
-		// les erreur se refresh pas correctements et les signals se dedouble
-		// ft_chantier
 		if(waitpid(cmd->pid1, &status, 0) == -1)
 		{
 			printf("freetab (exec.c TEST line 107)\n");

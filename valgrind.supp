@@ -1,17 +1,18 @@
 {
-   readline_memory_leak
+   ignore_readlines_errors
    Memcheck:Leak
-   fun:readline
-   fun:_rl_init_terminal_io
-   fun:rl_initialize
-   fun:readline_internal_teardown
-   fun:xmalloc
+   ...
+   obj:*/libreadline.so.*
 }
-
 {
-   readline_internal_teardown
+   ignore_ls_leaks
    Memcheck:Leak
-   match-leak-kinds: definite
-   fun:malloc
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.*
+   ...
+   obj:/usr/bin/ls
+}
+{
+   ignore_grep_leaks
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/grep
 }
