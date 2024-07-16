@@ -24,9 +24,9 @@ int main(int argc, char **argv, char **envp)
 			ft_putendl_fd(MALLOC_FAILURE, 2);
 			return (1);
 		}
-
+		// TODO create a copy of envp
 		cmd->env = envp;
-		line = readline("main>");
+		line = readline("MINISHELL>");
 
 		// CTRL + D
 		if (line == NULL)

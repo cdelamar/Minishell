@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 05:09:06 by clement           #+#    #+#             */
-/*   Updated: 2024/07/15 14:57:12 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:31:21 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct  s_point
+typedef struct s_point
 {
-    int           x;
-    int           y;
-}               t_point;
+	int			x;
+	int			y;
+}	t_point;
 
 int					ft_atoi(const char *nptr);
 void				ft_bzero(void *s, size_t n);
@@ -64,7 +64,6 @@ size_t				ft_strlcat(char *dest, char *src, size_t size);
 size_t				ft_strlen(const char *s);
 size_t				ft_strcspn(const char *s, const char *reject);
 
-
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
@@ -83,8 +82,6 @@ void				ft_flood_fill(char **tab, t_point size, t_point begin);
 
 int					ft_strcmp(const char *s1, const char *s2);
 size_t				ft_strcspn(const char *s1, const char *s2);
-
-
 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);

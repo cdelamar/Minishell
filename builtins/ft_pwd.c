@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 17:22:04 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/07/16 17:23:12 by cdelamar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-//char *getcwd(char *buf, size_t size);
-
-int ft_pwd (void)
+int	ft_pwd(void)
 {
-	char cwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
@@ -13,5 +23,5 @@ int ft_pwd (void)
 		return (EXIT_SUCCESS);
 	}
 	else
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 }
