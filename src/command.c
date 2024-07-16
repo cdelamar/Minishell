@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 18:31:18 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/07/16 18:32:20 by cdelamar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 // TODO : refactoring cmd_cat
 
-char *cmd_cat(const char *path_split, char *slash, char *command)
+char	*cmd_cat(const char *path_split, char *slash, char *command)
 {
 	size_t	s1_len;
 	size_t	s2_len;
@@ -21,13 +33,12 @@ char *cmd_cat(const char *path_split, char *slash, char *command)
 	return (res);
 }
 
-char *cmd_finder(char **split_line, t_cmd *cmd)
+char	*cmd_finder(char **split_line, t_cmd *cmd)
 {
 	int		i;
 	char	*command;
 
 	i = 0;
-
 	while (cmd->path_split[i])
 	{
 		command = cmd_cat(cmd->path_split[i], "/", split_line[0]);

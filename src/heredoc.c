@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/07/16 19:01:16 by cdelamar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int ft_heredoc(char *limit)
 {
-    char *line;
-    int fd;
+    char    *line;
+    int     fd;
 
 	line = NULL;
-    // heredoc temporaire : buffer
 	fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
     {

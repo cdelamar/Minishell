@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 17:48:36 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:14:11 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ enum e_token_type
 
 typedef struct s_token
 {
-	enum e_token_type type;
-	char	*value;
-	struct s_token *next;
-} t_token;
+	enum e_token_type	type;
+	char				*value;
+	struct s_token		*next;
+}	t_token;
 
 typedef struct s_ctx
 {
 	int		ac;
 	char	**av;
-} t_ctx;
+}	t_ctx;
 
-typedef	struct s_cmd
+typedef struct s_cmd
 {
 	int		fd[2];
 	pid_t	pid1;
@@ -85,43 +85,44 @@ typedef	struct s_cmd
 }	t_cmd;
 
 // excecuting
-int		execute(char *line, t_cmd *cmd);
-int		pipe_execute(char *line, t_cmd *cmd);
-int		basic_execute(char *line, t_cmd *cmd);
+int					execute(char *line, t_cmd *cmd);
+int					pipe_execute(char *line, t_cmd *cmd);
+int					basic_execute(char *line, t_cmd *cmd);
 
 // lexer / tokenizer
-enum e_token_type lexer (char *value);
-t_token			*tokenizer(char *line);
-t_token			*create_token (char *value, enum e_token_type);
+enum e_token_type	lexer(char *value);
+t_token				*tokenizer(char *line);
+t_token				*create_token(char *value, enum e_token_type type);
 
 // memory
-int		malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token);
-void	free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
-void	ft_freetab (char **tab);
+int					malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token);
+void				free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
+void				ft_freetab(char **tab);
 
 // command
-char	*cmd_cat(const char *path_split, char *slash, char *command);
-char	*cmd_finder(char **split_line, t_cmd *cmd);
+char				*cmd_cat(const char *path_split, char *slash,
+						char *command);
+char				*cmd_finder(char **split_line, t_cmd *cmd);
 
 // envp
-char	*path_finder(t_cmd *cmd, char *path, int size);
-void	ft_path(t_cmd *cmd);
+char				*path_finder(t_cmd *cmd, char *path, int size);
+void				ft_path(t_cmd *cmd);
 
 // builtins
-int		ft_builtin(char *line, t_cmd *cmd);
-int		ft_echo(char **split_line, t_cmd *cmd);
-int 	ft_unset(char **split_line, t_cmd *cmd);
-int		ft_env(t_cmd *cmd);
-int		ft_pwd(void);
-int		ft_cd(char *path, t_cmd *cmd);
-int		ft_export(char **args, t_cmd *cmd);
+int					ft_builtin(char *line, t_cmd *cmd);
+int					ft_echo(char **split_line, t_cmd *cmd);
+int					ft_unset(char **split_line, t_cmd *cmd);
+int					ft_env(t_cmd *cmd);
+int					ft_pwd(void);
+int					ft_cd(char *path, t_cmd *cmd);
+int					ft_export(char **args, t_cmd *cmd);
 
 //signals
-void	sigint_handler(int sig);
-void	signals(void);
+void				sigint_handler(int sig);
+void				signals(void);
 
 //redirections
-int		handle_redirections(char **args);
-int		ft_heredoc(char *limit);
+int					handle_redirections(char **args);
+int					ft_heredoc(char *limit);
 
 #endif

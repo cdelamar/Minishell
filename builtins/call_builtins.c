@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:27:10 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 16:58:29 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:24:45 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_builtin(char *line, t_cmd *cmd)
 	split_line = ft_split(line, ' ');
 	if (ft_strcmp(split_line[0], "unset") == 0)
 		return (ft_unset(split_line, cmd));
-	else if (ft_strcmp(split_line[0], "echo") == 0)
-		return (ft_echo(split_line, cmd));
+	//else if (ft_strcmp(split_line[0], "echo") == 0)
+	//	return (ft_echo(split_line, cmd));
 	else if (ft_strcmp(split_line[0], "cd") == 0)
 		return (ft_cd(split_line[1], cmd));
 	else if (ft_strcmp(split_line[0], "export") == 0)
