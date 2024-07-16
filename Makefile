@@ -23,11 +23,13 @@ FILES = main \
 		libft/ft_strdup \
 		libft/ft_strtrim \
 		libft/ft_strlcpy \
+		libft/ft_lstdelone \
 		path/environement \
 		path/tool_of_environement \
 		split_dop/ft_split_boosted \
 		split_dop/count_word \
-		split_dop/check_char
+		split_dop/check_char \
+		print_ascii
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))

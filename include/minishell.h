@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/15 14:58:26 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/16 20:31:00 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_token
 # define ERROR_NODE 1
 # define ERROR_ARGS 2
 # define ERROR_QUOTE 3
+//# define RESET "\033[0m"
+//# define ORANGE "\033[38;5;208m"
 
 /* ========== FONCTION ============= */
 
@@ -82,11 +84,13 @@ char		*ft_strjoin(char *s1, char *s);
 char		*ft_strdup(const char *src);
 char		*ft_strtrim(char const *s1, char const *set);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
+void		ft_lstdelone(t_token *lst, void (*del)(void*));
 
 /*------------tools------------------*/
 void		print_node(t_token *token);
 int			nbr_of_strs(char **strs);
 void		print_path(char **evnp);
+void		print_snail(void);
 
 /*------tools of environement--------*/
 int			find_the_dollar(t_token *token);
@@ -96,6 +100,7 @@ char		*skip_sufix(char *word);
 /*------------parsing----------------*/
 void		lexer(t_token *token, char **strs);
 void		path_main(t_token *token_list, char **envp);
+void		cat_quote(t_token *token);
 
 /*--------------free-----------------*/
 void		free_split(char **strs);
