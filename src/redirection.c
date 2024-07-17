@@ -6,11 +6,17 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 19:01:31 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:07:37 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// TODO : handle '< test.txt cat'
+// TODO : handle ctrl+c in heredocs
+// TODO : handle why '|' == ctrl + D
+
+
 
 int handle_redirections(char **args)
 {
@@ -67,5 +73,5 @@ int handle_redirections(char **args)
         }
         i++;
     }
-    return (0);
+    return (EXIT_SUCCESS);
 }

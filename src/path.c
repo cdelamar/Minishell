@@ -1,15 +1,5 @@
 #include "../includes/minishell.h"
 
-/*char	*path_finder(t_cmd *cmd, char *path, int size)
-{
-	int	i;
-
-	i = 0;
-	while (ft_strncmp(cmd->env[i], path, size) != 0)
-		i++;
-	return (cmd->env[i] + 5);
-}*/
-
 char	*path_finder(t_cmd *cmd, char *path, int size)
 {
 	int	i;
@@ -26,7 +16,7 @@ char	*path_finder(t_cmd *cmd, char *path, int size)
 
 void	ft_path(t_cmd *cmd)
 {
-	printf ("path.c (line 29)\n");
+	// printf ("path.c (line 29)\n");
 	cmd->path = path_finder(cmd, "PATH=", 5);
 	if (cmd->path)
 		cmd->path_split = ft_split(cmd->path, ':');

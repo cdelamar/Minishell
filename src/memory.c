@@ -31,10 +31,13 @@ int malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token)
     (*token)->next = NULL;
 	return (0);
 }
+
 void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token)
 {
 	if(cmd->path_split)
 		ft_freetab(cmd->path_split);
+	//if (cmd->env)
+	//	ft_freetab(cmd->env);
 	if(cmd)
 	{
 		// printf("free cmd\n");
@@ -50,4 +53,53 @@ void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token)
 		// printf("free cmd\n");
 		free(token);
 	}
+}
+static int	env_count(char **envp)
+{
+	int	count;
+
+	count = 0;
+	while (envp[count])
+		count++;
+	return (count);
+}
+
+static int env_lines_copy(char **envp, int count, t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		cmd->env[i] = strdup(envp[i]);
+		if (!cmd->env[i])
+		{
+			printf("malloc issues at memory.c (line 76)\n");
+			while (i > 0)
+			{
+				free(cmd->env[i - 1]);
+				i--;
+			}
+			free(cmd->env);
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
+	cmd->env[i] = NULL;
+	return (EXIT_SUCCESS);
+}
+
+int ft_copy_envp(char **envp, t_cmd *cmd)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = env_count(envp);
+	cmd->env = malloc(sizeof(char*) * (count + 1));
+	if (!cmd->env)
+		return (EXIT_FAILURE);
+	if (env_lines_copy(envp, count, cmd) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

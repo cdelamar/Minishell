@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 18:14:11 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:05:59 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,11 @@ void				ft_path(t_cmd *cmd);
 
 // builtins
 int					ft_builtin(char *line, t_cmd *cmd);
-int					ft_echo(char **split_line, t_cmd *cmd);
+int					ft_echo(char **split_line);
 int					ft_unset(char **split_line, t_cmd *cmd);
 int					ft_env(t_cmd *cmd);
 int					ft_pwd(void);
-int					ft_cd(char *path, t_cmd *cmd);
+int					ft_cd(char *path);
 int					ft_export(char **args, t_cmd *cmd);
 
 //signals
@@ -124,5 +124,8 @@ void				signals(void);
 //redirections
 int					handle_redirections(char **args);
 int					ft_heredoc(char *limit);
+
+int					ft_copy_envp(char **envp, t_cmd *cmd);
+
 
 #endif

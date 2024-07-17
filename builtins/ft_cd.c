@@ -6,13 +6,13 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:58:38 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 17:04:40 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:05:43 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_cd(char *path, t_cmd *cmd)
+int	ft_cd(char *path)
 {
 	if (chdir(path) != 0)
 	{

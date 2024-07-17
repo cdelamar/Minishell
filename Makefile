@@ -6,7 +6,7 @@
 #    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/07/03 14:11:29 by cdelamar         ###   ########.fr        #
+#    Updated: 2024/07/17 18:01:27 by cdelamar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 LIBFT = lib/libft.a
 
 CC = cc
-CFLAGS =	-g -Iincludes -Ilib/includes
+CFLAGS =	-g -Iincludes -Ilib/includes -Wall -Wextra -Werror
 LFLAGS =	-Llib -lft -lreadline
 
 SRC_DIRS = src/ builtins/
@@ -68,7 +68,7 @@ $(OBJ_DIR)%.o: builtins/%.c
 # Run with Valgrind
 # readline() leaks disabled
 valgrind: $(NAME)
-	valgrind --leak-check=full --track-origins=yes --suppressions=$(VALGRIND_SUPP) ./$(NAME)
+	valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=yes --trace-children=yes --suppressions=$(VALGRIND_SUPP) ./$(NAME)
 
 rl_on: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)

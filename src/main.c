@@ -1,10 +1,16 @@
-// TODO : add compilation flags
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/07/17 18:06:50 by cdelamar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// MAIN QUEST : proper loop error handling
-
-// SIDE QUEST : find out grep issue > DOESNT WORK WITH DOUBLE QUOTES
 
 int main(int argc, char **argv, char **envp)
 {
@@ -12,6 +18,9 @@ int main(int argc, char **argv, char **envp)
 	t_cmd *cmd;
 	t_ctx *ctx;
 	t_token *token;
+
+	(void)argc;
+	(void)argv;
 
 	// CTRL + C and CTRL + '\'
 	signals();
@@ -24,8 +33,9 @@ int main(int argc, char **argv, char **envp)
 			ft_putendl_fd(MALLOC_FAILURE, 2);
 			return (1);
 		}
-		// TODO create a copy of envp
 		cmd->env = envp;
+		/*if (ft_copy_envp(envp, cmd) == 1)
+			return (EXIT_FAILURE);*/
 		line = readline("MINISHELL>");
 
 		// CTRL + D

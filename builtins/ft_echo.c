@@ -6,34 +6,55 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:05:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 17:11:21 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:11:13 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_echo(char **split_line, t_cmd *cmd)
+static void	echo_output(char **split_line, int i)
+{
+	int	start;
+
+	start = i;
+	while (split_line[start])
+	{
+		ft_putstr_fd(split_line[start], 1);
+		start++;
+		if (split_line[start])
+			ft_putchar_fd(' ', 1);
+	}
+	return ;
+}
+
+int	ft_echo(char **split_line)
 {
 	int		i;
+	int		j;
 	bool	newline;
 
 	i = 1;
 	newline = true;
-	if (split_line[1] && strncmp(split_line[1], "-n", 2) == 0)
+
+	if (handle_redirections(split_line) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+
+	while (split_line[i] && split_line[i][0] == '-')
 	{
-		i++;
+		j = 1;
+		while (split_line[i][j] == 'n')
+			j++;
+		if (split_line[i][j] != '\0')
+			break;
 		newline = false;
-	}
-	while (split_line[i])
-	{
-		if (split_line[i][0] == '>')
-			break ;
-		ft_putstr_fd (split_line[i], 1);
 		i++;
-		if (split_line[i])
-			ft_putchar_fd (' ', 1);
 	}
-	if (newline == true)
+	echo_output(split_line, i);
+	if (newline)
 		ft_putchar_fd('\n', 1);
+	// else
+	// 	ft_putchar_fd('%', 1);
+	printf ("ca passe par echo bg\n");
 	return (EXIT_SUCCESS);
 }
+
