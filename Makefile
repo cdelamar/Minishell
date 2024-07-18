@@ -6,7 +6,7 @@
 #    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/07/17 18:01:27 by cdelamar         ###   ########.fr        #
+#    Updated: 2024/07/18 13:07:28 by cdelamar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,3 +77,4 @@ rl_on: $(NAME)
 
 # Avoid to rebuild the lib
 $(OBJS): | $(LIBFT)
+

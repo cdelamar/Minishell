@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/17 19:05:53 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:15:40 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	execute(char *line, t_cmd *cmd)
 		return (0);
 	return (basic_execute(line, cmd));
 }
+
 	// else if (le builtin marche pas) ->error_message
 
 int pipe_execute(char *line, t_cmd *cmd)
@@ -90,7 +91,6 @@ int pipe_execute(char *line, t_cmd *cmd)
 		ft_freetab(cmd->path_command);
 	return (EXIT_SUCCESS);
 }
-
 
 int basic_execute (char *line, t_cmd *cmd)
 {

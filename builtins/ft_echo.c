@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:05:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/17 20:11:13 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:51:34 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	echo_output(char **split_line, int i)
 	}
 	return ;
 }
-
+/*
 int	ft_echo(char **split_line)
 {
 	int		i;
@@ -56,5 +56,31 @@ int	ft_echo(char **split_line)
 	// 	ft_putchar_fd('%', 1);
 	printf ("ca passe par echo bg\n");
 	return (EXIT_SUCCESS);
+}*/
+
+int	ft_echo(char **split_line)
+{
+    int		i;
+    int		j;
+    bool	newline;
+
+    i = 1;
+    newline = true;
+
+    while (split_line[i] && split_line[i][0] == '-')
+    {
+        j = 1;
+        while (split_line[i][j] == 'n')
+            j++;
+        if (split_line[i][j] != '\0')
+            break;
+        newline = false;
+        i++;
+    }
+    echo_output(split_line, i);
+    if (newline)
+        ft_putchar_fd('\n', 1);
+    return (EXIT_SUCCESS);
 }
+
 

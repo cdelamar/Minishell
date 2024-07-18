@@ -6,11 +6,139 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 19:01:16 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:16:32 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// TODO fix heredoc
+
+/*
+int ft_heredoc(char *limit)
+{
+    char    *line;
+    int     fd;
+    int     fd_temp;
+
+    line = NULL;
+    fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd < 0)
+    {
+        printf("ERROR heredoc.c : line 13\n");
+        return (EXIT_FAILURE);
+    }
+
+    while (1)
+    {
+        printf("heredoc> ");
+        line = get_next_line(STDIN_FILENO);
+        if (!line)
+            break;
+
+        // Remove 'trailing' newline character
+        line[ft_strcspn(line, "\n")] = 0;
+
+        // Check if it is the delimiter
+        if (ft_strcmp(line, limit) == 0)
+        {
+            free(line);
+            break;
+        }
+
+        // Write to the temporary file
+        if (write(fd, line, ft_strlen(line)) == -1 || write(fd, "\n", 1) == -1)
+        {
+            printf("ERROR (heredoc.c line 37)\n");
+            free(line);
+            close(fd);
+            return (EXIT_FAILURE);
+        }
+
+        free(line);
+    }
+
+    close(fd);
+
+    // Reopen the file for reading
+    fd_temp = open("/tmp/heredoc_tmp", O_RDONLY);
+    if (fd_temp < 0)
+    {
+        printf("ERROR heredoc.c : line 45\n");
+        return (EXIT_FAILURE);
+    }
+    dup2(fd_temp, STDIN_FILENO);
+    close(fd_temp);
+
+    // Optionally unlink the temporary file
+    unlink("/tmp/heredoc_tmp");
+
+    return (EXIT_SUCCESS);
+}
+
+
+int ft_heredoc(char *limit)
+{
+    char    *line;
+    int     fd;
+    int     fd_temp;
+
+    line = NULL;
+    fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd < 0)
+    {
+        perror("ERROR opening temporary file");
+        return (EXIT_FAILURE);
+    }
+
+    while (1)
+    {
+        printf("heredoc> ");
+        line = get_next_line(STDIN_FILENO);
+        if (!line)
+            break;
+
+        // Remove 'trailing' newline character
+        line[ft_strcspn(line, "\n")] = 0;
+
+        // Check if it is the delimiter
+        if (ft_strcmp(line, limit) == 0)
+        {
+            free(line);
+            break;
+        }
+
+        // Write to the temporary file
+        if (write(fd, line, ft_strlen(line)) == -1 || write(fd, "\n", 1) == -1)
+        {
+            perror("ERROR writing to temporary file");
+            free(line);
+            close(fd);
+            return (EXIT_FAILURE);
+        }
+
+        free(line);
+    }
+
+    close(fd);
+
+    // Reopen the file for reading
+    fd_temp = open("/tmp/heredoc_tmp", O_RDONLY);
+    if (fd_temp < 0)
+    {
+        perror("ERROR reopening temporary file");
+        return (EXIT_FAILURE);
+    }
+    dup2(fd_temp, STDIN_FILENO);
+    close(fd_temp);
+
+    // Optionally unlink the temporary file
+    unlink("/tmp/heredoc_tmp");
+
+    return (EXIT_SUCCESS);
+}
+*/
+
 
 int ft_heredoc(char *limit)
 {

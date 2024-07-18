@@ -1,9 +1,0 @@
-builtins
-includes
-lib
-Makefile
-minishell
-obj
-src
-test.txt
-valgrind.supp

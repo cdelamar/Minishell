@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/17 20:07:37 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:49:17 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,24 @@
 // TODO : handle ctrl+c in heredocs
 // TODO : handle why '|' == ctrl + D
 
+int backup_fd(int *saved_stdin, int *saved_stdout) {
+    *saved_stdin = dup(STDIN);
+    if (*saved_stdin < 0)
+        return -1;
+    *saved_stdout = dup(STDOUT);
+    if (*saved_stdout < 0) {
+        close(*saved_stdin);
+        return -1;
+    }
+    return 0;
+}
 
+void restore_fd(int saved_stdin, int saved_stdout) {
+    dup2(saved_stdin, STDIN);
+    close(saved_stdin);
+    dup2(saved_stdout, STDOUT);
+    close(saved_stdout);
+}
 
 int handle_redirections(char **args)
 {

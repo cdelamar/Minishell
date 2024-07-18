@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/17 18:05:59 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:50:07 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@
 # define ENV_FAILURE	"environnement failure\n"
 # define BUFFER_SIZE	5000
 
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 # define EXIT_COMMAND	3
 
 enum e_token_type
@@ -126,6 +130,11 @@ int					handle_redirections(char **args);
 int					ft_heredoc(char *limit);
 
 int					ft_copy_envp(char **envp, t_cmd *cmd);
+
+int					backup_fd(int *saved_stdin, int *saved_stdout);
+void				restore_fd(int saved_stdin, int saved_stdout);
+
+
 
 
 #endif
