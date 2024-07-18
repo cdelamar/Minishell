@@ -29,6 +29,8 @@ FILES = main \
 		split_dop/ft_split_boosted \
 		split_dop/count_word \
 		split_dop/check_char \
+		cat_quote/cat_quote \
+		cat_quote/node_cat \
 		print_ascii
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
@@ -50,6 +52,7 @@ obj:
 	mkdir -p obj/libft
 	mkdir -p obj/split_dop
 	mkdir -p obj/path
+	mkdir -p obj/cat_quote
 
 .c.o:
 		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(CREAD)

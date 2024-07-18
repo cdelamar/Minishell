@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/16 20:31:15 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 02:59:58 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!make_token(split_line, &token_list))
 			return (0);
 		path_main(token_list, envp);
-		cat_quote(token_list);
+		after_before_cat(&token_list);
 		print_node(token_list);
 		token_lstclear(&token_list, free);
 	}
