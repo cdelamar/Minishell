@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 05:27:50 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 11:36:46 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,23 @@ void	delet_space(t_token *token, int i)
 	temp = head->next;
 	head->next = head->next->next;
 	ft_lstdelone(temp, free);
+}
+
+void	delet_space_fonc(t_token *head)
+{
+	t_token *temp;
+
+	while (head != NULL && head->next != NULL)
+	{
+		if (head->next->type == SPACES)
+		{
+			temp = head->next;
+			head->next = head->next->next;
+			ft_lstdelone(temp, free);
+		}
+		else
+			head = head->next;
+	}
 }
 
 void	after_before_cat(t_token **token)
@@ -96,6 +113,8 @@ void	after_before_cat(t_token **token)
 			break;
 		head = head->next;
 	}
+	head = *token;
+	delet_space_fonc(head);
 }
 
 //ca marche saufe dans echi gg"" gg ""f ff ou ca met deux before_fonc
