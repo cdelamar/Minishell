@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 11:36:46 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 12:17:02 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	before_quote(t_token *token, int i)
 {
-	t_token *head;
+	t_token	*head;
 
 	head = token;
 	while (i != 0)
@@ -34,8 +34,8 @@ int	before_quote(t_token *token, int i)
 
 void	delet_space(t_token *token, int i)
 {
-	t_token *head;
-	t_token *temp;
+	t_token	*head;
+	t_token	*temp;
 
 	head = token;
 	while (head != NULL && i -1 != 0)
@@ -52,7 +52,7 @@ void	delet_space(t_token *token, int i)
 
 void	delet_space_fonc(t_token *head)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	while (head != NULL && head->next != NULL)
 	{
@@ -67,58 +67,53 @@ void	delet_space_fonc(t_token *head)
 	}
 }
 
+void	process_quotes(t_token **token, int *j)
+{
+	int	boul;
+
+	boul = before_quote(*token, *j -1);
+	if (boul == 1)
+	{
+		before_node_cat(token, *j -1);
+		(*j)--;
+	}
+	else if (boul == 0)
+	{
+		delet_space(*token, *j -1);
+		(*j)--;
+	}
+	boul = before_quote(*token, *j +1);
+	if (boul == 1)
+	{
+		after_node_cat(token, *j);
+		(*j)--;
+	}
+	else if (boul == 0)
+	{
+		delet_space(*token, *j +1);
+		(*j)--;
+	}
+}
+
 void	after_before_cat(t_token **token)
 {
-	t_token *head;
-	int	i;
-	int	j;
-	int	boul;
+	t_token	*head;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
-	boul = 0;
 	head = *token;
 	while (head != NULL)
 	{
 		if (head->type == DOUBLE_QUOTE || head->type == SIMPLE_QUOTE)
-		{
-			boul = before_quote(*token, j -1);
-			if (boul == 1)
-			{
-				before_node_cat(token, j -1);
-				j--;
-				printf("BEFORE_FONC\n");
-			}
-			else if (boul == 0)
-			{
-				delet_space(*token, j -1);
-				j--;
-			}
-			boul = before_quote(*token, j +1);
-			if (boul == 1)
-			{
-				after_node_cat(token, j);
-				j--;
-				printf("AFTER_FONC\n");
-			}
-			else if (boul == 0)
-			{
-				delet_space(*token, j +1);
-				j--;
-			}
-		}
+			process_quotes(token, &j);
 		i++;
 		j++;
 		if (head->next == NULL)
-			break;
+			break ;
 		head = head->next;
 	}
 	head = *token;
 	delet_space_fonc(head);
 }
-
-//ca marche saufe dans echi gg"" gg ""f ff ou ca met deux before_fonc
-//parce ce que quand tu delet un espace ca delete le node et donc quand tu recalcul bah il en manque  
-//echo gg"" il est au deuxieme a 1 avant
-//echo ""gg pas de soucis
-

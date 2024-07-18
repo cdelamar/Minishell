@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/18 03:23:17 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 11:58:50 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,20 @@ char		*skip_sufix(char *word);
 /*------------parsing----------------*/
 void		lexer(t_token *token, char **strs);
 void		path_main(t_token *token_list, char **envp);
+
+/*------------cat_quote--------------*/
 void		after_before_cat(t_token **token);
 void		before_node_cat(t_token **token, int i);
 void		after_node_cat(t_token **token, int i);
+int			copy_node(t_token *head, t_token *new_node, int i_content);
+int			copy_node_after(t_token *head, t_token *new_node, int i_content);
+int			copy_mid_node(t_token *head, t_token *new_node, int i_content);
+int			copy_mid_after_node(t_token *head, t_token *new_node, int i_content);
+void		advance_to_node(t_token **head, t_token **before, int *i);
 
 /*--------------free-----------------*/
 void		free_split(char **strs);
+void		free_head(t_token *head);
 
 size_t		count_word(char *s);
 int			is_char(char s);

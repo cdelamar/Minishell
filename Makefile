@@ -30,7 +30,8 @@ FILES = main \
 		split_dop/count_word \
 		split_dop/check_char \
 		cat_quote/cat_quote \
-		cat_quote/node_cat \
+		cat_quote/tools_for_cat \
+		cat_quote/main_cat \
 		print_ascii
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
