@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 02:58:12 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 05:27:50 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	after_before_cat(t_token **token)
 			if (boul == 1)
 			{
 				before_node_cat(token, j -1);
+				j--;
 				printf("BEFORE_FONC\n");
 			}
 			else if (boul == 0)
@@ -78,7 +79,11 @@ void	after_before_cat(t_token **token)
 			}
 			boul = before_quote(*token, j +1);
 			if (boul == 1)
+			{
+				after_node_cat(token, j);
+				j--;
 				printf("AFTER_FONC\n");
+			}
 			else if (boul == 0)
 			{
 				delet_space(*token, j +1);

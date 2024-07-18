@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/18 02:59:11 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 03:23:17 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		lexer(t_token *token, char **strs);
 void		path_main(t_token *token_list, char **envp);
 void		after_before_cat(t_token **token);
 void		before_node_cat(t_token **token, int i);
-
+void		after_node_cat(t_token **token, int i);
 
 /*--------------free-----------------*/
 void		free_split(char **strs);
