@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/15 14:50:31 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 12:43:04 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ char	**ft_split_boosted(char *s)
 	if (!lst)
 		return (0);
 	split_in_tab(s, lst);
+	free(s);
 	return (lst);
 }	

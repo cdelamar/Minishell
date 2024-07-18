@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/18 11:58:50 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:36:52 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ void		print_snail(void);
 int			find_the_dollar(t_token *token);
 int			skip_prefix(char *word);
 char		*skip_sufix(char *word);
+void		is_dollar_interogation(t_token *token_list);
+void		path_other(char **envp, t_token *token_list, int place_of_dollar);
+void		getenv_in_list(char **envp, t_token *token_list, char *word);
+
+
 
 /*------------parsing----------------*/
 void		lexer(t_token *token, char **strs);
@@ -119,4 +124,6 @@ size_t		count_word(char *s);
 int			is_char(char s);
 int			skip_space(char *s, int i);
 
+void		signals(void);
+void sigint_handler(int sig);
 #endif

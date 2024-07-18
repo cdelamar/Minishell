@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 12:17:02 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:32:56 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	before_quote(t_token *token, int i)
 		return (1);
 }
 
-void	delet_space(t_token *token, int i)
+void	delet_space(t_token **token, int i)
 {
 	t_token	*head;
 	t_token	*temp;
 
-	head = token;
+	head = *token;
 	while (head != NULL && i -1 != 0)
 	{
 		i--;
@@ -47,6 +47,7 @@ void	delet_space(t_token *token, int i)
 		return ;
 	temp = head->next;
 	head->next = head->next->next;
+	printf("removing item from list: %p\n", temp);
 	ft_lstdelone(temp, free);
 }
 
@@ -79,7 +80,7 @@ void	process_quotes(t_token **token, int *j)
 	}
 	else if (boul == 0)
 	{
-		delet_space(*token, *j -1);
+		delet_space(token, *j -1);
 		(*j)--;
 	}
 	boul = before_quote(*token, *j +1);
@@ -90,9 +91,10 @@ void	process_quotes(t_token **token, int *j)
 	}
 	else if (boul == 0)
 	{
-		delet_space(*token, *j +1);
+		delet_space(token, *j +1);
 		(*j)--;
 	}
+	// printf ici des node 	
 }
 
 void	after_before_cat(t_token **token)

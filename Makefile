@@ -32,7 +32,8 @@ FILES = main \
 		cat_quote/cat_quote \
 		cat_quote/tools_for_cat \
 		cat_quote/main_cat \
-		print_ascii
+		print_ascii \
+		signal
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
@@ -69,7 +70,7 @@ obj/%.o: src/%.c
 
 
 valgrind: $(NAME)
-	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+	valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --suppressions=valgrind.supp ./$(NAME)
 
 rl_on: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)

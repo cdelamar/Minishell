@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:59:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/11 16:15:31 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 14:26:10 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,34 +76,6 @@ void	path_double_quote(char **envp, t_token *token_list, int place_of_dollar)
 	while (head->content[i])
 		i++;
 	head->content[i] = '"';
-}
-
-void	path_other(char **envp, t_token *token_list, int place_of_dollar)
-{
-	t_token	*head;
-	int		prefix;
-	int		i;
-
-	i = 0;
-	head = token_list;
-	while (head->index < place_of_dollar)
-		head = head->next;
-	prefix = skip_prefix(head->content);
-	getenv_in_list(envp, token_list, head->content + prefix);
-}
-
-
-void	is_dollar_interogation(t_token *token_list)
-{
-	int	i;
-
-	i = 0;
-	if (token_list->content[i +1] == '?')
-	{
-		token_list->content[i] = g_var;
-		token_list->content[i +1] = '\0';
-		token_list->type = GLOBAL;
-	}
 }
 
 void	path_main(t_token *token_list, char **envp)

@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
+/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 10:35:28 by Laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 17:06:29 by laubry           ###   ########.fr       */
+/*   Created: 2024/07/18 17:34:19 by laubry            #+#    #+#             */
+/*   Updated: 2024/07/18 17:34:34 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstdelone(t_token *lst, void (*del)(void*))
+void sigint_handler(int sig)
 {
-	if (lst != NULL)
+    if (sig == SIGINT)
 	{
-		if (del != NULL && lst->content != NULL)
-			del(lst->content);
-		free(lst);
-	}
+        rl_replace_line("", 0);
+        printf("\n");
+        rl_on_new_line();
+        rl_redisplay();
+    }
+}
+
+void	signals(void)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN); // CTRL + \ interaction
 }

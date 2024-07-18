@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/15 12:36:20 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:54:09 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ size_t	count_word(char *s)
 {
 	int		tab[3];
 
+	if (s == NULL)
+		return (0);
 	ft_bzero(tab, 3 * 4);
 	while (s[tab[0]])
 	{
