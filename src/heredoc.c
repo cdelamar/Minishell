@@ -16,14 +16,16 @@
 
 int ft_heredoc(char *limit)
 {
+    printf ("inside heredoc\n");
     char    *line;
     int     fd;
 
+    line = NULL;
     fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
     {
         printf("ERROR heredoc.c : line 13\n");
-        return(EXIT_FAILURE);
+        return (EXIT_FAILURE);
     }
 
     while (1)
@@ -33,17 +35,14 @@ int ft_heredoc(char *limit)
         if (!line)
             break;
 
-        // Remove 'trailing' newline character
-        line[ft_strcspn(line, "\n")] = 0;
+        line[ft_strcspn(line, "\n")] = 0;  // Remove trailing newline char
 
-        // Check if it's the delimiter
         if (ft_strcmp(line, limit) == 0)
         {
             free(line);
             break;
         }
 
-        // Write to the file
         if (write(fd, line, strlen(line)) == -1 || write(fd, "\n", 1) == -1)
         {
             printf("ERROR (heredoc.c line 37)\n");
@@ -51,6 +50,7 @@ int ft_heredoc(char *limit)
             close(fd);
             return (EXIT_FAILURE);
         }
+
         free(line);
     }
 
@@ -60,7 +60,7 @@ int ft_heredoc(char *limit)
     if (fd < 0)
     {
         printf("ERROR heredoc.c : line 45\n");
-        return(EXIT_FAILURE);
+        return (EXIT_FAILURE);
     }
     dup2(fd, STDIN_FILENO);
     close(fd);
@@ -69,6 +69,7 @@ int ft_heredoc(char *limit)
 
     return (EXIT_SUCCESS);
 }
+
 
 
 /*

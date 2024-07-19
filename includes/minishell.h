@@ -93,7 +93,7 @@ int					execute(char *line, t_cmd *cmd);
 int					pipe_execute(char *line, t_cmd *cmd);
 int					basic_execute(char *line, t_cmd *cmd);
 
-// lexer / tokenizer
+// lexer / tokenizer 9not needed for now)
 enum e_token_type	lexer(char *value);
 t_token				*tokenizer(char *line);
 t_token				*create_token(char *value, enum e_token_type type);
@@ -109,6 +109,7 @@ char				*cmd_cat(const char *path_split, char *slash,
 char				*cmd_finder(char **split_line, t_cmd *cmd);
 
 // envp
+int					ft_copy_envp(char **envp, t_cmd *cmd);
 char				*path_finder(t_cmd *cmd, char *path, int size);
 void				ft_path(t_cmd *cmd);
 
@@ -127,12 +128,16 @@ void				signals(void);
 
 //redirections
 int					handle_redirections(char **args);
+int					ft_heredoc_redirect(char **args, int i);
+int					ft_input_redirect(char **args, int i);
+int					ft_output_redirect(char **args, int i, int append);
 int					ft_heredoc(char *limit);
 
-int					ft_copy_envp(char **envp, t_cmd *cmd);
 
+//fd
 int					backup_fd(int *saved_stdin, int *saved_stdout);
 void				restore_fd(int saved_stdin, int saved_stdout);
+int					open_file(char *filename, int flags, int mode);
 
 
 
