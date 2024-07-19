@@ -37,6 +37,73 @@ void restore_fd(int saved_stdin, int saved_stdout) {
 
 int handle_redirections(char **args)
 {
+    int i = 0;
+    int fd;
+
+    while (args[i])
+    {
+        if (args[i][0] == '>' || args[i][0] == '<')
+        {
+            if (args[i + 1] == NULL)
+            {
+                printf("Syntax error near unexpected token '%s'\n", args[i]);
+                return (EXIT_FAILURE);
+            }
+
+            if (ft_strcmp(args[i], ">") == 0)
+            {
+                fd = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+                if (fd < 0)
+                {
+                    printf("ERROR (redirection.c line 16)\n");
+                    return (EXIT_FAILURE);
+                }
+                dup2(fd, STDOUT_FILENO);
+                close(fd);
+            }
+            else if (ft_strcmp(args[i], ">>") == 0)
+            {
+                fd = open(args[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+                if (fd < 0)
+                {
+                    printf("ERROR (redirection.c line 28)\n");
+                    return (EXIT_FAILURE);
+                }
+                dup2(fd, STDOUT_FILENO);
+                close(fd);
+            }
+            else if (ft_strcmp(args[i], "<") == 0)
+            {
+                fd = open(args[i + 1], O_RDONLY);
+                if (fd < 0)
+                {
+                    printf("ERROR (redirection.c line 40)\n");
+                    return (EXIT_FAILURE);
+                }
+                dup2(fd, STDIN_FILENO);
+                close(fd);
+            }
+            else if (ft_strcmp(args[i], "<<") == 0)
+            {
+                if (ft_heredoc(args[i + 1]) != 0)
+                {
+                    printf("ERROR (redirection.c line 48)\n");
+                    return (EXIT_FAILURE);
+                }
+            }
+            args[i] = NULL;
+            args[i + 1] = NULL;
+            i++;
+        }
+        i++;
+    }
+    return (EXIT_SUCCESS);
+}
+
+
+/*
+int handle_redirections(char **args)
+{
     int i;
     int fd;
 
@@ -91,4 +158,4 @@ int handle_redirections(char **args)
         i++;
     }
     return (EXIT_SUCCESS);
-}
+}*/
