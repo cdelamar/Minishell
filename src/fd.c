@@ -12,6 +12,17 @@ int open_file(char *filename, int flags, int mode)
     return fd;
 }
 
+int open_heredoc_file(void)
+{
+    int fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd < 0)
+	{
+        printf("ERROR opening heredoc file \n");
+		return -1;
+	}
+	return fd;
+}
+
 int	backup_fd(int *saved_stdin, int *saved_stdout)
 {
     *saved_stdin = dup(STDIN);

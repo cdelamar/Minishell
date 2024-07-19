@@ -138,8 +138,6 @@ int					ft_heredoc(char *limit);
 int					backup_fd(int *saved_stdin, int *saved_stdout);
 void				restore_fd(int saved_stdin, int saved_stdout);
 int					open_file(char *filename, int flags, int mode);
-
-
-
+int					open_heredoc_file(void);
 
 #endif
