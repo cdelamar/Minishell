@@ -82,18 +82,31 @@ int ft_heredoc_redirect(char **args, int i)
     return (EXIT_SUCCESS);
 }
 
-int handle_redirections(char **args) {
+int handle_redirections(char **args)
+{
     int i = 0;
 
-    while (args[i]) {
-        if (ft_strcmp(args[i], ">") == 0) {
-            if (ft_output_redirect(args, i, 0) != EXIT_SUCCESS) return (EXIT_FAILURE);
-        } else if (ft_strcmp(args[i], ">>") == 0) {
-            if (ft_output_redirect(args, i, 1) != EXIT_SUCCESS) return (EXIT_FAILURE);
-        } else if (ft_strcmp(args[i], "<") == 0) {
-            if (ft_input_redirect(args, i) != EXIT_SUCCESS) return (EXIT_FAILURE);
-        } else if (ft_strcmp(args[i], "<<") == 0) {
-            if (ft_heredoc_redirect(args, i) != EXIT_SUCCESS) return (EXIT_FAILURE);
+    while (args[i])
+	{
+        if (ft_strcmp(args[i], ">") == 0)
+		{
+            if (ft_output_redirect(args, i, 0) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+        }
+		else if (ft_strcmp(args[i], ">>") == 0)
+		{
+            if (ft_output_redirect(args, i, 1) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+        }
+		else if (ft_strcmp(args[i], "<") == 0)
+		{
+            if (ft_input_redirect(args, i) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+        }
+		else if (ft_strcmp(args[i], "<<") == 0)
+		{
+            if (ft_heredoc_redirect(args, i) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
         }
         i++;
     }
