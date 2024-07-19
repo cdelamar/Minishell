@@ -24,9 +24,7 @@ static int write_heredoc_lines(int fd, char *limit)
         line = get_next_line(STDIN_FILENO);
         if (!line)
             break;
-
         line[ft_strcspn(line, "\n")] = 0; // Remove trailing newline char
-
         if (ft_strcmp(line, limit) == 0)
         {
             free(line);
@@ -80,60 +78,3 @@ int ft_heredoc(char *limit)
     unlink("/tmp/heredoc_tmp");
     return (EXIT_SUCCESS);
 }
-
-/*
-int ft_heredoc(char *limit)
-{
-    printf ("inside heredoc\n");
-    char    *line;
-    int     fd;
-
-    line = NULL;
-    fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0)
-    {
-        printf("ERROR heredoc.c : line 13\n");
-        return (EXIT_FAILURE);
-    }
-
-    while (1)
-    {
-        printf("heredoc> ");
-        line = get_next_line(STDIN_FILENO);
-        if (!line)
-            break;
-
-        line[ft_strcspn(line, "\n")] = 0;  // Remove trailing newline char
-
-        if (ft_strcmp(line, limit) == 0)
-        {
-            free(line);
-            break;
-        }
-
-        if (write(fd, line, strlen(line)) == -1 || write(fd, "\n", 1) == -1)
-        {
-            printf("ERROR (heredoc.c line 37)\n");
-            free(line);
-            close(fd);
-            return (EXIT_FAILURE);
-        }
-
-        free(line);
-    }
-
-    close(fd);
-
-    fd = open("/tmp/heredoc_tmp", O_RDONLY);
-    if (fd < 0)
-    {
-        printf("ERROR heredoc.c : line 45\n");
-        return (EXIT_FAILURE);
-    }
-    dup2(fd, STDIN_FILENO);
-    close(fd);
-
-    unlink("/tmp/heredoc_tmp");
-
-    return (EXIT_SUCCESS);
-}*/
