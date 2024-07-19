@@ -97,9 +97,9 @@ int basic_execute (char *line, t_cmd *cmd)
 	char	*command;
 	char	**split_line;
 	int		status;
-	int		i;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	split_line = NULL;
 	// exit_handler
 	if (strcmp(line, "exit") == 0)

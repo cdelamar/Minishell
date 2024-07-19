@@ -91,10 +91,10 @@ static int env_lines_copy(char **envp, int count, t_cmd *cmd)
 
 int ft_copy_envp(char **envp, t_cmd *cmd)
 {
-	int i;
+	// int i;
 	int count;
 
-	i = 0;
+	// i = 0;
 	count = env_count(envp);
 	cmd->env = malloc(sizeof(char*) * (count + 1));
 	if (!cmd->env)
