@@ -6,13 +6,13 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/20 05:25:38 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/07/20 21:40:35 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	before_quote(t_token *token, int i)
+int	side_quote(t_token *token, int i)
 {
 	t_token	*head;
 
@@ -28,6 +28,8 @@ int	before_quote(t_token *token, int i)
 		return (-1);
 	else if (head->type == SPACES)
 		return (0);
+	else if (head->type == DOUBLE_QUOTE || head->type == SIMPLE_QUOTE)
+		return (2);
 	else
 		return (1);
 }
@@ -68,24 +70,32 @@ void	delet_space_fonc(t_token *head)
 	}
 }
 
-int	process_quotes(t_token **token, int *j)
+int	process_quotes(t_token **token, int *j, t_token *place)
 {
 	int	boul;
 	int	info_boul;
 
 	info_boul = 0;
-	boul = before_quote(*token, *j -1);
-	if (boul == 1)
+	boul = side_quote(*token, *j -1);
+	if (boul == 1 || boul == 2)
 	{
+		if (boul == 2)
+			delet_quote_inword(token, place);
 		before_node_cat(token, *j -1);
 		(*j)--;
 	}
 	else
 		info_boul = 1;
-	boul = before_quote(*token, *j +1);
-	if (boul == 1)
+	boul = side_quote(*token, *j +1);
+	if (boul == 1 || boul == 2)
 	{
-		after_node_cat(token, *j);
+		if (boul == 2)
+		{
+			delet_quote_inword(token, place);
+			before_node_cat(token, *j);
+		}
+		else
+			after_node_cat(token, *j);
 		(*j)--;
 	}
 	else
@@ -135,13 +145,9 @@ void	after_before_cat(t_token **token)
 	{
 		if (head->type == DOUBLE_QUOTE || head->type == SIMPLE_QUOTE)
 		{
-			printf("ouiiiiiiiii %s\n", head->content);
-			adjacant = process_quotes(token, &j);
+			adjacant = process_quotes(token, &j, head);
 			if (adjacant == 2)
-			{
-				printf("OUI");
 				delet_quote_inword(token, head);
-			}
 			head = *token;
 			j = 0;
 		}

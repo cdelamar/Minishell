@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/18 17:36:52 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/20 15:59:49 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int			copy_node_after(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_node(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_after_node(t_token *head, t_token *new_node, int i_content);
 void		advance_to_node(t_token **head, t_token **before, int *i);
+void		delet_quote_inword(t_token **token, t_token *place);
+
 
 /*--------------free-----------------*/
 void		free_split(char **strs);
