@@ -140,4 +140,19 @@ void				restore_fd(int saved_stdin, int saved_stdout);
 int					open_file(char *filename, int flags, int mode);
 int					open_heredoc_file(void);
 
+
+//pid management
+int handle_exit_command(char *line);
+int set_command_path(t_cmd *cmd);
+int handle_child_process(char *line, t_cmd *cmd);
+int handle_parent_process(pid_t pid, char **split_line);
+
+
+
+//WIP
+int handle_path(t_cmd *cmd);
+
+// int fork_execve(t_cmd *cmd, char **split_line, char *command, int *status);
+
+
 #endif

@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+// TODO : remove 'exit' from basic execute and put it in the builtins handler
+
 int	execute(char *line, t_cmd *cmd)
 {
 	if (line[0] == '\0')
@@ -92,15 +94,41 @@ int pipe_execute(char *line, t_cmd *cmd)
 	return (EXIT_SUCCESS);
 }
 
+int basic_execute(char *line, t_cmd *cmd)
+{
+    int exit_code;
+    char **split_line = NULL;
+
+    // Handle exit command
+    exit_code = handle_exit_command(line);
+    if (exit_code != 0)
+        return exit_code;
+    exit_code = set_command_path(cmd);
+    if (exit_code != 0) {
+        return exit_code;
+    }
+    cmd->pid1 = fork();
+    if (cmd->pid1 < 0)
+        return EXIT_FAILURE; // Error forking
+    else if (cmd->pid1 == 0)
+	{
+        exit_code = handle_child_process(line, cmd);
+        exit(exit_code); // Ensure the child process exits after handling
+    }
+	else
+        return handle_parent_process(cmd->pid1, split_line);
+    return EXIT_SUCCESS;
+}
+
+/*
 int basic_execute (char *line, t_cmd *cmd)
 {
 	char	*command;
 	char	**split_line;
 	int		status;
-	// int		i;
 
-	// i = 0;
 	split_line = NULL;
+
 	// exit_handler
 	if (strcmp(line, "exit") == 0)
 		return(EXIT_COMMAND);
@@ -166,4 +194,5 @@ int basic_execute (char *line, t_cmd *cmd)
 		//ft_freetab(split_line);
 	}
 	return (EXIT_SUCCESS);
-}
+}*/
+

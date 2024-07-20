@@ -61,8 +61,6 @@ int main(int argc, char **argv, char **envp)
 		free_structs(cmd, ctx, token);
 		free(line);
 	}
-	// free_structs(cmd, ctx, token);
-	// free(line);
 	return (0);
 }
 
