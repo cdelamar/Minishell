@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:34:19 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 17:34:34 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/20 02:47:03 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void sigint_handler(int sig)
 {
     if (sig == SIGINT)
 	{
-        rl_replace_line("", 0);
         printf("\n");
         rl_on_new_line();
         rl_redisplay();

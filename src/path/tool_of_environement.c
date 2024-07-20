@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 10:11:13 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 14:30:10 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/20 02:45:30 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,7 @@ void	path_other(char **envp, t_token *token_list, int place_of_dollar)
 {
 	t_token	*head;
 	int		prefix;
-	int		i;
 
-	i = 0;
 	head = token_list;
 	while (head->index < place_of_dollar)
 		head = head->next;

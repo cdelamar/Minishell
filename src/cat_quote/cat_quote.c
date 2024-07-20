@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 17:32:56 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/20 05:25:38 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,52 +68,84 @@ void	delet_space_fonc(t_token *head)
 	}
 }
 
-void	process_quotes(t_token **token, int *j)
+int	process_quotes(t_token **token, int *j)
 {
 	int	boul;
+	int	info_boul;
 
+	info_boul = 0;
 	boul = before_quote(*token, *j -1);
 	if (boul == 1)
 	{
 		before_node_cat(token, *j -1);
 		(*j)--;
 	}
-	else if (boul == 0)
-	{
-		delet_space(token, *j -1);
-		(*j)--;
-	}
+	else
+		info_boul = 1;
 	boul = before_quote(*token, *j +1);
 	if (boul == 1)
 	{
 		after_node_cat(token, *j);
 		(*j)--;
 	}
-	else if (boul == 0)
-	{
-		delet_space(token, *j +1);
-		(*j)--;
-	}
-	// printf ici des node 	
+	else
+		info_boul += 1;
+	return (info_boul);
 }
+
+void	delet_quote_inword(t_token **token, t_token *place)
+{
+    t_token *head;
+    int     i;
+    int     k;
+    char    *new_content;
+
+	i = 0;
+	k = 0;
+   head = *token;
+	while (head->index != place->index)
+		head = head->next;
+	new_content = malloc(ft_strlen(head->content) + 1);
+	while (head->content[i])
+    {
+        if (head->content[i] != '"' && head->content[i] != '\'')
+        {
+            new_content[k] = head->content[i];
+            k++;
+        }
+        i++;
+    }
+    new_content[k] = '\0';
+    free(head->content);
+    head->content = new_content;
+	head->type = WORD;
+}
+
 
 void	after_before_cat(t_token **token)
 {
 	t_token	*head;
-	int		i;
 	int		j;
+	int		adjacant;
 
-	i = 0;
+	adjacant = 0;
 	j = 0;
 	head = *token;
 	while (head != NULL)
 	{
 		if (head->type == DOUBLE_QUOTE || head->type == SIMPLE_QUOTE)
-			process_quotes(token, &j);
-		i++;
+		{
+			printf("ouiiiiiiiii %s\n", head->content);
+			adjacant = process_quotes(token, &j);
+			if (adjacant == 2)
+			{
+				printf("OUI");
+				delet_quote_inword(token, head);
+			}
+			head = *token;
+			j = 0;
+		}
 		j++;
-		if (head->next == NULL)
-			break ;
 		head = head->next;
 	}
 	head = *token;

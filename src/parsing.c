@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/17 15:59:51 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/20 02:44:47 by lucasaubry       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ int	quote_verif(char *str, int j)
 void	lexer(t_token *token, char **strs)
 {
 	int		i;
-	t_token	*head;
 
 	i = 0;
-	head = token;
 	while (token)
 	{
 		token->content = strs[i];
