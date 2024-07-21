@@ -41,7 +41,10 @@ int	execute(char *line, t_cmd *cmd)
 	if (ft_strchr(line, '|'))
 		return (pipe_execute(line, cmd));
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
-		return (0);
+	{
+		printf("builtins succeed (exec.c line 45)\n");
+		return (EXIT_SUCCESS);
+	}
 	return (basic_execute(line, cmd));
 }
 

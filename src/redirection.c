@@ -37,7 +37,7 @@ int ft_output_redirect(char **args, int i, int append)
 	fd = open(args[i + 1], flags, 0644);
     if (fd < 0)
     {
-        printf("ERROR opening file (line %d : redirection.c)\n", __LINE__);
+        printf("ERROR opening file (line 40)\n");
         return (EXIT_FAILURE);
     }
     dup2(fd, STDOUT_FILENO);
@@ -58,7 +58,7 @@ int ft_input_redirect(char **args, int i)
     fd = open_file(args[i + 1], O_RDONLY, 0);
     if (fd < 0)
     {
-        printf("ERROR file descriptor (line %d : redirection.c)\n", __LINE__);
+        printf("ERROR redirection.c (line 61)\n");
         return (EXIT_FAILURE);
     }
     dup2(fd, STDIN_FILENO);

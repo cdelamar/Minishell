@@ -69,6 +69,7 @@ int main(int argc, char **argv, char **envp)
 		if (execute(line, cmd) == EXIT_COMMAND) // define OK ?
 		{
 			// modif de var_g
+			printf("FREE by EXIT COMMAND (main.c line 72)\n");
 			free_structs(cmd, ctx, token);
 			free(line);
 			return (0);
