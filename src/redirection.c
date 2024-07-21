@@ -13,6 +13,7 @@
 #include "../includes/minishell.h"
 
 // TODO : handle '< test.txt cat' (*)
+// TODO : handle 'cat <test.txt'
 // TODO : handle ctrl+c in heredocs
 // TODO : handle why '|' == ctrl + D
 
@@ -21,7 +22,7 @@ int ft_output_redirect(char **args, int i, int append)
     int fd;
 	int flags;
 
-    // (*) i think this if statement isnt flexible enough to handle redirection in every different ways
+    // (*) maybe need to merge with parsing for it
     if (!args[i + 1])
     {
         printf("Syntax error: expected file after redirection\n");

@@ -22,6 +22,8 @@ TODO
 - gerer ctrl + c dans le heredoc
 - fixer le '|' qui vaut ctrl + D
 - gerer le soucis des redirections qui sont gerees que dans un sens, mais encore une fois faut voir avec le parsing je pense
+
+- quand tout sera OK, essayer de retirer le maximum de exit() que possible pour retourner a la racine du main autant que possible
 */
 
 

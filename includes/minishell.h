@@ -89,9 +89,10 @@ typedef struct s_cmd
 }	t_cmd;
 
 // excecuting
+void				initialize_cmd(t_cmd *cmd, char *line);
+void				handle_error(char *msg, t_cmd *cmd, int *fd);
+
 int					execute(char *line, t_cmd *cmd);
-int					pipe_execute(char *line, t_cmd *cmd);
-int					basic_execute(char *line, t_cmd *cmd);
 
 // lexer / tokenizer 9not needed for now)
 enum e_token_type	lexer(char *value);
@@ -135,6 +136,7 @@ int					ft_heredoc(char *limit);
 
 
 //fd
+void				close_fds(int *fd);
 int					backup_fd(int *saved_stdin, int *saved_stdout);
 void				restore_fd(int saved_stdin, int saved_stdout);
 int					open_file(char *filename, int flags, int mode);
@@ -142,16 +144,16 @@ int					open_heredoc_file(void);
 
 
 //basic executing
-int handle_exit_command(char *line);
-int set_command_path(t_cmd *cmd);
-int basic_child_process(char *line, t_cmd *cmd);
-int basic_parent_process(pid_t pid, char **split_line);
+int		handle_exit_command(char *line);
+int		set_command_path(t_cmd *cmd);
+int		basic_child_process(char *line, t_cmd *cmd);
+int		basic_parent_process(pid_t pid, char **split_line);
+int		basic_execute(char *line, t_cmd *cmd);
 
 //pipe executing
 void	handle_pipe_error(t_cmd *cmd, int *fd);
 void	handle_fork_error(t_cmd *cmd, int *fd);
 void	execute_child_process(t_cmd *cmd, int *fd, int i);
-void	parent_process(t_cmd *cmd, int *fd, int *i);
 void	init_cmd(t_cmd *cmd, char *line);
 int		pipe_execute(char *line, t_cmd *cmd);
 

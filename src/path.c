@@ -16,7 +16,7 @@ char	*path_finder(t_cmd *cmd, char *path, int size)
 
 void	ft_path(t_cmd *cmd)
 {
-	// printf ("path.c (line 29)\n");
+	// printf ("path.c (line 19)\n");
 	cmd->path = path_finder(cmd, "PATH=", 5);
 	if (cmd->path)
 		cmd->path_split = ft_split(cmd->path, ':');

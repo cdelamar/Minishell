@@ -1,6 +1,12 @@
 
 #include "../includes/minishell.h"
 
+void close_fds(int *fd)
+{
+    close(fd[0]);
+    close(fd[1]);
+}
+
 int open_file(char *filename, int flags, int mode)
 {
     int fd = open(filename, flags, mode);
