@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 12:43:04 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/21 16:45:51 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char	**ft_split_boosted(char *s)
 	s = ft_strtrim(s, " ");
 	word = count_word(s);
 	if (word == 0)
+	{
+		free(s);
 		return (NULL);
+	}
 	lst = (char **)malloc((word +1) * sizeof(char *));
 	if (!lst)
 		return (0);

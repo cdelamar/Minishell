@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/20 21:40:35 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/07/21 16:50:05 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,15 +131,14 @@ void	delet_quote_inword(t_token **token, t_token *place)
 	head->type = WORD;
 }
 
-
 void	after_before_cat(t_token **token)
 {
 	t_token	*head;
 	int		j;
 	int		adjacant;
 
-	adjacant = 0;
 	j = 0;
+	adjacant = 0;
 	head = *token;
 	while (head != NULL)
 	{
