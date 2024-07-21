@@ -3,6 +3,8 @@
 
 // WIP : trying to make a more modular version of the basic execute, for 50 lines seems a bit much
 
+
+// handle_path obsolete ? (no more called in any functions for now)
 int handle_path(t_cmd *cmd)
 {
     ft_path(cmd);
@@ -14,6 +16,7 @@ int handle_path(t_cmd *cmd)
     return EXIT_SUCCESS;
 }
 
+// TODO put exit in builtins caller
 int handle_exit_command(char *line)
 {
     if (strcmp(line, "exit") == 0)
@@ -32,7 +35,7 @@ int set_command_path(t_cmd *cmd)
     return 0;
 }
 
-int handle_child_process(char *line, t_cmd *cmd)
+int basic_child_process(char *line, t_cmd *cmd)
 {
     char **split_line;
     char *command;
@@ -46,12 +49,12 @@ int handle_child_process(char *line, t_cmd *cmd)
     command = cmd_finder(split_line, cmd);
     if (command)
         execve(command, split_line, cmd->env);
-    printf("incorrect inputs : pid. (line 50)\n");
+    printf("incorrect inputs : pid.c (line 50)\n");
     ft_freetab(split_line);
     return EXIT_FAILURE;
 }
 
-int handle_parent_process(pid_t pid, char **split_line)
+int basic_parent_process(pid_t pid, char **split_line)
 {
     int status;
 
@@ -70,35 +73,29 @@ int handle_parent_process(pid_t pid, char **split_line)
     return EXIT_SUCCESS;
 }
 
+int basic_execute(char *line, t_cmd *cmd)
+{
+    int exit_code;
+    char **split_line = NULL;
 
-/*
-int handle_child_process(char *line, t_cmd *cmd) {
-    char **split_line = ft_split(line, ' ');
-
-    if (handle_redirections(split_line) < 0) {
-        printf("ERROR (exec.c line 117)\n");
-        ft_freetab(split_line);
-        return EXIT_FAILURE;
+    // Handle exit command
+    exit_code = handle_exit_command(line);
+    if (exit_code != 0)
+        return exit_code;
+    exit_code = set_command_path(cmd);
+    if (exit_code != 0) {
+        return exit_code;
     }
-
-    char *command = cmd_finder(split_line, cmd);
-    if (command) {
-        execve(command, split_line, cmd->env);
+    cmd->pid1 = fork();
+    if (cmd->pid1 < 0)
+        return EXIT_FAILURE; // Error forking
+    else if (cmd->pid1 == 0)
+	{
+        exit_code = basic_child_process(line, cmd);
+        exit(exit_code); // Ensure the child process exits after handling
     }
-    printf("incorrect inputs : exec.c (line 123)\n");
-    ft_freetab(split_line);
-    return EXIT_FAILURE;
+	else
+        return basic_parent_process(cmd->pid1, split_line);
+    return EXIT_SUCCESS;
 }
 
-int handle_parent_process(t_cmd *cmd) {
-    int status;
-    if (waitpid(cmd->pid1, &status, 0) == -1) {
-        printf("waitpid error (exec.c line 146)\n");
-        return EXIT_FAILURE;
-    }
-    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE) {
-        printf("child process failed (exec.c line 152)\n");
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
-}*/

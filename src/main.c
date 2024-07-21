@@ -12,6 +12,19 @@
 
 #include "../includes/minishell.h"
 
+/*
+TODO
+
+- virer les fonctions de 60 lignes pour les decouper proprements (pipe_execute et la call_builtins)
+- fix 'export' qui segfault alors qu'avant ca allait
+- fix 'echo' mais je vais avoir besoin du parsing donc je crois que je perd mon temps mais a voir si je peux pas faire un truc
+- virer 'exit' du basic (le code est divise en 3 parties je vais te faire un dessin apres) et le mettre en builtin
+- gerer ctrl + c dans le heredoc
+- fixer le '|' qui vaut ctrl + D
+- gerer le soucis des redirections qui sont gerees que dans un sens, mais encore une fois faut voir avec le parsing je pense
+*/
+
+
 int main(int argc, char **argv, char **envp)
 {
 	char *line;

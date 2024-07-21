@@ -29,7 +29,7 @@ int	execute(char *line, t_cmd *cmd)
 }
 
 	// else if (le builtin marche pas) ->error_message
-
+/*
 int pipe_execute(char *line, t_cmd *cmd)
 {
 	int i;
@@ -46,7 +46,7 @@ int pipe_execute(char *line, t_cmd *cmd)
 	{
 		if (pipe(fd) < 0)
 		{
-			printf("ERROR (exec.c line 30)\n");
+			printf("ERROR (exec.c line 49)\n");
 			ft_freetab(cmd->path_command);
 			return (EXIT_FAILURE);
 		}
@@ -54,7 +54,7 @@ int pipe_execute(char *line, t_cmd *cmd)
 		pid = fork();
 		if (pid < 0)
 		{
-			printf("ERROR (exec.c line 37)\n");
+			printf("ERROR (exec.c line 57)\n");
 			close(fd[0]);
 			close(fd[1]);
 			ft_freetab(cmd->path_command);
@@ -93,106 +93,4 @@ int pipe_execute(char *line, t_cmd *cmd)
 		ft_freetab(cmd->path_command);
 	return (EXIT_SUCCESS);
 }
-
-int basic_execute(char *line, t_cmd *cmd)
-{
-    int exit_code;
-    char **split_line = NULL;
-
-    // Handle exit command
-    exit_code = handle_exit_command(line);
-    if (exit_code != 0)
-        return exit_code;
-    exit_code = set_command_path(cmd);
-    if (exit_code != 0) {
-        return exit_code;
-    }
-    cmd->pid1 = fork();
-    if (cmd->pid1 < 0)
-        return EXIT_FAILURE; // Error forking
-    else if (cmd->pid1 == 0)
-	{
-        exit_code = handle_child_process(line, cmd);
-        exit(exit_code); // Ensure the child process exits after handling
-    }
-	else
-        return handle_parent_process(cmd->pid1, split_line);
-    return EXIT_SUCCESS;
-}
-
-/*
-int basic_execute (char *line, t_cmd *cmd)
-{
-	char	*command;
-	char	**split_line;
-	int		status;
-
-	split_line = NULL;
-
-	// exit_handler
-	if (strcmp(line, "exit") == 0)
-		return(EXIT_COMMAND);
-	ft_path(cmd);
-	if (!cmd->path)
-	{
-		printf("command not found\n");
-		return (EXIT_SUCCESS);
-	}
-	cmd->pid1 = fork();
-
-	//  error fork
-	if (cmd->pid1 < 0)
-		return (1);
-
-	// child fork
-	else if (cmd->pid1 == 0)
-	{
-		split_line = ft_split(line, ' ');
-
-		if (handle_redirections(split_line) < 0)
-		{
-			printf("ERROR (exec.c line 117)\n");
-			return (EXIT_FAILURE);
-		}
-		command = cmd_finder(split_line, cmd);
-		if(command)
-			execve(command, split_line, cmd->env);
-		printf ("incorrect inputs : exec.c (line 123)\n");
-		ft_freetab(split_line);
-		//return (EXIT_FAILURE); // error
-
-		if(waitpid(cmd->pid1, &status, 0) == -1)
-		{
-			printf("freetab (exec.c TEST line 129)\n");
-			ft_freetab(split_line);
-			return (EXIT_FAILURE);
-		}
-		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
-		{
-			printf("freetab (exec.c TEST line 135)\n");
-			ft_freetab(split_line);
-			return (EXIT_FAILURE);
-		}
-		printf("parent fork() (exec.c TEST line 139)\n");
-	}
-
-	else
-	{
-		if(waitpid(cmd->pid1, &status, 0) == -1)
-		{
-			printf("freetab (exec.c line 146)\n");
-			ft_freetab(split_line);
-			return (EXIT_FAILURE);
-		}
-		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
-		{
-			printf("freetab (exec.c line 152)\n");
-			ft_freetab(split_line);
-			return (EXIT_FAILURE);
-		}
-		//printf("parent fork() (exec.c line 156)\n");
-		//ft_freetab(split_line);
-	}
-	return (EXIT_SUCCESS);
-}*/
-
+*/

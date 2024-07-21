@@ -21,7 +21,7 @@ LFLAGS =	-Llib -lft -lreadline
 SRC_DIRS = src/ builtins/
 OBJ_DIR = obj/
 
-SRC_FILES =	command main exec memory path signal redirection heredoc fd pid#token
+SRC_FILES =	command main exec memory path signal redirection heredoc fd basic_exec pipe_exec#token
 
 BUILTIN_FILES =	call_builtins ft_echo ft_env ft_pwd ft_unset ft_cd ft_export
 

@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 // TODO : FIX FT_EXPORT
-
+// TODO : fix segfault when 'man echo 3' then 'q'
 
 int	ft_builtin(char *line, t_cmd *cmd)
 {
