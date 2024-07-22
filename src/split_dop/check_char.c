@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:35:32 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 17:43:02 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/22 20:39:56 by Laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_is_quote(int i, char *s, char **lst, int j)
 		i++;
 	i++;
 	word_len = i - start;
-	lst[j++] = ft_substr(s + start, 0, word_len);
+	lst[j] = ft_substr(s + start, 0, word_len);
 	return (i);
 }
 

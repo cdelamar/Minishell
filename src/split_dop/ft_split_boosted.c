@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_boosted.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 16:45:51 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/22 20:38:35 by Laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	split_in_tab(char *s, char **lst)
 		}
 		start = i;
 		if (check_char(s, i, lst, j) != i)
-			i = check_char (s, i, lst, j);
+		{
+			free(lst[j]);
+			i = check_char(s, i, lst, j);
+		}
 		else
 		{
 			while (is_char(s[i]))
