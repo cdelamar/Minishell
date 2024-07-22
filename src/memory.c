@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/22 12:59:13 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/07/22 18:51:06 by cdelamar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token)
@@ -36,23 +48,12 @@ void free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token)
 {
 	if(cmd->path_split)
 		ft_freetab(cmd->path_split);
-	//if (cmd->env)
-	//	ft_freetab(cmd->env);
 	if(cmd)
-	{
-		// printf("free cmd\n");
 		free(cmd);
-	}
 	if(ctx)
-	{
-		// printf("free ctx\n");
 		free(ctx);
-	}
 	if(token)
-	{
-		// printf("free cmd\n");
 		free(token);
-	}
 }
 static int	env_count(char **envp)
 {

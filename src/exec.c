@@ -6,14 +6,11 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/18 17:15:40 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:09:25 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// TODO : remove 'exit' from basic execute and put it in the builtins handler
-
 
 void initialize_cmd(t_cmd *cmd, char *line)
 {
@@ -25,7 +22,7 @@ void handle_error(char *msg, t_cmd *cmd, int *fd)
 {
     printf("ERROR (%s)\n", msg);
     close_fds(fd);
-    if (cmd->path_command)
+	if (cmd->path_command)
         ft_freetab(cmd->path_command);
     //return(EXIT_FAILURE);
 	exit(EXIT_FAILURE);
@@ -45,6 +42,8 @@ int	execute(char *line, t_cmd *cmd)
 		printf("builtins succeed (exec.c line 45)\n");
 		return (EXIT_SUCCESS);
 	}
+	else if (ft_strcmp(line, "exit") == 0)
+		return (EXIT_COMMAND);
 	return (basic_execute(line, cmd));
 }
 

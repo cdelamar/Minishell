@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:29:31 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/17 19:33:39 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:00:24 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int is_valid_var_name(char *name)
 {
     int i;
 
-    i = 1;
+    i = 0;
     if (!ft_isalpha(name[0]) && name[0] != '_')
         return (0);
     while (name[i])
@@ -45,6 +45,7 @@ int add_env_var(char *var, t_cmd *cmd)
     {
         if (ft_strncmp(env[i], var, name_end - var) == 0 && env[i][name_end - var] == '=')
         {
+            printf("ca libere ici (line 48)\n");
             free(env[i]);
             env[i] = ft_strdup(var);
             return (0);
@@ -53,6 +54,7 @@ int add_env_var(char *var, t_cmd *cmd)
     }
     env[i] = ft_strdup(var);
     env[i + 1] = NULL;
+    printf("return (line 57)\n");
     return (0);
 }
 
@@ -74,6 +76,7 @@ int ft_export(char **args, t_cmd *cmd)
         print_env(cmd);
         return (0);
     }
+    printf("return (line 79)\n");
     return (add_env_var(args[1], cmd));
 }
 
@@ -81,10 +84,10 @@ int ft_export(char **args, t_cmd *cmd)
 /*
 // Function to check if a variable name is valid
 int is_valid_var_name(char *name) {
-    if (!isalpha(name[0]) && name[0] != '_') 
+    if (!isalpha(name[0]) && name[0] != '_')
         return (0);
     for (int i = 1; name[i]; i++) {
-        if (!isalnum(name[i]) && name[i] != '_') 
+        if (!isalnum(name[i]) && name[i] != '_')
             return (0);
     }
     return (1);

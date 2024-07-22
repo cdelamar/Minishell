@@ -6,7 +6,7 @@
 #    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/07/18 13:07:28 by cdelamar         ###   ########.fr        #
+#    Updated: 2024/07/22 16:21:29 by cdelamar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,15 @@ NAME = minishell
 LIBFT = lib/libft.a
 
 CC = cc
-CFLAGS =	-g -Iincludes -Ilib/includes -Wall -Wextra -Werror
-LFLAGS =	-Llib -lft -lreadline
+CFLAGS = -g -Iincludes -Ilib/includes -Wall -Wextra -Werror
+LFLAGS = -Llib -lft -lreadline
 
 SRC_DIRS = src/ builtins/
 OBJ_DIR = obj/
 
-SRC_FILES =	command main exec memory path signal redirection heredoc fd basic_exec pipe_exec#token
+SRC_FILES = command main exec memory path signal redirection heredoc fd basic_exec pipe_exec#token
 
-BUILTIN_FILES =	call_builtins ft_echo ft_env ft_pwd ft_unset ft_cd ft_export
+BUILTIN_FILES = call_builtins ft_echo ft_env ft_pwd ft_unset ft_cd ft_export
 
 SRC_SRCS = $(addprefix src/, $(addsuffix .c, $(SRC_FILES)))
 BUILTIN_SRCS = $(addprefix builtins/, $(addsuffix .c, $(BUILTIN_FILES)))
@@ -37,11 +37,11 @@ VALGRIND_SUPP = valgrind.supp
 
 all: $(NAME)
 
-clean :
+clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "\033[35m✔ Cleaned object files.\033[37m"
 
-fclean : clean
+fclean: clean
 	@rm -rf $(NAME)
 	@echo "\033[35m✔ Cleaned all files.\033[37m"
 
@@ -73,8 +73,14 @@ valgrind: $(NAME)
 rl_on: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
-.PHONY: all clean fclean re valgrind
+# Run the test script
+tester: $(NAME)
+	@chmod +x test_minishell_commands.sh
+	@./test_minishell_commands.sh
+
+.PHONY: all clean fclean re valgrind tester
 
 # Avoid to rebuild the lib
 $(OBJS): | $(LIBFT)
+
 

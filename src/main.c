@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/17 18:06:50 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:10:57 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ TODO
 - gerer ctrl + c dans le heredoc
 - fixer le '|' qui vaut ctrl + D
 - gerer le soucis des redirections qui sont gerees que dans un sens, mais encore une fois faut voir avec le parsing je pense
-
 - quand tout sera OK, essayer de retirer le maximum de exit() que possible pour retourner a la racine du main autant que possible
 */
 

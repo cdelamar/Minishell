@@ -6,13 +6,11 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:31:18 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/16 18:32:20 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:12:06 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// TODO : refactoring cmd_cat
 
 char	*cmd_cat(const char *path_split, char *slash, char *command)
 {
