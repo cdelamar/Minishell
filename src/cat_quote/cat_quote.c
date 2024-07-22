@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 16:50:05 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/22 15:10:46 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	side_quote(t_token *token, int i)
 	t_token	*head;
 
 	head = token;
+	if (i < 0)
+		return (-1);
 	while (i != 0)
 	{
 		i--;

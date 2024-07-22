@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 11:55:09 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 16:48:21 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/22 14:53:27 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	before_node_cat(t_token **token, int i)
 	t_token	*head;
 	t_token	*new_node;
 	t_token	*before;
+	t_token *temp;
 	int		global_len;
 	int		i_content;
 
@@ -35,12 +36,17 @@ void	before_node_cat(t_token **token, int i)
 	i_content = copy_mid_node(head, new_node, i_content);
 	new_node->content[i_content] = '\0';
 	new_node->type = WORD;
-	new_node->next = head->next->next;
 	if (before)
 		before->next = new_node;
 	else
 		*token = new_node;
-	free_head(head);
+	temp = head->next->next;
+	new_node->next = temp;
+//	new_node->next->next = head->next->next->next;
+	free(head->content);
+	free(head);
+	free(head->next->content);
+	free(head->next);
 }
 
 void	after_node_cat(t_token **token, int i)
@@ -48,6 +54,7 @@ void	after_node_cat(t_token **token, int i)
 	t_token	*head;
 	t_token	*new_node;
 	t_token	*before;
+	t_token *temp;
 	int		global_len;
 	int		i_content;
 
@@ -66,10 +73,16 @@ void	after_node_cat(t_token **token, int i)
 	i_content = copy_node_after(head, new_node, i_content);
 	new_node->content[i_content] = '\0';
 	new_node->type = WORD;
-	new_node->next = head->next->next;
-	if (before != NULL)
+	if (before)
 		before->next = new_node;
 	else
 		*token = new_node;
-	free_head(head);
+	temp = head->next->next;
+	new_node->next = temp;
+//	new_node->next->next = head->next->next->next;
+	free(head->content);
+	free(head);
+	free(head->next->content);
+	free(head->next);
+
 }
