@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 11:55:09 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/22 14:53:27 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/22 20:44:26 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ void	before_node_cat(t_token **token, int i)
 		*token = new_node;
 	temp = head->next->next;
 	new_node->next = temp;
-//	new_node->next->next = head->next->next->next;
 	free(head->content);
-	free(head);
 	free(head->next->content);
 	free(head->next);
+	free(head);
 }
 
 void	after_node_cat(t_token **token, int i)
@@ -79,10 +78,9 @@ void	after_node_cat(t_token **token, int i)
 		*token = new_node;
 	temp = head->next->next;
 	new_node->next = temp;
-//	new_node->next->next = head->next->next->next;
 	free(head->content);
-	free(head);
 	free(head->next->content);
 	free(head->next);
+	free(head);
 
 }

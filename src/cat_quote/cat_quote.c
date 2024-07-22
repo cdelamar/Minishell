@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/22 15:10:46 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/22 20:47:47 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	delet_quote_inword(t_token **token, t_token *place)
 
 	i = 0;
 	k = 0;
-   head = *token;
+	head = *token;
 	while (head->index != place->index)
 		head = head->next;
 	new_content = malloc(ft_strlen(head->content) + 1);
