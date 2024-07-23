@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:59:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 14:26:10 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/23 17:52:41 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,21 @@ void	path_main(t_token *token_list, char **envp)
 	int		place_of_dollar;
 	t_token	*head;
 
-	place_of_dollar = find_the_dollar(token_list);
-	if (place_of_dollar == -1)
-		return ;
 	head = token_list;
-	while (head->index < place_of_dollar)
+	while (head != NULL)
+	{
+		place_of_dollar = find_the_dollar(token_list);
+		if (place_of_dollar == -1)
+			return ;
+		while (head->index < place_of_dollar)
+			head = head->next;
+		if (head->type == DOUBLE_QUOTE)
+			path_double_quote(envp, token_list, place_of_dollar);
+		else if (head->type == SIMPLE_QUOTE)
+			return ;
+		else
+			path_other(envp, token_list, place_of_dollar);
+		is_dollar_interogation(head);
 		head = head->next;
-	if (head->type == DOUBLE_QUOTE)
-		path_double_quote(envp, token_list, place_of_dollar);
-	else if (head->type == SIMPLE_QUOTE)
-		return ;
-	else
-		path_other(envp, token_list, place_of_dollar);
-	is_dollar_interogation(head);
+	}
 }// gere le $?
