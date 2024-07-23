@@ -3,13 +3,6 @@
 
 // TODO put exit in builtins caller
 
-int handle_exit_command(char *line)
-{
-    if (ft_strcmp(line, "exit") == 0)
-        return EXIT_COMMAND;
-    return 0;
-}
-
 int set_command_path(t_cmd *cmd)
 {
     ft_path(cmd);
@@ -67,9 +60,9 @@ int basic_execute(char *line, t_cmd *cmd)
     char **split_line = NULL;
 
     // Handle exit command
-    exit_code = handle_exit_command(line);
-    if (exit_code != 0)
-        return exit_code;
+   // exit_code = handle_exit_command(line);
+   // if (exit_code == EXIT_COMMAND)
+    //    return (EXIT_COMMAND);
     exit_code = set_command_path(cmd);
     if (exit_code != 0) {
         return exit_code;

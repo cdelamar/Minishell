@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/22 16:09:25 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:08:00 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void handle_error(char *msg, t_cmd *cmd, int *fd)
 	exit(EXIT_FAILURE);
 }
 
+
+int handle_exit_command(char *line)
+{
+    if (ft_strcmp(line, "exit") == 0)
+        return EXIT_COMMAND;
+    return 0;
+}
+
 int	execute(char *line, t_cmd *cmd)
 {
 	if (line[0] == '\0')
@@ -35,6 +43,8 @@ int	execute(char *line, t_cmd *cmd)
 		printf("free (exec.c : line 38)\n");
 		return (0);
 	}
+	if (handle_exit_command(line) == EXIT_COMMAND)
+		return (EXIT_COMMAND);
 	if (ft_strchr(line, '|'))
 		return (pipe_execute(line, cmd));
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)

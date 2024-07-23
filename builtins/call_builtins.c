@@ -6,14 +6,12 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:27:10 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/22 18:04:26 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:01:45 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// TODO : FIX FT_EXPORT
-// TODO : fix segfault when 'man echo 3' then 'q'
 
 /*
 int	ft_builtin(char *line, t_cmd *cmd)
@@ -153,24 +151,4 @@ int ft_builtin(char *line, t_cmd *cmd)
 	return ret;
 }
 
-/*
-int ft_builtin(char *line, t_cmd *cmd)
-{
-    char **split_line;
-    int saved_in;
-    int saved_out;
-    int ret;
-
-    split_line = ft_split(line, ' ');
-    if (!split_line) // safe
-        return EXIT_FAILURE;
-
-    if (backup_manager(split_line, &saved_in, &saved_out) == EXIT_SUCCESS)
-        ret = builtin_commands(split_line, cmd, saved_in, saved_out);
-    else
-        ret = EXIT_FAILURE;
-
-    ft_freetab(split_line);
-    return ret;
-}*/
 

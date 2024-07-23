@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:29:31 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/23 11:50:11 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:03:00 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int add_env_var(char *var, t_cmd *cmd)
     {
         if (ft_strncmp(env[i], var, name_end - var) == 0 && env[i][name_end - var] == '=')
         {
-            printf("\n\n\nca libere ici (line 48)\n\n\n");
             free(env[i]);
             env[i] = ft_strdup(var);
             return (0);
@@ -56,8 +55,6 @@ int add_env_var(char *var, t_cmd *cmd)
     }
     env[i] = ft_strdup(var);
     env[i + 1] = NULL;
-    printf("return (line 57)\n");
-    printf("\n\nenv n %d : '%s'\n\n", i, env[i]);
     return (0);
 }
 
@@ -73,13 +70,10 @@ void print_env(t_cmd *cmd)
 
 int ft_export(char **args, t_cmd *cmd)
 {
-    printf ("je passe bien dans mon builtin 'export'\n");
     if (!args[1])
     {
-        //print_env(cmd);
-        printf("print_env\n");
+        print_env(cmd);
         return (EXIT_SUCCESS);
     }
-    printf("return (line 79)\n");
     return (add_env_var(args[1], cmd));
 }

@@ -6,14 +6,14 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/22 15:10:57 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:02:03 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-TODO
+TODO LELOUP
 
 - virer les fonctions de 60 lignes pour les decouper proprements (pipe_execute et la call_builtins)
 - fix 'export' qui segfault alors qu'avant ca allait
