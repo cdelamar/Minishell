@@ -13,7 +13,8 @@ static void setup_child_pipes(t_cmd *cmd, int *fd, int i) {
 
 static int child_process(t_cmd *cmd, int *fd, int i) {
     setup_child_pipes(cmd, fd, i);
-    if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE) {
+    if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
+    {
         ft_freetab(cmd->path_command);
         exit(EXIT_FAILURE);
     }

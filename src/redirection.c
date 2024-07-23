@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:49:17 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:50:52 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int ft_input_redirect(char **args, int i)
     return (EXIT_SUCCESS);
 }
 
-int ft_heredoc_redirect(char **args, int i)
+/*int ft_heredoc_redirect(char **args, int i)
 {
     if (!args[i + 1])
 	{
@@ -76,12 +76,13 @@ int ft_heredoc_redirect(char **args, int i)
     }
     if (ft_heredoc(args[i + 1]) != 0)
 	{
-        printf("ERROR (line %d : redirection.c)\n", __LINE__);
+        printf("ERROR (line 79 : redirection.c)\n");
         return (EXIT_FAILURE);
     }
     args[i] = NULL;
+    printf("la ca redirect sur ft_heredoc et ca a marche, impeccable\n");
     return (EXIT_SUCCESS);
-}
+}*/
 
 int handle_redirections(char **args)
 {
@@ -104,11 +105,11 @@ int handle_redirections(char **args)
             if (ft_input_redirect(args, i) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
         }
-		else if (ft_strcmp(args[i], "<<") == 0)
-		{
-            if (ft_heredoc_redirect(args, i) != EXIT_SUCCESS)
-				return (EXIT_FAILURE);
-        }
+		//else if (ft_strcmp(args[i], "<<") == 0)
+		//{
+        //    if (ft_heredoc_redirect(args, i) != EXIT_SUCCESS)
+		//		return (EXIT_FAILURE);
+        //}
         i++;
     }
     return (EXIT_SUCCESS);

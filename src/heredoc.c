@@ -6,75 +6,45 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/18 17:16:32 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:38:56 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// TODO fix heredoc
+// TODO croire en ses reves
 
-static int write_heredoc_lines(int fd, char *limit)
+// comment ca marche
+// un fichier temporaire > open et unlink
+// basic command sur la redi
+
+/*
+
+char *ft_realloc(char *str, int size)
 {
-    char *line;
-
-    while (1)
-    {
-        printf("heredoc> ");
-        line = get_next_line(STDIN_FILENO);
-        if (!line)
-            break;
-        line[ft_strcspn(line, "\n")] = 0; // Remove trailing newline char
-        if (ft_strcmp(line, limit) == 0)
-        {
-            free(line);
-            break;
-        }
-        if (write(fd, line, strlen(line)) == -1 || write(fd, "\n", 1) == -1)
-        {
-            printf("ERROR writing to heredoc file (line %d : heredoc.c)\n", __LINE__);
-            free(line);
-            return (EXIT_FAILURE);
-        }
-        free(line);
-    }
-    return (EXIT_SUCCESS);
+    char *new_str;
+    
+    new_str = malloc(size);
+    strcpy(new_str, str);
+    free(str);
+    return new_str;
 }
 
-static int close_reopen_heredoc()
+int main(char *delim)
 {
-    int fd = open("/tmp/heredoc_tmp", O_RDONLY);
-    if (fd < 0)
+    char* line;
+    readline(line);
+    char *final_str;
+    while(strcmp(line, delim))
     {
-        printf("ERROR reopening heredoc file (line %d : heredoc.c)\n", __LINE__);
-        return (EXIT_FAILURE);
+        realloc(final_str, strlen(final_str) + strlen(line));
+        strcat(final_str, line);
     }
-    dup2(fd, STDIN_FILENO);
-    close(fd);
-    return (EXIT_SUCCESS);
+    
+    //executer final_str | command
+
+    
+    return 0;
 }
 
-int ft_heredoc(char *limit)
-{
-    int fd = open_heredoc_file();
-    if (fd < 0)
-        return (EXIT_FAILURE);
-
-    if (write_heredoc_lines(fd, limit) != EXIT_SUCCESS)
-    {
-        close(fd);
-        unlink("/tmp/heredoc_tmp");
-        return (EXIT_FAILURE);
-    }
-
-    close(fd);
-
-    if (close_reopen_heredoc() != EXIT_SUCCESS)
-    {
-        unlink("/tmp/heredoc_tmp");
-        return (EXIT_FAILURE);
-    }
-
-    unlink("/tmp/heredoc_tmp");
-    return (EXIT_SUCCESS);
-}
+*/

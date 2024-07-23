@@ -36,17 +36,20 @@ int basic_child_process(char *line, t_cmd *cmd) {
     return EXIT_FAILURE;
 }
 
-int basic_parent_process(pid_t pid, char **split_line) {
+int basic_parent_process(pid_t pid, char **split_line)
+{
     int status;
 
-    if (waitpid(pid, &status, 0) == -1) {
-        printf("freetab (basic_exec.c line 48)\n");
+    if (waitpid(pid, &status, 0) == -1)
+    {
+        printf("freetab (basic_exec.c line 44)\n");
         if (split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE) {
-        printf("freetab (basic_exec.c line 54)\n");
+    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
+    {
+        printf("freetab (basic_exec.c line 50)\n");
         if (split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
@@ -64,9 +67,8 @@ int basic_execute(char *line, t_cmd *cmd)
    // if (exit_code == EXIT_COMMAND)
     //    return (EXIT_COMMAND);
     exit_code = set_command_path(cmd);
-    if (exit_code != 0) {
+    if (exit_code != 0)
         return exit_code;
-    }
     cmd->pid1 = fork();
     if (cmd->pid1 < 0)
         return EXIT_FAILURE; // Error forking

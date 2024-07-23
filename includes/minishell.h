@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:50:07 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:50:18 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,9 @@ int		pipe_execute(char *line, t_cmd *cmd);
 int handle_path(t_cmd *cmd);
 
 // int fork_execve(t_cmd *cmd, char **split_line, char *command, int *status);
+// static int close_reopen_heredoc(void);
+// static int write_heredoc_lines(int fd, char *limit);
+
 
 
 #endif
