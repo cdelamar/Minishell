@@ -67,22 +67,23 @@ int ft_input_redirect(char **args, int i)
     return (EXIT_SUCCESS);
 }
 
-/*int ft_heredoc_redirect(char **args, int i)
+int ft_heredoc_redirect(char **args, int i)
 {
     if (!args[i + 1])
-	{
+    {
         printf("Syntax error: expected delimiter after '<<'\n");
-        return (EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
     if (ft_heredoc(args[i + 1]) != 0)
-	{
+    {
         printf("ERROR (line 79 : redirection.c)\n");
-        return (EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
-    args[i] = NULL;
-    printf("la ca redirect sur ft_heredoc et ca a marche, impeccable\n");
-    return (EXIT_SUCCESS);
-}*/
+    args[i] = NULL; // Indicate that this argument has been handled
+    args[i + 1] = HEREDOC_TMP_FILE; // Replace the delimiter with the temp file path
+    printf("Heredoc redirection handled successfully.\n");
+    return EXIT_SUCCESS;
+}
 
 int handle_redirections(char **args)
 {
@@ -105,12 +106,13 @@ int handle_redirections(char **args)
             if (ft_input_redirect(args, i) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
         }
-		//else if (ft_strcmp(args[i], "<<") == 0)
-		//{
-        //    if (ft_heredoc_redirect(args, i) != EXIT_SUCCESS)
-		//		return (EXIT_FAILURE);
-        //}
+		else if (ft_strcmp(args[i], "<<") == 0)
+		{
+            if (ft_heredoc_redirect(args, i) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+        }
         i++;
     }
     return (EXIT_SUCCESS);
 }
+

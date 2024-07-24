@@ -41,6 +41,7 @@
 # define OUT_FAILURE	"outfile failure\n"
 # define ENV_FAILURE	"environnement failure\n"
 # define BUFFER_SIZE	5000
+# define HEREDOC_TMP_FILE "/tmp/heredoc_tmp"
 
 
 # define STDIN 0
