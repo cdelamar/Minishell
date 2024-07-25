@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/25 04:06:10 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:25:05 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int ft_heredoc(char *limit)
         free(line);
     }
 
-    // printf("Heredoc content:\n%s", heredoc_content); // pas mal c'est francais
+    printf("Heredoc output:\n%s", heredoc_content); // pas mal c'est francais
     free(heredoc_content);
     return 0;
 }

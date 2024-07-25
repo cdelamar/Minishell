@@ -19,6 +19,7 @@ int basic_child_process(char *line, t_cmd *cmd)
     char **split_line;
     char *command;
 
+    printf ("** basic child **\n");
     split_line = ft_split(line, ' ');
     if (handle_redirections(split_line, 1) != 0)
     {
@@ -38,6 +39,7 @@ int basic_parent_process(pid_t pid, char **split_line)
 {
     int status;
 
+    printf ("** basic parent **\n");
     if (waitpid(pid, &status, 0) == -1)
     {
         printf("freetab (basic_exec.c line 44)\n");
@@ -60,6 +62,7 @@ int basic_execute(char *line, t_cmd *cmd)
     int exit_code;
     char **split_line = NULL;
 
+    printf ("** basic_execute **\n");
     // Handle exit command
    // exit_code = handle_exit_command(line);
    // if (exit_code == EXIT_COMMAND)

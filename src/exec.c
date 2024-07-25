@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/25 01:07:49 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:25:19 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void initialize_cmd(t_cmd *cmd, char *line)
 {
-    cmd->fd_in = 0; // Initialize the input for the first command
-    cmd->path_command = ft_split(line, '|'); // maybe the issue of '|' = ctrl + d
+    cmd->fd_in = 0; // Initialize the input for the first commad
+    cmd->path_command = ft_split(line, '|'); // maybe the issue of '|' = ctrl + d.
 }
 
 void handle_error(char *msg, t_cmd *cmd, int *fd)
@@ -38,6 +38,7 @@ int handle_exit_command(char *line)
 
 int	execute(char *line, t_cmd *cmd)
 {
+	printf ("** execute **\n");
 	if (line[0] == '\0')
 	{
 		printf("free (exec.c : line 43)\n");
@@ -54,6 +55,5 @@ int	execute(char *line, t_cmd *cmd)
 	}
 	else if (ft_strcmp(line, "exit") == 0)
 		return (EXIT_COMMAND);
-	printf("exec\n");
 	return (basic_execute(line, cmd));
 }

@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:05:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:51:34 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:23:52 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	ft_echo(char **split_line)
     i = 1;
     newline = true;
 
+	printf ("** echo **\n");
     while (split_line[i] && split_line[i][0] == '-')
     {
         j = 1;
