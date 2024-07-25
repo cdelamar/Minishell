@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:27:10 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/23 12:01:45 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/25 03:53:53 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
 
 static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout)
 {
-    if (handle_redirections(split_line) == EXIT_FAILURE)
+    if (handle_redirections(split_line, 0) == EXIT_FAILURE)
 	{
         restore_fd(saved_stdin, saved_stdout);
         //ft_freetab(split_line); obsolete ?
@@ -122,6 +122,8 @@ static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout
 
 static int backup_manager(char **split_line, int *saved_stdin, int *saved_stdout)
 {
+
+    (void)split_line;
     if (backup_fd(saved_stdin, saved_stdout) < 0)
         return EXIT_FAILURE;
 

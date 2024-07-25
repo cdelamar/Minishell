@@ -13,18 +13,16 @@ int set_command_path(t_cmd *cmd)
     }
     return (EXIT_SUCCESS);
 }
-/*
-int basic_child_process(char *line, t_cmd *cmd) {
+
+int basic_child_process(char *line, t_cmd *cmd)
+{
     char **split_line;
     char *command;
 
     split_line = ft_split(line, ' ');
-    if (!split_line) {
-        printf("ERROR: ft_split failed (basic_exec.c line 34)\n");
-        return EXIT_FAILURE;
-    }
-    if (handle_redirections(split_line) < 0) {
-        printf("ERROR (pid.c line 43)\n");
+    if (handle_redirections(split_line, 1) != 0)
+    {
+        printf("ERROR (basic_exec.c line 25)\n");
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
@@ -34,7 +32,7 @@ int basic_child_process(char *line, t_cmd *cmd) {
     printf("command not found: %s\n", line);
     ft_freetab(split_line);
     return EXIT_FAILURE;
-}*/
+}
 
 int basic_parent_process(pid_t pid, char **split_line)
 {
@@ -71,57 +69,14 @@ int basic_execute(char *line, t_cmd *cmd)
         return exit_code;
     cmd->pid1 = fork();
     if (cmd->pid1 < 0)
-        return EXIT_FAILURE; // Error forking
+        return EXIT_FAILURE; //Error forking
     else if (cmd->pid1 == 0)
 	{
         exit_code = basic_child_process(line, cmd);
-        exit(exit_code); // Ensure the child process exits after handling
+        // exit(exit_code); //Ensure the child process exits after handling
+        return(exit_code); //Ensure the child process exits after handling
     }
 	else
         return basic_parent_process(cmd->pid1, split_line);
     return EXIT_SUCCESS;
-}
-
-int basic_child_process(char *line, t_cmd *cmd)
-{
-    char **split_line;
-    char *command;
-
-    split_line = ft_split(line, ' ');
-    if (!split_line)
-    {
-        printf("ERROR: ft_split failed (basic_exec.c line 34)\n");
-        return EXIT_FAILURE;
-    }
-    if (handle_redirections(split_line) < 0)
-    {
-        printf("ERROR (pid.c line 43)\n");
-        ft_freetab(split_line);
-        return EXIT_FAILURE;
-    }
-
-    // Handle heredoc file redirection
-    for (int i = 0; split_line[i]; i++)
-    {
-        if (strcmp(split_line[i], HEREDOC_TMP_FILE) == 0)
-        {
-            int fd = open(HEREDOC_TMP_FILE, O_RDONLY);
-            if (fd < 0)
-            {
-                perror("open heredoc tmp file");
-                ft_freetab(split_line);
-                return EXIT_FAILURE;
-            }
-            dup2(fd, STDIN_FILENO);
-            close(fd);
-            break;
-        }
-    }
-
-    command = cmd_finder(split_line, cmd);
-    if (command)
-        execve(command, split_line, cmd->env);
-    printf("command not found: %s\n", line);
-    ft_freetab(split_line);
-    return EXIT_FAILURE;
 }

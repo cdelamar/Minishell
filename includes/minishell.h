@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/23 21:50:18 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/25 03:49:26 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define MALLOC_FAILURE	"malloc failure\n"
 # define OUT_FAILURE	"outfile failure\n"
 # define ENV_FAILURE	"environnement failure\n"
-# define BUFFER_SIZE	5000
 # define HEREDOC_TMP_FILE "/tmp/heredoc_tmp"
+# define BUFFER_SIZE	5000
 
 
 # define STDIN 0
@@ -129,8 +129,8 @@ void				sigint_handler(int sig);
 void				signals(void);
 
 //redirections
-int					handle_redirections(char **args);
-int					ft_heredoc_redirect(char **args, int i);
+int					handle_redirections(char **args, int status);
+int					ft_heredoc_redirect(char *delim);
 int					ft_input_redirect(char **args, int i);
 int					ft_output_redirect(char **args, int i, int append);
 int					ft_heredoc(char *limit);
@@ -145,11 +145,11 @@ int					open_heredoc_file(void);
 
 
 //basic executing
-int		handle_exit_command(char *line);
-int		set_command_path(t_cmd *cmd);
-int		basic_child_process(char *line, t_cmd *cmd);
-int		basic_parent_process(pid_t pid, char **split_line);
-int		basic_execute(char *line, t_cmd *cmd);
+int					handle_exit_command(char *line);
+int					set_command_path(t_cmd *cmd);
+int					basic_child_process(char *line, t_cmd *cmd);
+int					basic_parent_process(pid_t pid, char **split_line);
+int					basic_execute(char *line, t_cmd *cmd);
 
 //pipe executing
 void	handle_pipe_error(t_cmd *cmd, int *fd);

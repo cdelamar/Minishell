@@ -2,16 +2,17 @@
 #include "../includes/minishell.h"
 
 
-static void setup_child_pipes(t_cmd *cmd, int *fd, int i) {
+static void setup_child_pipes(t_cmd *cmd, int *fd, int i)
+{
     dup2(cmd->fd_in, 0); // Get input from the previous command
-    if (cmd->path_command[i + 1]) {
+    if (cmd->path_command[i + 1])
         dup2(fd[1], 1); // Output to the next command
-    }
     close_fds(fd);
     close(cmd->fd_in);
 }
 
-static int child_process(t_cmd *cmd, int *fd, int i) {
+static int child_process(t_cmd *cmd, int *fd, int i)
+{
     setup_child_pipes(cmd, fd, i);
     if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
     {

@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/23 15:05:31 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/07/25 01:07:49 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	execute(char *line, t_cmd *cmd)
 	}
 	else if (ft_strcmp(line, "exit") == 0)
 		return (EXIT_COMMAND);
+	printf("exec\n");
 	return (basic_execute(line, cmd));
 }
-
-	// else if (le builtin marche pas) ->error_message
