@@ -78,7 +78,12 @@ tester: $(NAME)
 	@chmod +x test_minishell_commands.sh
 	@./test_minishell_commands.sh
 
-.PHONY: all clean fclean re valgrind tester
+# Debug with GDB
+gdb: $(NAME)
+	@echo "\033[35m✔ Launching GDB...\033[37m"
+	@gdb -tui --args ./$(NAME)
+
+.PHONY: all clean fclean re valgrind tester gdb
 
 # Avoid to rebuild the lib
 $(OBJS): | $(LIBFT)

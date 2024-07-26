@@ -26,7 +26,7 @@ int ft_heredoc(char *limit)
     char *temp;
 
     heredoc_content = malloc(1);
-    // heredoc_content[0] = '\0';
+    heredoc_content[0] = '\0';
 
     while (1)
     {
