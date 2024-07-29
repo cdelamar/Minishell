@@ -56,7 +56,7 @@ int main(int argc, char **argv, char **envp)
 		if (line == NULL)
 		{
 			free_structs(cmd, ctx, token);
-			printf("CTRL + D\n");
+			printf("CTRL + D from main.c (line 59)\n");
 			return (0);
 		}
 

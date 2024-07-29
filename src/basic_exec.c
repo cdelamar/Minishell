@@ -19,7 +19,7 @@ int basic_child_process(char *line, t_cmd *cmd)
     char **split_line;
     char *command;
 
-    printf ("** basic child **\n");
+    // printf ("** basic child **\n");
     split_line = ft_split(line, ' ');
     if (handle_redirections(split_line, 1) != 0)
     {
@@ -27,6 +27,7 @@ int basic_child_process(char *line, t_cmd *cmd)
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
+    printf ("** handle_redirections = %d **\n", handle_redirections(split_line, 1));
     command = cmd_finder(split_line, cmd);
     if (command)
         execve(command, split_line, cmd->env);
@@ -35,25 +36,33 @@ int basic_child_process(char *line, t_cmd *cmd)
     return EXIT_FAILURE;
 }
 
+
+// surement le process parent qui fout la merde
 int basic_parent_process(pid_t pid, char **split_line)
 {
     int status;
 
-    printf ("** basic parent **\n");
+    // printf ("** basic parent **\n");
+    // printf("split line [0] = %s\n", split_line[0]);
+    // printf("split line [1] = %s\n", split_line[1]);
+    // printf("split line [2] = %s\n", split_line[2]);
     if (waitpid(pid, &status, 0) == -1)
     {
-        printf("freetab (basic_exec.c line 44)\n");
+        // printf("freetab (basic_exec.c line 44)\n");
+        // printf("** waitpid = -1 **\n");
         if (split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
-        printf("freetab (basic_exec.c line 50)\n");
+        // printf("freetab (basic_exec.c line 50)\n");
+        // printf("** le truc avec WIFEXITED **\n");
         if (split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
+    // printf ("** basic parent succeed **\n");
     return EXIT_SUCCESS;
 }
 
@@ -62,13 +71,14 @@ int basic_execute(char *line, t_cmd *cmd)
     int exit_code;
     char **split_line = NULL;
 
-    printf ("** basic_execute **\n");
+    split_line = ft_split(line, ' ');
+    // printf ("** basic_execute **\n");
     // Handle exit command
    // exit_code = handle_exit_command(line);
    // if (exit_code == EXIT_COMMAND)
     //    return (EXIT_COMMAND);
     exit_code = set_command_path(cmd);
-    if (exit_code != 0)
+    if (exit_code != EXIT_SUCCESS)
         return exit_code;
     cmd->pid1 = fork();
     if (cmd->pid1 < 0)

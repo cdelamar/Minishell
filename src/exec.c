@@ -39,11 +39,18 @@ int handle_exit_command(char *line)
 int	execute(char *line, t_cmd *cmd)
 {
 	printf ("** execute **\n");
-	if (line[0] == '\0')
+	if (ft_strcmp(line, "|") == 0)
 	{
-		printf("free (exec.c : line 43)\n");
+		printf("synthax error : expected arguments with '|'\n");
 		return (0);
 	}
+
+	if (line[0] == '\0')
+	{
+		printf("free : nothing outputed (exec.c : line 43)\n");
+		return (0);
+	}
+
 	if (handle_exit_command(line) == EXIT_COMMAND)
 		return (EXIT_COMMAND);
 	if (ft_strchr(line, '|'))

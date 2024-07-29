@@ -36,7 +36,7 @@ int	ft_echo(char **split_line)
     i = 1;
     newline = true;
 
-	printf ("** echo **\n");
+	// printf ("** echo **\n");
     while (split_line[i] && split_line[i][0] == '-')
     {
         j = 1;
