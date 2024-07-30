@@ -73,12 +73,6 @@ typedef struct s_token
 	struct s_token		*next;
 }	t_token;
 
-typedef struct s_ctx
-{
-	int		ac;
-	char	**av;
-}	t_ctx;
-
 typedef struct s_cmd
 {
 	int		fd[2];
@@ -107,8 +101,8 @@ t_token				*tokenizer(char *line);
 t_token				*create_token(char *value, enum e_token_type type);
 
 // memory
-int					malloc_structs(t_cmd **cmd, t_ctx **ctx, t_token **token);
-void				free_structs(t_cmd *cmd, t_ctx *ctx, t_token *token);
+int					malloc_structs(t_cmd **cmd, t_token **token);
+void				free_structs(t_cmd *cmd, t_token *token);
 void				ft_freetab(char **tab);
 
 // command

@@ -53,8 +53,8 @@ Des builtins sont implementees, a savoir : 'echo', 'unset', 'pwd', 'export', 'cd
 -- aide et remerciements --
 . expertise et debugage -------------------		: acasamit / cgodard
 . conseils avisees ------------------------		: gprigent / maxborde / gschwartz
-. idee irrealisable pour le commun des mortels	: amassias
 . determination sans faille ---------------		: laubry
+. idee irrealisable pour le commun des mortels		: amassias
 */
 
 
@@ -62,22 +62,28 @@ Des builtins sont implementees, a savoir : 'echo', 'unset', 'pwd', 'export', 'cd
 /*
 TODO general
 
-- virer les fonctions de 60 lignes pour les decouper proprements (pipe_execute et la call_builtins)
-- fix 'export' qui segfault alors qu'avant ca allait
-- fix 'echo' mais je vais avoir besoin du parsing donc je crois que je perd mon temps mais a voir si je peux pas faire un truc
-- virer 'exit' du basic (le code est divise en 3 parties je vais te faire un dessin apres) et le mettre en builtin
+MAIN
+- refactoriser la fonction main() et rendre l'integralite de l'executing modulaire
+
+HEREDOC
+- heredoc est le principal frein a la progression de l'executing, peut etre vaut-il mieux le gerer en dernier
 - gerer ctrl + c dans le heredoc
-- fixer le '|' qui vaut ctrl + D
+- comprendre pourquoi heredoc ne recoit pas la commande entree par l'utilisateur (parsing ?)
+
+REDIRECTION
 - gerer le soucis des redirections qui sont gerees que dans un sens, mais encore une fois faut voir avec le parsing je pense
 - quand tout sera OK, essayer de retirer le maximum de exit() que possible pour retourner a la racine du main autant que possible
+
+VALGRIND
+- fix autant de leak que possible avant de merge les deux parties
 */
 
+// int loop_execute();
 
 int main(int argc, char **argv, char **envp)
 {
 	char *line;
 	t_cmd *cmd;
-	t_ctx *ctx;
 	t_token *token;
 
 	(void)argc;
@@ -89,7 +95,7 @@ int main(int argc, char **argv, char **envp)
 	// SHELL LOOP
 	while (1)
 	{
-		if (malloc_structs(&cmd, &ctx, &token) != 0)
+		if (malloc_structs(&cmd, &token) != 0)
 		{
 			ft_putendl_fd(MALLOC_FAILURE, 2);
 			return (1);
@@ -103,7 +109,7 @@ int main(int argc, char **argv, char **envp)
 		// CTRL + D
 		if (line == NULL)
 		{
-			free_structs(cmd, ctx, token);
+			free_structs(cmd, token);
 			printf("CTRL + D from main.c (line 59)\n");
 			return (0);
 		}
@@ -117,11 +123,11 @@ int main(int argc, char **argv, char **envp)
 		{
 			// modif de var_g
 			printf("FREE by EXIT COMMAND (main.c line 72)\n");
-			free_structs(cmd, ctx, token);
+			free_structs(cmd, token);
 			free(line);
 			return (0);
 		}
-		free_structs(cmd, ctx, token);
+		free_structs(cmd, token);
 		free(line);
 	}
 	return (0);
