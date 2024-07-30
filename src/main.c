@@ -53,7 +53,7 @@ Des builtins sont implementees, a savoir : 'echo', 'unset', 'pwd', 'export', 'cd
 -- aide et remerciements --
 . expertise et debugage -------------------		: acasamit / cgodard
 . conseils avisees ------------------------		: gprigent / maxborde / gschwartz
-. idee irrealisable pour le commun des mortels 	: amassias
+. idee irrealisable pour le commun des mortels	: amassias
 . determination sans faille ---------------		: laubry
 */
 
