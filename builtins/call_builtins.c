@@ -36,9 +36,9 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     return (ret);
 }
 
-static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout)
+static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout, t_cmd *cmd)
 {
-    if (handle_redirections(split_line, 0) == EXIT_FAILURE)
+    if (handle_redirections(split_line, 0, cmd) == EXIT_FAILURE)
 	{
         restore_fd(saved_stdin, saved_stdout);
         //ft_freetab(split_line); obsolete ?
@@ -47,14 +47,14 @@ static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout
     return EXIT_SUCCESS;
 }
 
-static int backup_manager(char **split_line, int *saved_stdin, int *saved_stdout)
+static int backup_manager(char **split_line, int *saved_stdin, int *saved_stdout, t_cmd *cmd)
 {
 
     (void)split_line;
     if (backup_fd(saved_stdin, saved_stdout) < 0)
         return EXIT_FAILURE;
 
-    if (redirect_manager(split_line, *saved_stdin, *saved_stdout) == EXIT_FAILURE)
+    if (redirect_manager(split_line, *saved_stdin, *saved_stdout, cmd) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
     return EXIT_SUCCESS;
@@ -71,7 +71,7 @@ int ft_builtin(char *line, t_cmd *cmd)
 	if (!split_line)
 		return EXIT_FAILURE;
 
-	if (backup_manager(split_line, &saved_in, &saved_out) == EXIT_SUCCESS)
+	if (backup_manager(split_line, &saved_in, &saved_out, cmd) == EXIT_SUCCESS)
 		ret = builtin_commands(split_line, cmd, saved_in, saved_out);
 	else
 		ret = EXIT_FAILURE;

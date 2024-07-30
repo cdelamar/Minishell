@@ -15,7 +15,6 @@
 // TODO : handle '< test.txt cat' (*)
 // TODO : handle 'cat <test.txt'
 // TODO : handle ctrl+c in heredocs
-// TODO : handle why '|' == ctrl + D
 
 int ft_output_redirect(char **args, int i, int append)
 {
@@ -77,7 +76,7 @@ int ft_heredoc_redirect(char *delim)
     return EXIT_SUCCESS;
 }
 
-int handle_redirections(char **args, int status)
+int handle_redirections(char **args, int status, t_cmd *cmd)
 {
     int i = 0;
 
@@ -98,12 +97,16 @@ int handle_redirections(char **args, int status)
             if (ft_input_redirect(args, i) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
         }
-		else if (ft_strcmp(args[i], "<<") == 0 && status == 1)
-		{
-            printf("** heredoc redirect : status = %d **\n", status);
-            if (ft_heredoc_redirect(args[i + 1]) != EXIT_SUCCESS)
-				return (EXIT_FAILURE);
-            // printf ("cest un franc succes mon jeune amis\n");
+		else if (ft_strcmp(args[i], "<<") == 0 && status == HEREDOC_ON)
+        {
+            // Only process the heredoc if it hasn't been processed yet
+            if (cmd->heredoc_processed == FALSE)
+            {
+                printf("** heredoc redirect : status = %d **\n", status);
+                if (ft_heredoc_redirect(args[i + 1]) != EXIT_SUCCESS)
+                    return (EXIT_FAILURE);
+                cmd->heredoc_processed = TRUE; // Mark heredoc as processed
+            }
         }
         i++;
     }

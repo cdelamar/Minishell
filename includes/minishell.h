@@ -40,9 +40,14 @@
 # define MALLOC_FAILURE	"malloc failure\n"
 # define OUT_FAILURE	"outfile failure\n"
 # define ENV_FAILURE	"environnement failure\n"
-# define HEREDOC_TMP_FILE "/tmp/heredoc_tmp"
 # define BUFFER_SIZE	5000
 
+# define HEREDOC_ON		1
+# define HEREDOC_OFF	0
+# define HEREDOC_TMP_FILE "/tmp/heredoc_tmp"
+
+# define FALSE			0
+# define TRUE			1
 
 # define STDIN 0
 # define STDOUT 1
@@ -77,6 +82,7 @@ typedef struct s_ctx
 typedef struct s_cmd
 {
 	int		fd[2];
+	int		heredoc_processed;
 	pid_t	pid1;
 	pid_t	pid2;
 	int		fd_in;
@@ -129,7 +135,7 @@ void				sigint_handler(int sig);
 void				signals(void);
 
 //redirections
-int					handle_redirections(char **args, int status);
+int					handle_redirections(char **args, int status, t_cmd *cmd);
 int					ft_heredoc_redirect(char *delim);
 int					ft_input_redirect(char **args, int i);
 int					ft_output_redirect(char **args, int i, int append);

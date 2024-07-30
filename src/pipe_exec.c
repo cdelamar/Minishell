@@ -2,6 +2,9 @@
 #include "../includes/minishell.h"
 
 
+// TODO : fix   MINISHELL>qwwqls | wc
+//              1       4      27
+
 static void setup_child_pipes(t_cmd *cmd, int *fd, int i)
 {
     dup2(cmd->fd_in, 0); // Get input from the previous command
@@ -31,7 +34,7 @@ static void parent_process(t_cmd *cmd, int *fd, int *i)
     if (cmd->fd_in)
         close(cmd->fd_in);
     cmd->fd_in = fd[0]; // save input for nxt command
-    (*i)++;				// dunno why it work but dayum (indexing incrmt)
+    (*i)++;				// (indexing increment)
 }
 
 static int create_and_fork(t_cmd *cmd, int *fd)

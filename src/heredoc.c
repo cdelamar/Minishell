@@ -12,12 +12,19 @@
 
 #include "../includes/minishell.h"
 
-// TODO croire en ses reves
-
-// comment ca marche
-// un fichier temporaire > open et unlink
-// basic command sur la redi
-
+// TODO heredoc doesnt find proper command handlement
+// MINISHELL>cat << EOF
+// ** heredoc redirect : status = 1 **
+// heredoc> this is
+// heredoc> a test
+// heredoc> EOF
+// Heredoc output:
+// this is
+// a test
+// Heredoc redirection handled successfully.
+// cat: '<<': Aucun fichier ou dossier de ce nom
+// cat: EOF: Aucun fichier ou dossier de ce nom
+// MINISHELL>
 
 int ft_heredoc(char *limit)
 {

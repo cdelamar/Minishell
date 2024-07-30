@@ -38,7 +38,7 @@ int handle_exit_command(char *line)
 
 int	execute(char *line, t_cmd *cmd)
 {
-	printf ("** execute **\n");
+	// printf ("** execute **\n");
 	if (ft_strcmp(line, "|") == 0)
 	{
 		printf("synthax error : expected arguments with '|'\n");

@@ -1,8 +1,6 @@
 
 #include "../includes/minishell.h"
 
-// TODO put exit in builtins caller
-
 int set_command_path(t_cmd *cmd)
 {
     ft_path(cmd);
@@ -14,6 +12,16 @@ int set_command_path(t_cmd *cmd)
     return (EXIT_SUCCESS);
 }
 
+
+// PISTE : basic_child se repose sur les redirections pour
+// parser les potentiels chevron (<, << , >>, >) de redirection
+// la gestion du status (2eme arg du handle_redirection) est primordiale
+// pour pouvoir gerer heredoc differement des autres redirections.
+
+// Dans le cas de 'basic_child_process', seul 'HEREDOC_ON' fait office
+// de condition implementee. Il faudrait sans doute effectuer une
+// condition pour 'HEREDOC_OFF', au cas ou.
+
 int basic_child_process(char *line, t_cmd *cmd)
 {
     char **split_line;
@@ -21,13 +29,13 @@ int basic_child_process(char *line, t_cmd *cmd)
 
     // printf ("** basic child **\n");
     split_line = ft_split(line, ' ');
-    if (handle_redirections(split_line, 1) != 0)
+    if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
         printf("ERROR (basic_exec.c line 25)\n");
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    printf ("** handle_redirections = %d **\n", handle_redirections(split_line, 1));
+    // printf ("** handle_redirections = %d **\n", handle_redirections(split_line, 1, cmd));
     command = cmd_finder(split_line, cmd);
     if (command)
         execve(command, split_line, cmd->env);
