@@ -78,8 +78,67 @@ VALGRIND
 - fix autant de leak que possible avant de merge les deux parties
 */
 
-// int loop_execute();
+void shell_exec_loop(char **envp)
+{
+    char *line;
+    t_cmd *cmd;
+    t_token *token;
 
+    while (1)
+    {
+        if (malloc_structs(&cmd, &token) != 0)
+        {
+            ft_putendl_fd(MALLOC_FAILURE, 2);
+            return;
+        }
+        cmd->env = envp;
+        cmd->heredoc_processed = FALSE;
+
+        line = readline("MINISHELL>");
+
+        // Handle CTRL+D (EOF)
+        if (line == NULL)
+        {
+            free_structs(cmd, token);
+            printf("CTRL + D from shell_loop\n");
+            return;
+        }
+
+        // Add non-empty line to history
+        if (*line)
+            add_history(line);
+
+        // Execute the command
+        if (execute(line, cmd) == EXIT_COMMAND)
+        {
+            printf("FREE by EXIT COMMAND (shell_loop)\n");
+            free_structs(cmd, token);
+            free(line);
+            return;
+        }
+
+        free_structs(cmd, token);
+        free(line);
+    }
+}
+
+int main(int argc, char **argv, char **envp)
+{
+    (void)argc;
+    (void)argv;
+
+    // Setup signal handlers
+    signals();
+
+    // Start shell loop
+    shell_exec_loop(envp);
+
+    return 0;
+}
+
+
+// WIP : remplacer l'ancien main par une fonction modulaire (attention au free())
+/*
 int main(int argc, char **argv, char **envp)
 {
 	char *line;
@@ -131,5 +190,4 @@ int main(int argc, char **argv, char **envp)
 		free(line);
 	}
 	return (0);
-}
-
+}*/
