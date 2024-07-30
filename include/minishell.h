@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/30 10:20:15 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/30 18:13:32 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void		print_node(t_token *token);
 int			nbr_of_strs(char **strs);
 void		print_path(char **evnp);
 void		print_snail(void);
+int			is_qte(char c);
 
 /*------tools of environement--------*/
 int			find_the_dollar(t_token *token);
@@ -102,6 +103,10 @@ void		getenv_in_list(char **envp, t_token *token_list, char *word, int $plc);
 char		**minisplit_dollar(char *word);
 int			nbr_of_dollar(t_token *token_list, int place_of_dollar);
 int			which_node(int	nbr_dollar, t_token *token_list);
+
+/*new*/
+void		path_main(t_token *token_list, char **envp);
+
 
 
 

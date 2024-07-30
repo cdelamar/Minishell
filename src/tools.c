@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:27:38 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/28 02:41:20 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/30 18:13:59 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,11 @@ void	print_split(char **split_line)
 		printf("print_split :%s\n", split_line[i]);
 		i++;
 	}
+}
+
+int	is_qte(char c)
+{
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
 }

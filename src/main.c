@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/30 10:45:00 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/30 18:48:49 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,9 @@ int	main(int argc, char **argv, char **envp)
 			free_split_line(split_line); // pas sur que ca fonctionne
 			return (0);
 		}
-		while (token_list)
-		{
-			printf("tokennn:%d  contenttt:%s\n", token_list->type, token_list->content);
-			token_list = token_list->next;
-		}
 		path_main(token_list, envp);
+		print_node(token_list); // il leaks mais tkt il est pas dans le code
 	//	after_before_cat(&token_list);
-	//	print_node(token_list); // il leaks mais tkt il est pas dans le code
 		//free_split_line(split_line);
 		free(split_line);
 		free(line);

@@ -24,8 +24,6 @@ FILES = main \
 		libft/ft_strtrim \
 		libft/ft_strlcpy \
 		libft/ft_lstdelone \
-		path/environement \
-		path/tool_of_environement \
 		split_dop/ft_split_boosted \
 		split_dop/count_word \
 		split_dop/check_char \
@@ -33,7 +31,7 @@ FILES = main \
 		cat_quote/tools_for_cat \
 		cat_quote/main_cat \
 		print_ascii \
-		path/minisplit_dollar \
+		path/main_envp \
 		signal
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
