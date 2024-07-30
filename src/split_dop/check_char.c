@@ -6,33 +6,11 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:35:32 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/22 20:39:56 by Laubry           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:41:36 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_is_quote(int i, char *s, char **lst, int j)
-{
-	int		start;
-	int		word_len;
-	char	c;
-
-	start = 0;
-	word_len = 0;
-	if (s[i] == '"')
-		c = '"';
-	else
-		c = '\'';
-	start = i;
-	i++;
-	while (s[i] && s[i] != c)
-		i++;
-	i++;
-	word_len = i - start;
-	lst[j] = ft_substr(s + start, 0, word_len);
-	return (i);
-}
 
 int	check_is_compar(int i, char *s, char **lst, int j)
 {
@@ -60,14 +38,54 @@ int	check_is_pipe(int i, char *s, char **lst, int j)
 	return (i + 1);
 }
 
+int	check_is_dollar(int i, char *s, char **lst, int j)
+{
+	int		start;
+	int		word_len;
+	
+	start = 0;
+	word_len = 0;
+	start = i;
+	i++;
+	while (s[i] && s[i] != ' ' && s[i] != is_char(*s) && s[i] != '$')
+		i++;
+	word_len = i - start;
+	lst[j] = ft_substr(s + start, 0, word_len);	
+	return (i);
+}
+
+int	check_is_quote(int i, char *s, char **lst, int j)
+{
+	int	start;
+	int	word_len;
+
+	start = i;
+	word_len = 0;
+	i++;
+	word_len = i - start;
+	lst[j] = ft_substr(s + start, 0, word_len);
+	return (i);
+}
 int	check_char(char *s, int i, char **lst, int j)
 {
 	if (s[i] == '<' || s[i] == '>')
 		return (check_is_compar(i, s, lst, j));
-	else if (s[i] == '"' || s[i] == '\'')
-		return (check_is_quote(i, s, lst, j));
 	else if (s[i] == '|')
 		return (check_is_pipe(i, s, lst, j));
+	else if (s[i] == '$')
+		return (check_is_dollar(i, s, lst, j));
+	else if (s[i] == '\'' || s[i] == '"')
+		return (check_is_quote(i, s, lst, j));
 	else
 		return (i);
 }
+
+
+
+
+//g ' ' g ' ' g ' ' g ' ' gg ' ' g " ggggg ' ' " \0
+//g g g g gg g"ggggg "
+
+
+
+

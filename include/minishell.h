@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/20 15:59:49 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/07/30 10:20:15 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,15 @@ int			skip_prefix(char *word);
 char		*skip_sufix(char *word);
 void		is_dollar_interogation(t_token *token_list);
 void		path_other(char **envp, t_token *token_list, int place_of_dollar);
-void		getenv_in_list(char **envp, t_token *token_list, char *word);
+void		getenv_in_list(char **envp, t_token *token_list, char *word, int $plc);
+char		**minisplit_dollar(char *word);
+int			nbr_of_dollar(t_token *token_list, int place_of_dollar);
+int			which_node(int	nbr_dollar, t_token *token_list);
 
 
 
 /*------------parsing----------------*/
-void		lexer(t_token *token, char **strs);
+void		lexer(t_token *token);
 void		path_main(t_token *token_list, char **envp);
 
 /*------------cat_quote--------------*/
@@ -125,6 +128,8 @@ void		free_head(t_token *head);
 size_t		count_word(char *s);
 int			is_char(char s);
 int			skip_space(char *s, int i);
+void		print_split(char **split_line);
+
 
 void		signals(void);
 void sigint_handler(int sig);

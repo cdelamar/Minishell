@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:27:38 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 16:23:49 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/28 02:41:20 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,16 @@ int	nbr_of_strs(char **argv)
 	while (argv[i])
 		i++;
 	return (i);
+}
+
+void	print_split(char **split_line)
+{
+	int	i;
+
+	i = 0;
+	while (split_line[i])
+	{
+		printf("print_split :%s\n", split_line[i]);
+		i++;
+	}
 }

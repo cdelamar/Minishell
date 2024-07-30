@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/18 17:54:09 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/29 14:55:03 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,7 @@ int	word_plus(char *s, int i, int *tab)
 		i = skip_space(s, i);
 		word++;
 	}
-	if (s[i] == '"' || s[i] == '\'')
-	{
-		i = is_quote(s, i);
-		if (i == 0)
-			return (0);
-		word++;
-	}
-	else if (s[i] == '|' || s[i] == '>' || s[i] == '<')
+	else if (s[i] == '|' || s[i] == '>' || s[i] == '<' || s[i] == '\'' || s[i] == '"')
 	{
 		word++;
 		i++;

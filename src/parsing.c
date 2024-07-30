@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/20 02:44:47 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/07/30 10:37:06 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,51 @@ int	quote_verif(char *str, int j)
 	return (0);
 }
 
-void	lexer(t_token *token, char **strs)
+int	quote_enum(t_token **token)
 {
-	int		i;
+	char c;
+	t_token	*head;
 
-	i = 0;
-	while (token)
+	head = *token;
+	c = '\0';
+	if (head->content[0] == '"')
 	{
-		token->content = strs[i];
-		if (quote_verif(strs[i], 1))
-			token->type = DOUBLE_QUOTE;
-		else if (quote_verif(strs[i], 2))
-			token->type = SIMPLE_QUOTE;
-		else
-			token->type = assign_enum(token);
-		token = token->next;
-		i++;
+		head->type = DOUBLE_QUOTE;
+		c = '"';
 	}
+	else if (head->content[0] == '\'')
+	{
+		head->type = SIMPLE_QUOTE;
+		c = '\'';
+	}
+	else
+		return (0);
+	head = head->next;
+	while (head->content[0] != c)
+	{
+		if (c == '"')
+			head->type = DOUBLE_QUOTE;
+		else
+			head->type = SIMPLE_QUOTE;
+		head = head->next;
+	}
+	if (c == '"')
+		head->type = DOUBLE_QUOTE;
+	else
+		head->type = SIMPLE_QUOTE;
+	*token = head;
+	return (1);
 }
 
+void	lexer(t_token *token)
+{
+	t_token	*head;
+
+	head = token;
+	while (head)
+	{
+		if (!quote_enum(&head))
+			head->type = assign_enum(head);
+		head  = head->next;
+	}
+}

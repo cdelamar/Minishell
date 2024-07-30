@@ -33,6 +33,7 @@ FILES = main \
 		cat_quote/tools_for_cat \
 		cat_quote/main_cat \
 		print_ascii \
+		path/minisplit_dollar \
 		signal
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))

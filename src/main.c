@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 17:12:01 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/30 10:45:00 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ int	add_node(t_token **token_list, char **strs, int i)
 	return (1);
 }
 
-int	make_token(char **strs, t_token **token_list)
+int	make_token(char **split_line, t_token **token_list)
 {
 	int	i;
 	int	argc;
 
-	argc = nbr_of_strs(strs);
+	argc = nbr_of_strs(split_line);
 	if (argc == 0)
 		return (0);
 	i = 0;
 	while (i < argc)
 	{
-		if (!add_node(token_list, strs, i))
+		if (!add_node(token_list, split_line, i))
 			return (0);
 		i++;
 	}
-	lexer(*token_list, strs);
+	lexer(*token_list);
 	return (1);
 }
 
@@ -76,6 +76,7 @@ int	main(int argc, char **argv, char **envp)
 		split_line = ft_split_boosted(line);
 		if (split_line == NULL)
 			return (0);
+		print_split(split_line);	
 		if (line == NULL)
 		{
 			free_split_line(split_line);
@@ -86,12 +87,18 @@ int	main(int argc, char **argv, char **envp)
 			free_split_line(split_line); // pas sur que ca fonctionne
 			return (0);
 		}
+		while (token_list)
+		{
+			printf("tokennn:%d  contenttt:%s\n", token_list->type, token_list->content);
+			token_list = token_list->next;
+		}
 		path_main(token_list, envp);
-		after_before_cat(&token_list);
-		print_node(token_list); // il leaks mais tkt il est pas dans le code
+	//	after_before_cat(&token_list);
+	//	print_node(token_list); // il leaks mais tkt il est pas dans le code
 		//free_split_line(split_line);
 		free(split_line);
 		free(line);
+		(void)envp;
 		token_lstclear(&token_list, free);
 	}
 }
