@@ -103,7 +103,7 @@ int handle_redirections(char **args, int status, t_cmd *cmd)
             if (cmd->heredoc_processed == FALSE)
             {
                 printf("** heredoc redirect : status = %d **\n", status);
-                if (ft_heredoc_redirect(args[i + 1]) != EXIT_SUCCESS)
+                if (ft_heredoc_redirect(args[i + 1]) != EXIT_SUCCESS) // TODO test avec args 0
                     return (EXIT_FAILURE);
                 cmd->heredoc_processed = TRUE; // Mark heredoc as processed
             }
@@ -112,5 +112,3 @@ int handle_redirections(char **args, int status, t_cmd *cmd)
     }
     return (EXIT_SUCCESS);
 }
-
-
