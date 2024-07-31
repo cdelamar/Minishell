@@ -77,7 +77,7 @@ REDIRECTION
 VALGRIND
 - fix autant de leak que possible avant de merge les deux parties
 */
-
+/*
 void shell_exec_loop(char **envp)
 {
     char *line;
@@ -119,6 +119,57 @@ void shell_exec_loop(char **envp)
 
         free_structs(cmd, token);
         free(line);
+    }
+}*/
+
+static void process_input(char *line, t_cmd *cmd, t_token *token)
+{
+    if (line == NULL)
+    {
+        printf("CTRL + D from shell_loop\n");
+        free_structs(cmd, token);
+        exit(0); // Handle exit on EOF (CTRL + D)
+    }
+
+    if (*line)
+        add_history(line);
+
+    if (execute(line, cmd) == EXIT_COMMAND)
+    {
+        printf("FREE by EXIT COMMAND (shell_loop)\n");
+        free_structs(cmd, token);
+        free(line);
+        exit(0); // Handle explicit exit command
+    }
+}
+
+static int init_shell_exec(t_cmd **cmd, t_token **token, char **envp)
+{
+    if (malloc_structs(cmd, token) != 0)
+    {
+        ft_putendl_fd(MALLOC_FAILURE, 2);
+        return 1;
+    }
+    (*cmd)->env = envp;
+    (*cmd)->heredoc_processed = FALSE;
+    return 0;
+}
+
+
+void shell_exec_loop(char **envp)
+{
+    char *line;
+    t_cmd *cmd;
+    t_token *token;
+
+    while (1)
+    {
+        if (init_shell_exec(&cmd, &token, envp) != 0)
+            return;
+
+        line = readline("MINISHELL>");
+        process_input(line, cmd, token);
+        cleanup(line, cmd, token);
     }
 }
 

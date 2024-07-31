@@ -12,6 +12,12 @@
 
 #include "../includes/minishell.h"
 
+void cleanup(char *line, t_cmd *cmd, t_token *token)
+{
+    free_structs(cmd, token);
+    free(line);
+}
+
 void initialize_cmd(t_cmd *cmd, char *line)
 {
     cmd->fd_in = 0; // Initialize the input for the first commad

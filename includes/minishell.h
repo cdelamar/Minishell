@@ -159,7 +159,11 @@ void	init_cmd(t_cmd *cmd, char *line);
 int		pipe_execute(char *line, t_cmd *cmd);
 
 //WIP
-int handle_path(t_cmd *cmd);
+int		handle_path(t_cmd *cmd);
+void	cleanup(char *line, t_cmd *cmd, t_token *token);
+// int		init_shell_exec(t_cmd **cmd, t_token **token, char **envp);
+
+
 
 // int fork_execve(t_cmd *cmd, char **split_line, char *command, int *status);
 // static int close_reopen_heredoc(void);
