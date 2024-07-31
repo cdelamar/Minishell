@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cat_quote.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/22 20:47:47 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/31 19:51:05 by Laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	side_quote(t_token *token, int i)
+int	side_quote(t_token *token, int place)
 {
 	t_token	*head;
 
 	head = token;
-	if (i < 0)
+	if (place < 0)
 		return (-1);
-	while (i != 0)
+	while (place != 0)
 	{
-		i--;
+		place--;
 		if (head == NULL)
 			return (-1);
 		head = head->next;
@@ -36,15 +36,15 @@ int	side_quote(t_token *token, int i)
 		return (1);
 }
 
-void	delet_space(t_token **token, int i)
+void	delet_space(t_token **token, int place)
 {
 	t_token	*head;
 	t_token	*temp;
 
 	head = *token;
-	while (head != NULL && i -1 != 0)
+	while (head != NULL && place -1 != 0)
 	{
-		i--;
+		place--;
 		head = head->next;
 	}
 	if (head == NULL)
@@ -72,89 +72,72 @@ void	delet_space_fonc(t_token *head)
 	}
 }
 
-int	process_quotes(t_token **token, int *j, t_token *place)
+void	process_quotes(t_token **token, int *place, int verif)
 {
 	int	boul;
-	int	info_boul;
 
-	info_boul = 0;
-	boul = side_quote(*token, *j -1);
+	boul = side_quote(*token, *place -1);
 	if (boul == 1 || boul == 2)
 	{
-		if (boul == 2)
-			delet_quote_inword(token, place);
-		before_node_cat(token, *j -1);
-		(*j)--;
+		before_node_cat(token, *place -1, verif);
+		(*place)--;
 	}
-	else
-		info_boul = 1;
-	boul = side_quote(*token, *j +1);
+	boul = side_quote(*token, *place +1);
 	if (boul == 1 || boul == 2)
 	{
 		if (boul == 2)
-		{
-			delet_quote_inword(token, place);
-			before_node_cat(token, *j);
-		}
+			before_node_cat(token, *place, verif);
 		else
-			after_node_cat(token, *j);
-		(*j)--;
+			after_node_cat(token, *place, verif);
+		(*place)--;
 	}
-	else
-		info_boul += 1;
-	return (info_boul);
 }
 
-void	delet_quote_inword(t_token **token, t_token *place)
+void	last_verif(t_token **token)
 {
-    t_token *head;
-    int     i;
-    int     k;
-    char    *new_content;
+	t_token *head;
+	int		place;
 
-	i = 0;
-	k = 0;
+	place = 0;
 	head = *token;
-	while (head->index != place->index)
+	while (head != NULL)
+	{
+		if (head->type == LAST_VERIF)
+		{
+			process_quotes(token, &place, 1);
+			//head->type = WORD;
+			head = *token;
+			place = 0;
+		}
+		place++;
 		head = head->next;
-	new_content = malloc(ft_strlen(head->content) + 1);
-	while (head->content[i])
-    {
-        if (head->content[i] != '"' && head->content[i] != '\'')
-        {
-            new_content[k] = head->content[i];
-            k++;
-        }
-        i++;
-    }
-    new_content[k] = '\0';
-    free(head->content);
-    head->content = new_content;
-	head->type = WORD;
+	}
 }
 
 void	after_before_cat(t_token **token)
 {
 	t_token	*head;
-	int		j;
-	int		adjacant;
+	int		place;
 
-	j = 0;
-	adjacant = 0;
+	place = 0;
 	head = *token;
 	while (head != NULL)
 	{
 		if (head->type == DOUBLE_QUOTE || head->type == SIMPLE_QUOTE)
 		{
-			adjacant = process_quotes(token, &j, head);
-			if (adjacant == 2)
-				delet_quote_inword(token, head);
+			process_quotes(token, &place, 0);
 			head = *token;
-			j = 0;
+			place = 0;
 		}
-		j++;
+		place++;
 		head = head->next;
 	}
+	last_verif(token);
 	head = *token;
 	delet_space_fonc(head);
 }
+//1"234" 567"89" "0"'12'3
+//head->content "
+//head->next->content gggg
+//head				"
+

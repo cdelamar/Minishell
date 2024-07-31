@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/30 18:48:49 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/31 19:49:51 by Laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 volatile int	g_var = 0;
 
@@ -88,14 +89,13 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		}
 		path_main(token_list, envp);
+		after_before_cat(&token_list);
 		print_node(token_list); // il leaks mais tkt il est pas dans le code
-	//	after_before_cat(&token_list);
 		//free_split_line(split_line);
 		free(split_line);
 		free(line);
-		(void)envp;
 		token_lstclear(&token_list, free);
 	}
 }
 // $? pas fini enfin si mais pas sur
-//le realoc tu doit le recoder dans parsing.c
+//le realloc tu doit le recoder dans parsing.c

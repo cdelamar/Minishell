@@ -38,6 +38,7 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word, int plc)
 	char		**env;
 	size_t		len;
 	char		*start;
+	int			old_enum;
 
 	env = envp;
 	len = ft_strlen(word);
@@ -48,7 +49,9 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word, int plc)
 			start = *env + len +1;
 			while (plc != token_list->index)
 				token_list = token_list->next;
+			old_enum = token_list->type;
 			token_list->content = path_in_tab(token_list, start);
+			token_list->type = old_enum;
 			break ;
 		}
 		env++;

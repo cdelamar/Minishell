@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/30 18:13:32 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/31 11:22:44 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum token_num
 	VAR, // $
 	DOUBLE_QUOTE, //
 	SIMPLE_QUOTE,
+	LAST_VERIF,
 	GLOBAL, // $?
 	ERROR, // erreur
 	END, // \0
@@ -116,12 +117,12 @@ void		path_main(t_token *token_list, char **envp);
 
 /*------------cat_quote--------------*/
 void		after_before_cat(t_token **token);
-void		before_node_cat(t_token **token, int i);
-void		after_node_cat(t_token **token, int i);
-int			copy_node(t_token *head, t_token *new_node, int i_content);
+void		before_node_cat(t_token **token, int i, int verif);
+void		after_node_cat(t_token **token, int i, int verif);
+int			copy_node(t_token *head, t_token *new_node);
 int			copy_node_after(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_node(t_token *head, t_token *new_node, int i_content);
-int			copy_mid_after_node(t_token *head, t_token *new_node, int i_content);
+int			copy_mid_after_node(t_token *head, t_token *new_node);
 void		advance_to_node(t_token **head, t_token **before, int *i);
 void		delet_quote_inword(t_token **token, t_token *place);
 

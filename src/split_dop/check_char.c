@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:35:32 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/30 18:13:16 by laubry           ###   ########.fr       */
+/*   Updated: 2024/07/31 11:00:21 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,3 @@ int	check_char(char *s, int i, char **lst, int j)
 	else
 		return (i);
 }
-
-
-
-
-//g ' ' g ' ' g ' ' g ' ' gg ' ' g " ggggg ' ' " \0
-//g g g g gg g"ggggg "
-
-
-
-
