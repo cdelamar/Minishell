@@ -29,38 +29,37 @@
 int ft_heredoc(char *limit)
 {
     char *line;
-    char *heredoc_content;
-    char *temp;
+    int heredoc_fd;
 
-    heredoc_content = malloc(1);
-    heredoc_content[0] = '\0';
+    // Open a temporary file to store heredoc content
+    heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (heredoc_fd < 0)
+    {
+        perror("ERROR opening heredoc file");
+        return -1;
+    }
 
     while (1)
     {
         line = readline("heredoc> ");
         if (!line)
         {
-            free(heredoc_content);
-            // printf("j'ai pas ctrl + D\n");
+            free(line);
+            close(heredoc_fd);
+            printf("Warning: EOF received\n");
             return -1;
         }
 
-        // Check for the limit
         if (ft_strcmp(line, limit) == 0)
         {
             free(line);
             break;
         }
 
-        // Join the line and a newline to the heredoc content
-        temp = ft_strjoin(heredoc_content, line);
-        free(heredoc_content);
-        heredoc_content = ft_strjoin(temp, "\n");
-        free(temp);
+        write(heredoc_fd, line, ft_strlen(line));
+        write(heredoc_fd, "\n", 1);
         free(line);
     }
-
-    printf("Heredoc output:\n%s", heredoc_content); // pas mal c'est francais
-    free(heredoc_content);
+    close(heredoc_fd);
     return 0;
 }

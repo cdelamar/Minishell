@@ -27,18 +27,20 @@ int basic_child_process(char *line, t_cmd *cmd)
     char **split_line;
     char *command;
 
-    // printf ("** basic child **\n");
     split_line = ft_split(line, ' ');
+
+    // Handling redirections, including heredoc
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
         printf("ERROR (basic_exec.c line 25)\n");
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    // printf ("** handle_redirections = %d **\n", handle_redirections(split_line, 1, cmd));
+
     command = cmd_finder(split_line, cmd);
     if (command)
         execve(command, split_line, cmd->env);
+
     printf("command not found: %s\n", line);
     ft_freetab(split_line);
     return EXIT_FAILURE;

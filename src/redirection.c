@@ -100,15 +100,36 @@ int handle_redirections(char **args, int status, t_cmd *cmd)
 		else if (ft_strcmp(args[i], "<<") == 0 && status == HEREDOC_ON)
         {
             // Only process the heredoc if it hasn't been processed yet
-            if (cmd->heredoc_processed == FALSE)
+            if (args[i + 1] == NULL)
             {
-                printf("** heredoc redirect : status = %d **\n", status);
-                if (ft_heredoc_redirect(args[i + 1]) != EXIT_SUCCESS) // TODO test avec args 0
-                    return (EXIT_FAILURE);
-                cmd->heredoc_processed = TRUE; // Mark heredoc as processed
+                printf("bash: syntax error near unexpected token `newline`\n");
+                return -1;
             }
+            if (ft_heredoc(args[i + 1]) < 0)
+                return -1;
+
+            cmd->fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
+            if (cmd->fd_in < 0)
+            {
+                perror("ERROR opening heredoc temp file");
+                return -1;
+            }
+
+            dup2(cmd->fd_in, STDIN_FILENO);
+            close(cmd->fd_in);
+            // Remove the heredoc elements from args for further processing
+            free(args[i]);
+            free(args[i + 1]);
+            while (args[i + 2])
+            {
+                args[i] = args[i + 2];
+                i++;
+            }
+            args[i] = NULL;
+            i = 0; // Reset to recheck for more redirections
         }
-        i++;
+        else
+            i++;
     }
     return (EXIT_SUCCESS);
 }

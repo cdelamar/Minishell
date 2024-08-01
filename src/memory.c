@@ -31,6 +31,8 @@ void free_structs(t_cmd *cmd, t_token *token)
 {
 	if(cmd->path_split)
 		ft_freetab(cmd->path_split);
+	//if(cmd->env)
+	//	ft_freetab(cmd->env);
 	if(cmd)
 		free(cmd);
 	if(token)
