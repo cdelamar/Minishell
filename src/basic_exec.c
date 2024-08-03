@@ -70,7 +70,7 @@ int basic_parent_process(pid_t pid, char **split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    printf ("** basic parent succeed **\n");
+    // printf ("** basic parent succeed **\n");
     ft_freetab(split_line);
     return EXIT_SUCCESS;
 }
@@ -96,11 +96,10 @@ int basic_execute(char *line, t_cmd *cmd)
     }
     else if (cmd->pid1 == 0)
 	{
-        printf("** la c'est 'si le pid vaut zero', donc le child process **\n");
+        // printf("** la c'est 'si le pid vaut zero', donc le child process **\n");
         exit_code = basic_child_process(line, cmd);
         ft_freetab(split_line);
-        // exit(exit_code); // peut etre la solution a tous les probleme ou bien une enorme connerie
-        return(exit_code);
+        exit(exit_code); // peut etre la solution a tous les probleme ou bien une enorme connerie
     }
 	else
         return basic_parent_process(cmd->pid1, split_line);

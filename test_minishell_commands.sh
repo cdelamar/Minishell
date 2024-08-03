@@ -8,6 +8,20 @@ ls | wc
 ls -l | wc -l
 echo salut > test.txt
 cat < test.txt
+echo coucou >> test.txt
+cat < test.txt
+wc << fin
+this is a test
+true neutral human fighter
+lvl 50
+fin
+echo effacer > test.txt
+cat < test.txt
+pwd
+cd src
+ls
+cd ..
+lsdfk
 exit
 EOL
 
