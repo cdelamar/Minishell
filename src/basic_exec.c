@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basic_exec.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
+/*   Updated: 2024/08/05 15:24:08 by cdelamar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -11,7 +23,6 @@ int set_command_path(t_cmd *cmd)
     }
     return (EXIT_SUCCESS);
 }
-
 
 // PISTE : basic_child se repose sur les redirections pour
 // parser les potentiels chevron (<, << , >>, >) de redirection
@@ -46,16 +57,10 @@ int basic_child_process(char *line, t_cmd *cmd)
     return EXIT_FAILURE;
 }
 
-
-// surement le process parent qui fout la merde
 int basic_parent_process(pid_t pid, char **split_line)
 {
     int status;
 
-    // printf ("** basic parent **\n");
-    // printf("split line [0] = %s\n", split_line[0]);
-    // printf("split line [1] = %s\n", split_line[1]);
-    // printf("split line [2] = %s\n", split_line[2]);
     if (waitpid(pid, &status, 0) == -1)
     {
         printf("condition dans laquelle on passe jamais\n");
@@ -70,7 +75,6 @@ int basic_parent_process(pid_t pid, char **split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    // printf ("** basic parent succeed **\n");
     ft_freetab(split_line);
     return EXIT_SUCCESS;
 }
@@ -96,7 +100,6 @@ int basic_execute(char *line, t_cmd *cmd)
     }
     else if (cmd->pid1 == 0)
 	{
-        // printf("** la c'est 'si le pid vaut zero', donc le child process **\n");
         exit_code = basic_child_process(line, cmd);
         ft_freetab(split_line);
         exit(exit_code); // peut etre la solution a tous les probleme ou bien une enorme connerie

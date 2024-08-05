@@ -57,7 +57,7 @@ int ft_input_redirect(char **args, int i)
     fd = open_file(args[i + 1], O_RDONLY, 0);
     if (fd < 0)
     {
-        printf("ERROR redirection.c (line 61)\n");
+        printf("ERROR redirection.c (line %d)\n", __LINE__);
         return (EXIT_FAILURE);
     }
     dup2(fd, STDIN_FILENO);
@@ -72,7 +72,7 @@ int ft_heredoc_redirect(char *delim)
         return EXIT_FAILURE;
     if (ft_heredoc(delim) != 0)
         return EXIT_FAILURE;
-    printf("Heredoc redirection handled successfully.\n");
+    // printf("Heredoc redirection handled successfully.\n");
     return EXIT_SUCCESS;
 }
 

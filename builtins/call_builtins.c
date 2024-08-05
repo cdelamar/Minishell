@@ -75,7 +75,6 @@ int ft_builtin(char *line, t_cmd *cmd)
 		ret = builtin_commands(split_line, cmd, saved_in, saved_out);
 	else
 		ret = EXIT_FAILURE;
-
 	ft_freetab(split_line);
 	return ret;
 }

@@ -10,6 +10,11 @@ echo salut > test.txt
 cat < test.txt
 echo coucou >> test.txt
 cat < test.txt
+env
+export LOUISE=mafille
+env
+unset LOUISE
+env
 wc << fin
 this is a test
 true neutral human fighter
