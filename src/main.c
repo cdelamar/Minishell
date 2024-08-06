@@ -49,12 +49,6 @@ entrees par l'utilisateur et de les effectuer sous certaines conditions (redirec
 Des builtins sont implementees, a savoir : 'echo', 'unset', 'pwd', 'export', 'cd', 'env' et 'exit'.
 
 . auteurs du projet : cdelamar / laubry
-
--- aide et remerciements --
-. expertise et debugage -------------------		: acasamit / cgodard
-. conseils avisees ------------------------		: gprigent / maxborde / gschwartz
-. determination sans faille ---------------		: laubry
-. idee irrealisable pour le commun des mortels		: amassias
 */
 
 
@@ -77,6 +71,8 @@ REDIRECTION
 VALGRIND
 - fix autant de leak que possible avant de merge les deux parties
 */
+
+volatile int g_signal;
 
 static void process_input(char *line, t_cmd *cmd, t_token *token)
 {
@@ -111,7 +107,6 @@ static int init_shell_exec(t_cmd **cmd, t_token **token, char **envp)
     return 0;
 }
 
-
 void shell_exec_loop(char **envp)
 {
     char *line;
@@ -122,7 +117,6 @@ void shell_exec_loop(char **envp)
     {
         if (init_shell_exec(&cmd, &token, envp) != 0)
             return;
-
         line = readline("MINISHELL>");
         process_input(line, cmd, token);
         cleanup(line, cmd, token);
@@ -131,8 +125,14 @@ void shell_exec_loop(char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-    (void)argc;
+    g_signal = 0;
     (void)argv;
+
+    if (argc != 1)
+    {
+        printf("MiniSnail is supposed to work by typing './minishell'\n");
+        return (0);
+    }
 
     // Setup signal handlers
     signals();

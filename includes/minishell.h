@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/25 03:49:26 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:46:58 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_cmd
 	char	**path_split;
 	char	**path_command;
 	char	**env;
+	int		export_added;
 }	t_cmd;
 
 // excecuting

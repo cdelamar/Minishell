@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/05 15:24:08 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:40:29 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ int set_command_path(t_cmd *cmd)
     return (EXIT_SUCCESS);
 }
 
-// PISTE : basic_child se repose sur les redirections pour
-// parser les potentiels chevron (<, << , >>, >) de redirection
-// la gestion du status (2eme arg du handle_redirection) est primordiale
-// pour pouvoir gerer heredoc differement des autres redirections.
-
-// Dans le cas de 'basic_child_process', seul 'HEREDOC_ON' fait office
-// de condition implementee. Il faudrait sans doute effectuer une
-// condition pour 'HEREDOC_OFF', au cas ou.
-
 int basic_child_process(char *line, t_cmd *cmd)
 {
     char **split_line;
@@ -40,7 +31,6 @@ int basic_child_process(char *line, t_cmd *cmd)
 
     split_line = ft_split(line, ' ');
 
-    // Handling redirections, including heredoc
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
         printf("ERROR (basic_exec.c line 25)\n");
@@ -57,22 +47,25 @@ int basic_child_process(char *line, t_cmd *cmd)
     return EXIT_FAILURE;
 }
 
-int basic_parent_process(pid_t pid, char **split_line)
+int basic_parent_process(pid_t pid, char **split_line) // TODO free cmd->path_split
 {
     int status;
 
     if (waitpid(pid, &status, 0) == -1)
     {
-        printf("condition dans laquelle on passe jamais\n");
+        printf("waitpid -1\n");
         if (split_line)
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
-        printf("condition dans laquelle on passe jamais non plus\n");
+        printf("(line %d)\n", __LINE__);
         if (split_line)
-            ft_freetab(split_line);
+          ft_freetab(split_line);
+
+        //free_structs(cmd, token);
+        // free(line);
         return EXIT_FAILURE;
     }
     ft_freetab(split_line);
@@ -88,7 +81,7 @@ int basic_execute(char *line, t_cmd *cmd)
     exit_code = set_command_path(cmd);
     if (exit_code != EXIT_SUCCESS)
     {
-        printf("jai pas l'impression que celle ci soit bien utile non plus\n");
+        printf("exit_code != EXIT_SUCCESS\n");
         ft_freetab(split_line);
         return exit_code;
     }
@@ -102,7 +95,7 @@ int basic_execute(char *line, t_cmd *cmd)
 	{
         exit_code = basic_child_process(line, cmd);
         ft_freetab(split_line);
-        exit(exit_code); // peut etre la solution a tous les probleme ou bien une enorme connerie
+        exit(exit_code); // sans ca le code se dedouble en cas de fausse commande
     }
 	else
         return basic_parent_process(cmd->pid1, split_line);

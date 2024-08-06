@@ -36,7 +36,6 @@ void handle_error(char *msg, t_cmd *cmd, int *fd)
 	exit(EXIT_FAILURE);
 }
 
-
 int handle_exit_command(char *line)
 {
     if (ft_strcmp(line, "exit") == 0)
