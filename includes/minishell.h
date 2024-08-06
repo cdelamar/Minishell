@@ -54,25 +54,6 @@
 # define STDERR 2
 # define EXIT_COMMAND	3
 
-enum e_token_type
-{
-	WORD,
-	OPERATOR,
-	APPEND,
-	HEREDOC,
-	VAR,
-	ENV,
-	REDIRECT,
-	DOUBLE_QUOTE
-};
-
-typedef struct s_token
-{
-	enum e_token_type	type;
-	char				*value;
-	struct s_token		*next;
-}	t_token;
-
 typedef struct s_cmd
 {
 	int		fd[2];
@@ -96,14 +77,9 @@ void				initialize_cmd(t_cmd *cmd, char *line);
 void				handle_error(char *msg, t_cmd *cmd, int *fd);
 int					execute(char *line, t_cmd *cmd);
 
-// lexer / tokenizer 9not needed for now)
-enum e_token_type	lexer(char *value);
-t_token				*tokenizer(char *line);
-t_token				*create_token(char *value, enum e_token_type type);
-
 // memory
-int					malloc_structs(t_cmd **cmd, t_token **token);
-void				free_structs(t_cmd *cmd, t_token *token);
+int					malloc_structs(t_cmd **cmd);
+void				free_structs(t_cmd *cmd);
 void				ft_freetab(char **tab);
 
 // command
@@ -161,10 +137,7 @@ int		pipe_execute(char *line, t_cmd *cmd);
 
 //WIP
 int		handle_path(t_cmd *cmd);
-void	cleanup(char *line, t_cmd *cmd, t_token *token);
-// int		init_shell_exec(t_cmd **cmd, t_token **token, char **envp);
-
-
+void	cleanup(char *line, t_cmd *cmd);
 
 // int fork_execve(t_cmd *cmd, char **split_line, char *command, int *status);
 // static int close_reopen_heredoc(void);

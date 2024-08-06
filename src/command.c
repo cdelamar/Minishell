@@ -34,9 +34,11 @@ char	*cmd_cat(const char *path_split, char *slash, char *command)
 char	*cmd_finder(char **split_line, t_cmd *cmd)
 {
 	int		i;
-	char	*command;
+	char	*command = NULL;
 
 	i = 0;
+	if (access (split_line[0], 0) == 0)
+		return (split_line[0]);
 	while (cmd->path_split[i])
 	{
 		command = cmd_cat(cmd->path_split[i], "/", split_line[0]);

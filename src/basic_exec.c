@@ -43,6 +43,8 @@ int basic_child_process(char *line, t_cmd *cmd)
         execve(command, split_line, cmd->env);
 
     printf("command not found: %s\n", line);
+    // free(cmd->env); //des projaires
+    free_structs(cmd);
     ft_freetab(split_line);
     return EXIT_FAILURE;
 }

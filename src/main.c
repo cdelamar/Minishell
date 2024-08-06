@@ -74,12 +74,12 @@ VALGRIND
 
 volatile int g_signal;
 
-static void process_input(char *line, t_cmd *cmd, t_token *token)
+static void process_input(char *line, t_cmd *cmd)
 {
     if (line == NULL)
     {
         printf("CTRL + D from shell_loop\n");
-        free_structs(cmd, token);
+        free_structs(cmd);
         exit(0); // Handle exit on EOF (CTRL + D)
     }
 
@@ -89,15 +89,15 @@ static void process_input(char *line, t_cmd *cmd, t_token *token)
     if (execute(line, cmd) == EXIT_COMMAND)
     {
         printf("FREE by EXIT COMMAND (shell_loop)\n");
-        free_structs(cmd, token);
+        free_structs(cmd);
         free(line);
         exit(0); // Handle explicit exit command
     }
 }
 
-static int init_shell_exec(t_cmd **cmd, t_token **token, char **envp)
+static int init_shell_exec(t_cmd **cmd, char **envp)
 {
-    if (malloc_structs(cmd, token) != 0)
+    if (malloc_structs(cmd) != 0)
     {
         ft_putendl_fd(MALLOC_FAILURE, 2);
         return 1;
@@ -111,15 +111,14 @@ void shell_exec_loop(char **envp)
 {
     char *line;
     t_cmd *cmd;
-    t_token *token;
 
     while (1)
     {
-        if (init_shell_exec(&cmd, &token, envp) != 0)
+        if (init_shell_exec(&cmd, envp) != 0)
             return;
         line = readline("MINISHELL>");
-        process_input(line, cmd, token);
-        cleanup(line, cmd, token);
+        process_input(line, cmd);
+        cleanup(line, cmd);
     }
 }
 

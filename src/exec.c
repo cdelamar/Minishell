@@ -14,9 +14,9 @@
 
 // TODO : fix double exit issues
 
-void cleanup(char *line, t_cmd *cmd, t_token *token)
+void cleanup(char *line, t_cmd *cmd)
 {
-    free_structs(cmd, token);
+    free_structs(cmd);
     free(line);
 }
 

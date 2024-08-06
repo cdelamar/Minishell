@@ -12,22 +12,17 @@
 
 #include "../includes/minishell.h"
 
-int malloc_structs(t_cmd **cmd, t_token **token)
+int malloc_structs(t_cmd **cmd)
 {
 	*cmd = NULL;
-	*token = NULL;
 
 	*cmd = malloc(sizeof(t_cmd));
-	*token = malloc(sizeof(t_token));
 
 	ft_memset(*cmd, 0, sizeof(t_cmd));
-    (*token)->type = WORD;  // Example initialization for t_token
-    (*token)->value = NULL;
-    (*token)->next = NULL;
 	return (0);
 }
 
-void free_structs(t_cmd *cmd, t_token *token)
+void free_structs(t_cmd *cmd)
 {
 	if(cmd->path_split)
 		ft_freetab(cmd->path_split);
@@ -35,9 +30,8 @@ void free_structs(t_cmd *cmd, t_token *token)
 	//	ft_freetab(cmd->env);
 	if(cmd)
 		free(cmd);
-	if(token)
-		free(token);
 }
+
 static int	env_count(char **envp)
 {
 	int	count;
