@@ -1,4 +1,6 @@
 /* ************************************************************************** */
+
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   call_builtins.c                                    :+:      :+:    :+:   */
@@ -11,6 +13,8 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// TODO implement exit through builtins
 
 static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int saved_out)
 {
@@ -78,5 +82,6 @@ int ft_builtin(char *line, t_cmd *cmd)
 	ft_freetab(split_line);
 	return ret;
 }
+
 
 

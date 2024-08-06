@@ -60,14 +60,11 @@ int basic_parent_process(pid_t pid, char **split_line) // TODO free cmd->path_sp
             ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
+    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE) // cest la que ca peche ft_peche
     {
         printf("(line %d)\n", __LINE__);
         if (split_line)
           ft_freetab(split_line);
-
-        //free_structs(cmd, token);
-        // free(line);
         return EXIT_FAILURE;
     }
     ft_freetab(split_line);

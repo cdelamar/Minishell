@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+// TODO : handle "sort << "" "
+// handle empty delimiter
 
 int ft_heredoc(char *limit)
 {
