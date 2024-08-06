@@ -6,10 +6,12 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/05 20:40:29 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:14:34 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// TODO handle exit 0 | exit 1
+// attention : tres chiant
 
 #include "../includes/minishell.h"
 
@@ -82,6 +84,7 @@ int basic_execute(char *line, t_cmd *cmd)
     {
         printf("exit_code != EXIT_SUCCESS\n");
         ft_freetab(split_line);
+		free_structs(cmd); // faut voir
         return exit_code;
     }
     cmd->pid1 = fork();

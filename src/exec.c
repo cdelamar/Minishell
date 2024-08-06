@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// TODO : fix double exit issues
-
 void cleanup(char *line, t_cmd *cmd)
 {
     free_structs(cmd);

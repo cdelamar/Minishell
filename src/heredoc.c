@@ -15,6 +15,8 @@
 // TODO : handle "sort << "" "
 // handle empty delimiter
 
+// TODO ; handle "exit [un argument]" return " too many arguments"
+
 int ft_heredoc(char *limit)
 {
     char *line;
