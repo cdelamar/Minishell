@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:58:53 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/31 19:51:05 by Laubry           ###   ########.fr       */
+/*   Updated: 2024/08/01 18:07:44 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,9 @@ void	last_verif(t_token **token)
 	{
 		if (head->type == LAST_VERIF)
 		{
+
+			head->type = WORD; // si je met ca ca leaks mais si je ne le met pas ca boucle infini si ya un echo "$USER"
 			process_quotes(token, &place, 1);
-			//head->type = WORD;
 			head = *token;
 			place = 0;
 		}
@@ -141,3 +142,4 @@ void	after_before_cat(t_token **token)
 //head->next->content gggg
 //head				"
 
+//echo " gg "

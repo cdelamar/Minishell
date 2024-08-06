@@ -30,6 +30,7 @@ FILES = main \
 		cat_quote/cat_quote \
 		cat_quote/tools_for_cat \
 		cat_quote/main_cat \
+		cat_quote/main_cat_2 \
 		print_ascii \
 		path/main_envp \
 		signal

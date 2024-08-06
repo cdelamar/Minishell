@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/31 19:49:51 by Laubry           ###   ########.fr       */
+/*   Updated: 2024/08/06 16:16:30 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		}
 		path_main(token_list, envp);
-		after_before_cat(&token_list);
+	//	after_before_cat(&token_list);
+		main_cat(&token_list);
 		print_node(token_list); // il leaks mais tkt il est pas dans le code
 		//free_split_line(split_line);
 		free(split_line);

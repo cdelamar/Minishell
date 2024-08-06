@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/07/31 11:22:44 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/03 02:02:01 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef struct s_token
 	int				index; // 1 2 3
 	struct s_token	*next; // next
 }	t_token;
+
+//typedef struct s_list
+//{
+//	t_list_enum		type;
+//	char			*content;
+//	int				index;
+//	struct s_list	*next;
+//}	t_list;
 
 /* ========== Error =================*/
 
@@ -125,6 +133,8 @@ int			copy_mid_node(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_after_node(t_token *head, t_token *new_node);
 void		advance_to_node(t_token **head, t_token **before, int *i);
 void		delet_quote_inword(t_token **token, t_token *place);
+
+void		main_cat(t_token **token);
 
 
 /*--------------free-----------------*/

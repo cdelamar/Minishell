@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 11:55:09 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/31 20:09:36 by Laubry           ###   ########.fr       */
+/*   Updated: 2024/08/01 12:27:09 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	before_node_cat(t_token **token, int i, int verif)
 	new_node = NULL;
 	advance_to_node(&head, &before, &i);
 	if (head->content[0] == '\'' || head->content[0] == '"')
-		head = head->next;
+	{
+		if (head->next->next)
+			head = head->next;
+	}
 	global_len = ft_strlen(head->content) + ft_strlen(head->next->content);
 	new_node = (t_token *)malloc(sizeof(t_token));
 	new_node->content = (char *)malloc(global_len +1);
@@ -50,11 +53,11 @@ void	before_node_cat(t_token **token, int i, int verif)
 		new_node->type = LAST_VERIF;
 	if (before)
 	{
-		// if (before->next)
-		// {
-		// 	free(before->next->content);
-		// 	free(before->next);			
-		// }
+		if (before->next)
+		{
+			free(before->next->content);
+			free(before->next);			
+		}
 		before->next = new_node;
 	}
 	else
@@ -98,9 +101,21 @@ void	after_node_cat(t_token **token, int i, int verif)
 	else
 		new_node->type = LAST_VERIF;
 	if (before)
+	{
+		//if (before->next)
+		//{
+		//	free(before->next->content);
+		//	free(before->next);			
+		//}
 		before->next = new_node;
+	}
 	else
+	{		
+		t_token *test = *token;
+		free(test->content);
+		free(test);
 		*token = new_node;
+	}
 	temp = head->next->next;
 	new_node->next = temp;
 	free_old_node(head);
