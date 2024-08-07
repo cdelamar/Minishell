@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/06 16:16:30 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/07 13:51:22 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	make_token(char **split_line, t_token **token_list)
 	if (argc == 0)
 		return (0);
 	i = 0;
+
 	while (i < argc)
 	{
 		if (!add_node(token_list, split_line, i))

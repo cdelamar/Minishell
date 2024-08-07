@@ -47,7 +47,7 @@ char	**mouve_str(char **str, int i)
 	return (str);
 }
 
-t_token	*lstnew_with_cat(char **str, int i)
+void	lstnew_with_cat(char **str, int i)
 {
 	int	boul;
 	char	*temp;
@@ -55,21 +55,35 @@ t_token	*lstnew_with_cat(char **str, int i)
 	//le node i est pas un espace si cest pas un espace check les node a cotr et fusion
 	if (i > 0)
 	{
-		if (!check_is_space_node(str, i -1) && !check_is_space_node(str, i) && !str[i -1])
+		if (!check_is_space_node(str, i -1) && !check_is_space_node(str, i)
+				&& str[i -1] != NULL && str[i] != NULL)
 		{
-			temp = ft_strjoin(str[i], str[i -1]);
+			if (str[i -1] == NULL)
+				temp = str[i];
+			else
+			{
+				temp = ft_strjoin(str[i -1], str[i]);
+				boul = 1;
+			}
 			free(str[i]);
 			str[i] = ft_strdup(temp);
+			if (boul == 1)
+			{
+				free(str[i -1]);
+				str[i -1] = NULL;
+				str = mouve_str(str, i - 1);
+			}
 			//lstnew avec les deux chaine 
-	//		boul +=1;
 		}	
 	}
-	if (!check_is_space_node(str, i +1) && !check_is_space_node(str, i) && str[i +1] != NULL)
+	boul = 0;
+	if (!check_is_space_node(str, i +1)
+		&& !check_is_space_node(str, i) && str[i +1] != NULL)
 	{	
 		if (str[i +1] == NULL)
 			temp = str[i];
 		else
-		{
+		{	
 			temp = ft_strjoin(str[i], str[i +1]);
 			boul = 1;
 		}
@@ -78,20 +92,18 @@ t_token	*lstnew_with_cat(char **str, int i)
 		if (boul == 1)
 		{
 			free(str[i + 1]);
-		   str[i + 1] = NULL;	// free apres pour veski les doubles
+			str[i + 1] = NULL;	// free apres pour veski les doubles
 			str = mouve_str(str, i + 1);
-		// a la place de free il faut que tu deplace tout dune case sur le free
 		}
 		//lstnew avec les deux chaine
 	}
-	return (token_lstnew(str[i]));
 }
 
 int	add_node_with_cat(t_token **token_list, char **str, int i)
 {
 	t_token	*new_node;
 
-	new_node = lstnew_with_cat(str, i);
+	new_node = token_lstnew(str[i]);
 	if (new_node == NULL)
 		return (check_error(ERROR_NODE));
 	new_node->index = i;
@@ -111,12 +123,24 @@ void	cat_quote(char **tab_token, t_token **token)
 	token_lstclear(token, free);
 	while (j != i)
 	{
-		add_node_with_cat(token, tab_token, j);
+		lstnew_with_cat(tab_token, j);
+		//add_node_with_cat(token, tab_token, j);
 		j++;
 	}
 //if (head->type == caracter de cmmnde (| < ex..) ne pas le fusioner si il est ocller a une quote)
 }
 
+void	tab_in_list(t_token **token, char **tab_token)
+{
+	int	i;
+
+	i = 0;
+	while (tab_token[i])
+	{
+		add_node_with_cat(token, tab_token, i);
+		i++;
+	}
+}
 
 void	main_cat(t_token **token)
 {
@@ -152,6 +176,7 @@ void	main_cat(t_token **token)
 	}
 	tab_token[i] = NULL;
 	cat_quote(tab_token, token);
+	tab_in_list(token, tab_token);
 	i = 0;
 	while (tab_token[i])
 	{
