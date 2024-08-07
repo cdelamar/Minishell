@@ -47,10 +47,13 @@ char	**mouve_str(char **str, int i)
 	return (str);
 }
 
-void	lstnew_with_cat(char **str, int i)
+int	lstnew_with_cat(char **str, int i)
 {
-	int	boul;
+	int		boul;
 	char	*temp;
+	int		modif;
+
+	modif = 0;
 	boul = 0;
 	//le node i est pas un espace si cest pas un espace check les node a cotr et fusion
 	if (i > 0)
@@ -74,6 +77,7 @@ void	lstnew_with_cat(char **str, int i)
 				str = mouve_str(str, i - 1);
 			}
 			//lstnew avec les deux chaine 
+			modif = 1;
 		}	
 	}
 	boul = 0;
@@ -96,7 +100,9 @@ void	lstnew_with_cat(char **str, int i)
 			str = mouve_str(str, i + 1);
 		}
 		//lstnew avec les deux chaine
+		modif = 1;
 	}
+	return (modif);
 }
 
 int	add_node_with_cat(t_token **token_list, char **str, int i)
@@ -115,17 +121,20 @@ void	cat_quote(char **tab_token, t_token **token)
 {
 	int	i;
 	int	j;
+	int	modif;
 
 	i = 0;
 	j = 0;
+	modif = 0;
 	while (tab_token[i])
 		i++;
 	token_lstclear(token, free);
 	while (j != i)
 	{
-		lstnew_with_cat(tab_token, j);
-		//add_node_with_cat(token, tab_token, j);
+		modif = lstnew_with_cat(tab_token, j);
 		j++;
+		if (modif > 0)
+			j = 0;
 	}
 //if (head->type == caracter de cmmnde (| < ex..) ne pas le fusioner si il est ocller a une quote)
 }
