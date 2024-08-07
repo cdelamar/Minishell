@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/25 00:41:01 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:31:15 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ VALGRIND
 - fix autant de leak que possible avant de merge les deux parties
 */
 
-volatile int g_signal;
+volatile sig_atomic_t g_signal = 0;
 
 static void process_input(char *line, t_cmd *cmd)
 {
@@ -124,7 +124,7 @@ void shell_exec_loop(char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-    g_signal = 0;
+   // g_signal = 0;
     (void)argv;
 
     if (argc != 1)

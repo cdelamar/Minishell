@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/25 10:28:17 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:31:50 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // TODO : handle '< test.txt cat' (*)
 // TODO : handle 'cat <test.txt'
 // TODO : handle ctrl+c in heredocs
+
+extern sig_atomic_t g_signal;
 
 int ft_output_redirect(char **args, int i, int append)
 {
