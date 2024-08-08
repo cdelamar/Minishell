@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:23:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/05 15:23:49 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:31:31 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,37 @@ static void setup_child_pipes(t_cmd *cmd, int *fd, int i)
 static int child_process(t_cmd *cmd, int *fd, int i)
 {
     setup_child_pipes(cmd, fd, i);
+    
+    char **split_line = ft_split(cmd->path_command[i], ' ');
+
+    if (ft_strcmp(split_line[0], "exit") == 0)
+    {
+        int exit_code = ft_exit(split_line, cmd);
+        ft_freetab(split_line);
+        exit(exit_code);
+    }
+
+    // If not 'exit', execute normally
+    if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
+    {
+        ft_freetab(split_line);
+        exit(EXIT_FAILURE);
+    }
+    ft_freetab(split_line);
+    exit(EXIT_SUCCESS);
+}
+
+/*
+static int child_process(t_cmd *cmd, int *fd, int i)
+{
+    setup_child_pipes(cmd, fd, i);
     if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
     {
         ft_freetab(cmd->path_command);
         exit(EXIT_FAILURE);
     }
     exit(EXIT_SUCCESS);
-}
+}*/
 
 static void parent_process(t_cmd *cmd, int *fd, int *i)
 {

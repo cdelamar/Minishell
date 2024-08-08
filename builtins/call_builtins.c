@@ -34,7 +34,16 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     else if (ft_strcmp(split_line[0], "pwd") == 0)
         ret = ft_pwd();
     else if (ft_strcmp(split_line[0], "exit") == 0)
-        ret = EXIT_SUCCESS;
+    {
+        int exit_code = ft_exit(split_line, cmd);
+
+        // If child process, directly exit
+        if (cmd->pid1 == 0)
+            exit(exit_code);
+
+        // If parent process, return the exit code
+        ret = exit_code;
+    }
 
     restore_fd(saved_in, saved_out);
     return (ret);
@@ -82,6 +91,4 @@ int ft_builtin(char *line, t_cmd *cmd)
 	ft_freetab(split_line);
 	return ret;
 }
-
-
 

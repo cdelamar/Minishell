@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:05:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/25 10:36:16 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:46:22 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,3 @@ int	ft_echo(char **split_line)
         ft_putchar_fd('\n', 1);
     return (EXIT_SUCCESS);
 }
-
-

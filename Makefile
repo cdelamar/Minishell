@@ -6,7 +6,7 @@
 #    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/07/22 16:21:29 by cdelamar         ###   ########.fr        #
+#    Updated: 2024/08/08 13:14:41 by cdelamar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJ_DIR = obj/
 
 SRC_FILES = command main exec memory path signal redirection heredoc fd basic_exec pipe_exec#token
 
-BUILTIN_FILES = call_builtins ft_echo ft_env ft_pwd ft_unset ft_cd ft_export
+BUILTIN_FILES = call_builtins ft_echo ft_env ft_pwd ft_unset ft_cd ft_export ft_exit
 
 SRC_SRCS = $(addprefix src/, $(addsuffix .c, $(SRC_FILES)))
 BUILTIN_SRCS = $(addprefix builtins/, $(addsuffix .c, $(BUILTIN_FILES)))

@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/07 20:20:13 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:22:12 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,14 @@ char				*path_finder(t_cmd *cmd, char *path, int size);
 void				ft_path(t_cmd *cmd);
 
 // builtins
-int					ft_builtin(char *line, t_cmd *cmd);
-int					ft_echo(char **split_line);
 int					ft_unset(char **split_line, t_cmd *cmd);
-int					ft_env(t_cmd *cmd);
-int					ft_pwd(void);
-int					ft_cd(char *path);
+int					ft_exit(char **split_line, t_cmd *cmd);
+int					ft_builtin(char *line, t_cmd *cmd);
 int					ft_export(char **args, t_cmd *cmd);
+int					ft_echo(char **split_line);
+int					ft_env(t_cmd *cmd);
+int					ft_cd(char *path);
+int					ft_pwd(void);
 
 //signals
 void				sigint_handler(int sig);
@@ -141,6 +142,8 @@ void	cleanup(char *line, t_cmd *cmd);
 void    reset_signals(void);
 void    heredoc_signals(void);
 void sigint_heredoc(int sig);
+
+int ft_isnumber(char *str);
 
 
 
