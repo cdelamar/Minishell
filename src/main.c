@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/07 21:16:17 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/09 17:28:48 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell>");
 		split_line = ft_split_boosted(line);
-		if (split_line == NULL)
+		if (split_line == NULL || solo_quote(split_line))
 			return (0);
 		print_split(split_line);	
 		if (line == NULL)

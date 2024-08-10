@@ -105,18 +105,6 @@ int	lstnew_with_cat(char **str, int i)
 	return (modif);
 }
 
-int	add_node_with_cat(t_token **token_list, char **str, int i)
-{
-	t_token	*new_node;
-
-	new_node = token_lstnew(str[i]);
-	if (new_node == NULL)
-		return (check_error(ERROR_NODE));
-	new_node->index = i;
-	token_lstadd_back(token_list, new_node);
-	return (1);
-}
-
 void	cat_quote(char **tab_token, t_token **token)
 {
 	int	i;
@@ -138,6 +126,18 @@ void	cat_quote(char **tab_token, t_token **token)
 	}
 //if (head->type == caracter de cmmnde (| < ex..) ne pas le fusioner si il est ocller a une quote)
 }
+/////////////////////////////////////////////////////////////////////////
+int	add_node_with_cat(t_token **token_list, char **str, int i)
+{
+	t_token	*new_node;
+
+	new_node = token_lstnew(str[i]);
+	if (new_node == NULL)
+		return (check_error(ERROR_NODE));
+	new_node->index = i;
+	token_lstadd_back(token_list, new_node);
+	return (1);
+}
 
 void	tab_in_list(t_token **token, char **tab_token)
 {
@@ -156,9 +156,11 @@ void	main_cat(t_token **token)
 	char	**tab_token;
 	char	c;
 	int		i;
+	int		have_quote;
 	t_token	*head;
 
 	head = *token;
+	have_quote = 0;
 	i = 0;
 	tab_token = malloc_tab(token);
 	while (head != NULL)
@@ -169,12 +171,13 @@ void	main_cat(t_token **token)
 			head = head->next;
 			while (head && head->content[0] != c)
 			{
-				tab_token[i] = ft_strdup(head->content);
+				tab_token[i] = ft_strdup_for_quote(head->content);
 				head = head->next;
 				i++;
 			}
 			if (head)
 				head = head->next; // pour veski la deuxiemes quote
+			have_quote = 1;
 		}
 		else
 		{
@@ -184,8 +187,10 @@ void	main_cat(t_token **token)
 		}
 	}
 	tab_token[i] = NULL;
-	cat_quote(tab_token, token);
-	tab_in_list(token, tab_token);
+	if (have_quote == 1)
+		cat_quote(tab_token, token);
+	tab_token = delet_space_to_tab(tab_token);
+	//tab_in_list(token, tab_token);
 	i = 0;
 	while (tab_token[i])
 	{

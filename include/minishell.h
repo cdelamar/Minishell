@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/08/03 02:02:01 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/10 04:29:26 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ char		*ft_strjoin(char *s1, char *s);
 char		*ft_strdup(const char *src);
 char		*ft_strtrim(char const *s1, char const *set);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
+char		*ft_strcpy(char *dest, char *src);
 void		ft_lstdelone(t_token *lst, void (*del)(void*));
+char		*ft_strdup_for_quote(const char *src);
 
 /*------------tools------------------*/
 void		print_node(t_token *token);
@@ -112,6 +114,7 @@ void		getenv_in_list(char **envp, t_token *token_list, char *word, int $plc);
 char		**minisplit_dollar(char *word);
 int			nbr_of_dollar(t_token *token_list, int place_of_dollar);
 int			which_node(int	nbr_dollar, t_token *token_list);
+char		**delet_space_to_tab(char **tab_token);
 
 /*new*/
 void		path_main(t_token *token_list, char **envp);
@@ -132,7 +135,7 @@ int			copy_node_after(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_node(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_after_node(t_token *head, t_token *new_node);
 void		advance_to_node(t_token **head, t_token **before, int *i);
-void		delet_quote_inword(t_token **token, t_token *place);
+char		**delet_quote_inword(t_token **token, t_token *place);
 
 void		main_cat(t_token **token);
 
@@ -145,6 +148,8 @@ size_t		count_word(char *s);
 int			is_char(char s);
 int			skip_space(char *s, int i);
 void		print_split(char **split_line);
+int			solo_quote(char **split_line);
+
 
 
 void		signals(void);

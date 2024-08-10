@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:34:31 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/08 04:52:35 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/09 17:22:20 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	skip_space(char *s, int i)
 int	word_plus(char *s, int i, int *tab)
 {
 	int	word;
-	int	k;
+//	int	k;
 
 	word = 0;
 	if (skip_space(s, i) != i)
@@ -64,12 +64,12 @@ int	word_plus(char *s, int i, int *tab)
 	}
 	tab[0] = i;
 	tab[1] += word;
-	if (s[i] == '"' || s[i] == '\'')
-	{
-		k = is_quote(s, i);
-		if (k == 0)
-			return (0);
-	}
+//	if (s[i] == '"' || s[i] == '\'')
+//	{
+//		k = is_quote(s, i);
+//		if (k == 0)
+//			return (0);
+//	}
 	return (1);
 }
 

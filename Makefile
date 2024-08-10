@@ -27,10 +27,12 @@ FILES = main \
 		split_dop/ft_split_boosted \
 		split_dop/count_word \
 		split_dop/check_char \
+		split_dop/solo_quote \
 		cat_quote/cat_quote \
 		cat_quote/tools_for_cat \
 		cat_quote/main_cat \
 		cat_quote/main_cat_2 \
+		cat_quote/to_tab \
 		print_ascii \
 		path/main_envp \
 		signal
