@@ -25,7 +25,8 @@ int	check_is_space_node(char **str, int i)
 		return (0);
 	while (str[i][j] && str[i])
 	{
-		if (str[i][j] != ' ' && str[i][j] != '\t')
+		if (str[i][j] != ' ' && str[i][j] != '\t' && str[i][j] != '|'
+				&& str[i][j] != '>' && str[i][j] != '<')
 			return (0);
 		j++;
 	}

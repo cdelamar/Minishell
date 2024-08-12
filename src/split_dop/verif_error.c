@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solo_quote.c                                       :+:      :+:    :+:   */
+/*   verif_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -56,4 +56,25 @@ int	solo_quote(char **split_line)
 		return (0);
 	else
 		return (1);
+}
+
+int	badchar(char **split_line)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (split_line[i])
+	{
+		j = 0;
+		while (split_line[i][j])
+		{
+			if (split_line[i][j] == '\x01' || split_line[i][j] == '\x02')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

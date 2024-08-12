@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/09 17:28:48 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/11 04:16:27 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell>");
 		split_line = ft_split_boosted(line);
-		if (split_line == NULL || solo_quote(split_line))
+		if (split_line == NULL || solo_quote(split_line) || badchar(split_line))
 			return (0);
 		print_split(split_line);	
 		if (line == NULL)
@@ -98,5 +98,6 @@ int	main(int argc, char **argv, char **envp)
 		token_lstclear(&token_list, free);
 	}
 }
-// $? pas fini enfin si mais pas sur
+//faire un check avant tout de verifier si lutilisateur a mis les caractere \x01 ou \x02
+//le cas echo "caca"|oui et bien les double quote ne fusione pas avec le pipe pareil pour les > ex..
 //le realloc tu doit le recoder dans parsing.c
