@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/11 04:16:27 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/13 18:17:51 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	char	**split_line;
+	char	**final_tab;
 	t_token	*token_list;
 
 	token_list = NULL;
@@ -86,18 +87,21 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!make_token(split_line, &token_list))
 		{
-			free_split_line(split_line); // pas sur que ca fonctionne
+			free_split_line(split_line);
 			return (0);
 		}
 		path_main(token_list, envp);
-		main_cat(&token_list);
+		final_tab = main_cat(&token_list);
+
+		print_free_tab(final_tab);
 		print_node(token_list); // il leaks mais tkt il est pas dans le code
-		//free_split_line(split_line);
+		//free_split_line(split_line)
 		free(split_line);
 		free(line);
-		token_lstclear(&token_list, free);
+		token_lstclear(&token_list, free);// pause des leaks
 	}
 }
 //faire un check avant tout de verifier si lutilisateur a mis les caractere \x01 ou \x02
 //le cas echo "caca"|oui et bien les double quote ne fusione pas avec le pipe pareil pour les > ex..
 //le realloc tu doit le recoder dans parsing.c
+//enlever les returne 0 en cas derreur pour ne pas quiter les minishell

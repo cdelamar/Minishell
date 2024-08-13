@@ -37,7 +37,7 @@ char	**delet_space_to_tab(char **tab_token)
 	finish_tab = malloc(sizeof(char *) * (len +1));
 	while (i < len)
 	{
-		if (tab_token[i][0] != ' ' && tab_token[i][0] != '\t')// il detecte pas les espace
+		if (tab_token[i][0] != ' ' && tab_token[i][0] != '\t')
 		{
 			finish_tab[j] = malloc(sizeof(char *) * ft_strlen(tab_token[i]) + 1);
 			ft_strcpy(finish_tab[j], tab_token[i]);
@@ -48,11 +48,5 @@ char	**delet_space_to_tab(char **tab_token)
 	finish_tab[i -1] = NULL;
 	finish_tab = replace_x0_to_space(finish_tab);
 	i = 0;
-//	while (tab_token[i])
-//	{
-//		free(tab_token[i]);
-//		i++;
-//	}
-//	free(tab_token);
 	return (finish_tab);
 }

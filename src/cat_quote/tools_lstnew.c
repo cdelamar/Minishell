@@ -1,50 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools_for_cat.c                                    :+:      :+:    :+:   */
+/*   tools_lstnew.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 12:02:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/13 16:20:35 by laubry           ###   ########.fr       */
+/*   Created: 2024/08/12 12:41:07 by laubry            #+#    #+#             */
+/*   Updated: 2024/08/12 12:41:33 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**malloc_tab(t_token **token)
+int	check_is_space_node(char **str, int i)
 {
-	int		len;
-	t_token	*head;
-
-	head = *token;
-	len = 0;
-	while (head != NULL)
-	{
-		len++;
-		head = head->next;
-	}
-	return (malloc(sizeof(char *) * (len + 1)));
-}
-
-void	cat_quote(char **tab_token, t_token **token)
-{
-	int	i;
 	int	j;
-	int	modif;
 
-	i = 0;
 	j = 0;
-	modif = 0;
-	while (tab_token[i])
-		i++;
-	token_lstclear(token, free);
-	while (j != i)
+	if (str[i] == NULL)
+		return (0);
+	while (str[i][j] && str[i])
 	{
-		modif = lstnew_with_cat(tab_token, j);
+		if (str[i][j] != ' ' && str[i][j] != '\t' && str[i][j] != '|'
+				&& str[i][j] != '>' && str[i][j] != '<')
+			return (0);
 		j++;
-		if (modif > 0)
-			j = 0;
 	}
+	return (1);
 }
 
+char	**mouve_str(char **str, int i)
+{
+	int	j;
+
+	j = i + 1;
+	while(str[j])
+	{
+		str[i] = str[j];
+		str[j] = NULL;
+		i++;
+		j++;
+	}
+	return (str);
+}

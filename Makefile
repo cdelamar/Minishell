@@ -28,11 +28,11 @@ FILES = main \
 		split_dop/count_word \
 		split_dop/check_char \
 		split_dop/verif_error \
-		cat_quote/cat_quote \
 		cat_quote/tools_for_cat \
-		cat_quote/main_cat \
 		cat_quote/main_cat_2 \
 		cat_quote/to_tab \
+		cat_quote/lstnew_with_cat \
+		cat_quote/tools_lstnew \
 		print_ascii \
 		path/main_envp \
 		signal

@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:27:38 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/08 17:05:15 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/13 18:17:10 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ int	is_qte(char c)
 	if (c == '\'' || c == '"')
 		return (1);
 	return (0);
+}
+
+void	print_free_tab(char **final_token)
+{
+	int	i;
+	i = 0;
+	while (final_token[i])
+	{
+		printf("tab == %s\n", final_token[i]);
+		free(final_token[i]); // a metre dans le main a la fin
+		i++;
+	}
+	free(final_token); // a metre dans le main a la fin
 }

@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/08/12 09:07:59 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/13 18:16:06 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_token
 /*-------------error-----------------*/
 int			check_error(int code_error);
 int			check_error_before_split(char *line);
+int			badchar(char **split_line);
 
 /*-------------libft-----------------*/
 t_token		*token_lstnew(void *content);
@@ -110,24 +111,19 @@ int			skip_prefix(char *word);
 char		*skip_sufix(char *word);
 void		is_dollar_interogation(t_token *token_list);
 void		path_other(char **envp, t_token *token_list, int place_of_dollar);
-void		getenv_in_list(char **envp, t_token *token_list, char *word, int $plc);
 char		**minisplit_dollar(char *word);
 int			nbr_of_dollar(t_token *token_list, int place_of_dollar);
-int			which_node(int	nbr_dollar, t_token *token_list);
+int			which_node(int nbr_dollar, t_token *token_list);
 char		**delet_space_to_tab(char **tab_token);
 
 /*new*/
 void		path_main(t_token *token_list, char **envp);
-
-
-
 
 /*------------parsing----------------*/
 void		lexer(t_token *token);
 void		path_main(t_token *token_list, char **envp);
 
 /*------------cat_quote--------------*/
-void		after_before_cat(t_token **token);
 void		before_node_cat(t_token **token, int i, int verif);
 void		after_node_cat(t_token **token, int i, int verif);
 int			copy_node(t_token *head, t_token *new_node);
@@ -136,15 +132,21 @@ int			copy_mid_node(t_token *head, t_token *new_node, int i_content);
 int			copy_mid_after_node(t_token *head, t_token *new_node);
 void		advance_to_node(t_token **head, t_token **before, int *i);
 char		**delet_quote_inword(t_token **token, t_token *place);
-
-void		main_cat(t_token **token);
-int			badchar(char **split_line);
-
+/*----------lstnew_with_cat---------*/
+char		**mouve_str(char **str, int i);
+int			check_is_space_node(char **str, int i);
+int			lstnew_with_cat(char **str, int i);
+char		**main_cat(t_token **token);
+/*----------tools_for_cat----------*/
+char		**malloc_tab(t_token **token);
+void		cat_quote(char **tab_token, t_token **token);
 
 
 /*--------------free-----------------*/
 void		free_split(char **strs);
 void		free_head(t_token *head);
+void		print_free_tab(char **final_token);
+
 
 size_t		count_word(char *s);
 int			is_char(char s);
@@ -152,8 +154,6 @@ int			skip_space(char *s, int i);
 void		print_split(char **split_line);
 int			solo_quote(char **split_line);
 
-
-
 void		signals(void);
-void sigint_handler(int sig);
+void		sigint_handler(int sig);
 #endif
