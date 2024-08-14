@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:29:33 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/10 01:45:35 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/14 19:00:07 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ int	solo_quote(char **split_line)
 		return (1);
 }
 
+int	if_quotevoid(char **split_line)
+{
+	if (split_line[0][0] == '"' && split_line[1][0] == '"')
+		return (1);
+	else if (split_line[0][0] == '\'' && split_line[1][0] == '\'')
+		return (1);
+	return (0);
+}
+
 int	badchar(char **split_line)
 {
 	int	i;
@@ -76,5 +85,7 @@ int	badchar(char **split_line)
 		}
 		i++;
 	}
+	if (if_quotevoid(split_line))
+		return (1);
 	return (0);
 }

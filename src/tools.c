@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:27:38 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/13 18:17:10 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/14 14:50:57 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	print_free_tab(char **final_token)
 	while (final_token[i])
 	{
 		printf("tab == %s\n", final_token[i]);
-		free(final_token[i]); // a metre dans le main a la fin
+		free(final_token[i]);
 		i++;
 	}
-	free(final_token); // a metre dans le main a la fin
+	free(final_token);
 }

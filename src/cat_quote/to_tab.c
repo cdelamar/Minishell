@@ -43,8 +43,10 @@ char	**delet_space_to_tab(char **tab_token)
 			ft_strcpy(finish_tab[j], tab_token[i]);
 			j++;
 		}
+		free(tab_token[i]);
 		i++;
 	}
+	free(tab_token);
 	finish_tab[i -1] = NULL;
 	finish_tab = replace_x0_to_space(finish_tab);
 	i = 0;

@@ -27,7 +27,7 @@ void	tab_in_list(t_token **token, char **tab_token)
 char	**main_cat(t_token **token)
 {
 	char	**tab_token;
-	char	c;
+	char	quote;
 	int		i;
 	int		have_quote;
 	t_token	*head;
@@ -40,9 +40,9 @@ char	**main_cat(t_token **token)
 	{
 		if (head->content[0] == '\'' || head->content[0] == '"')
 		{
-			c = head->content[0];
+			quote = head->content[0];
 			head = head->next;
-			while (head && head->content[0] != c)
+			while (head && head->content[0] != quote)
 			{
 				tab_token[i] = ft_strdup_for_quote(head->content);
 				head = head->next;
@@ -64,13 +64,4 @@ char	**main_cat(t_token **token)
 		cat_quote(tab_token, token);
 	tab_token = delet_space_to_tab(tab_token);
 	return(tab_token);
-	i = 0;
-	while (tab_token[i])
-	{
-		printf("tab == %s\n", tab_token[i]);
-		free(tab_token[i]); // a metre dans le main a la fin
-		i++;
-	}
-	free(tab_token); // a metre dans le main a la fin
 }
-

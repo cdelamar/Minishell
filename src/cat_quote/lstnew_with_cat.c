@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:43:00 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/12 23:26:43 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/14 16:56:02 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	left_concat(char **str, int i, int *modif)
 			str[i -1] = NULL;
 			str = mouve_str(str, i - 1);
 		}
+		free(temp);
 		*modif = 1;
 	}
 }
@@ -66,6 +67,7 @@ static void	right_concat(char **str, int i, int *modif)
 			str[i + 1] = NULL;
 			str = mouve_str(str, i + 1);
 		}
+		free(temp);
 		*modif = 1;
 	}
 }
