@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/14 19:03:39 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/15 22:39:52 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 }
 
-dans split_dop/verif_error la fonction badchar dedans a la fin cest ca qui faut gerer
-en gros si il y a "" ou '' tu envoie a clemment () bah rien
-et les return dans les main il faut les suprimer et gere les erreur sans stop le mini
-shell
+//dans split_dop/verif_error la fonction badchar dedans a la fin cest ca qui faut gerer
+//en gros si il y a "" ou '' tu envoie a clemment () bah rien
+//et les return dans les main il faut les suprimer et gere les erreur sans stop le mini
+//shell
 
 
 

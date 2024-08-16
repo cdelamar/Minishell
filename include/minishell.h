@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/08/13 18:16:06 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/16 14:44:56 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int			nbr_of_strs(char **strs);
 void		print_path(char **evnp);
 void		print_snail(void);
 int			is_qte(char c);
+
 
 /*------tools of environement--------*/
 int			find_the_dollar(t_token *token);
