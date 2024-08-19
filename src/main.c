@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:11:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/15 22:39:52 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 15:26:23 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell>");
 		split_line = ft_split_boosted(line);
-		if (split_line == NULL || solo_quote(split_line) || badchar(split_line))
+		if (split_line == NULL)
 			return (0);
+ 		if (solo_quote(split_line) || badchar(split_line))
+		{
+			free_split_line(split_line);
+			return (0);
+		}
 		print_split(split_line);	
 		if (line == NULL)
 		{
@@ -95,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 
 		print_free_tab(final_tab);
 		print_node(token_list); // il leaks mais tkt il est pas dans le code
-		//free_split_line(split_line)
+	//	free_split_line(split_line);
 		free(split_line);
 		free(line);
 		token_lstclear(&token_list, free);// pause des leaks
