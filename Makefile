@@ -35,6 +35,7 @@ FILES = main \
 		cat_quote/tools_lstnew \
 		print_ascii \
 		path/main_envp \
+		path/tools_of_path \
 		signal
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))

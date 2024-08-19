@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 13:34:08 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/09 16:57:13 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:50:29 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	return (taille);
 }
 
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] != '\0')

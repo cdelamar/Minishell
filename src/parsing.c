@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:13:04 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/30 10:37:06 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:51:30 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	quote_verif(char *str, int j)
 
 int	quote_enum(t_token **token)
 {
-	char c;
+	char	c;
 	t_token	*head;
 
 	head = *token;
@@ -90,6 +90,6 @@ void	lexer(t_token *token)
 	{
 		if (!quote_enum(&head))
 			head->type = assign_enum(head);
-		head  = head->next;
+		head = head->next;
 	}
 }

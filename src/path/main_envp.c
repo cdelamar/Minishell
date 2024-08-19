@@ -1,14 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_envp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 18:51:59 by laubry            #+#    #+#             */
+/*   Updated: 2024/08/19 19:03:13 by laubry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-int	skip_prefix(char *word)
-{
-	int	i;
-
-	i = 0;
-	while (word[i] != '$')
-		i++;
-	return (i +1);
-}
 
 char	*path_in_tab(t_token *token_list, char *start)
 {
@@ -58,24 +60,12 @@ void	getenv_in_list(char **envp, t_token *token_list, char *word, int plc)
 	}
 }
 
-int	find_the_dollar(t_token *token)
-{
-	while (token)
-	{
-		if (ft_strchr2(token->content, '$') == 1)
-			return (token->index);
-		token = token->next;
-	}
-	return (-1);
-}
-
 void	path_other(char **envp, t_token *token_list, int place_of_dollar)
 {
 	t_token	*head;
 	int		prefix;
 
 	head = token_list;
-
 	while (head->index < place_of_dollar)
 		head = head->next;
 	if (head->type == SIMPLE_QUOTE)
@@ -86,8 +76,8 @@ void	path_other(char **envp, t_token *token_list, int place_of_dollar)
 
 void	path_main(t_token *token_list, char **envp)
 {
-	t_token *head;
-	int	place_of_dollar;
+	t_token	*head;
+	int		place_of_dollar;
 
 	head = token_list;
 	while (head)

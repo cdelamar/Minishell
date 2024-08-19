@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:43:00 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/14 16:56:02 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:40:52 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	left_concat(char **str, int i, int *modif)
 		if (str[i -1] == NULL)
 			temp = str[i];
 		else
-			temp = concat_and_free(str[i -1] , str[i], &boul);
+			temp = concat_and_free(str[i -1], str[i], &boul);
 		str[i] = ft_strdup(temp);
 		if (boul == 1)
 		{
@@ -78,7 +78,7 @@ int	lstnew_with_cat(char **str, int i)
 
 	modif = 0;
 	if (i > 0)
-		left_concat(str, i, &modif);	
+		left_concat(str, i, &modif);
 	right_concat(str, i, &modif);
 	return (modif);
 }

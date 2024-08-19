@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_cat_2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 18:41:25 by laubry            #+#    #+#             */
+/*   Updated: 2024/08/19 18:41:49 by laubry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	add_node_with_cat(t_token **token_list, char **str, int i)
@@ -49,7 +61,7 @@ char	**main_cat(t_token **token)
 				i++;
 			}
 			if (head)
-				head = head->next; // pour veski la deuxiemes quote
+				head = head->next;
 			have_quote = 1;
 		}
 		else
@@ -63,5 +75,5 @@ char	**main_cat(t_token **token)
 	if (have_quote == 1)
 		cat_quote(tab_token, token);
 	tab_token = delet_space_to_tab(tab_token);
-	return(tab_token);
+	return (tab_token);
 }

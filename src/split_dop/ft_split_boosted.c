@@ -6,7 +6,7 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/03 14:21:04 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 19:12:27 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	split_in_tab(char *s, char **lst)
 	{
 		start = i;
 		if (skip_space(s, i) != i)
-		{	
+		{
 			i = skip_space(s, i);
 			word_len = i - start;
 			lst[j] = ft_substr(s + start, 0, word_len);
@@ -68,4 +68,4 @@ char	**ft_split_boosted(char *s)
 	split_in_tab(s, lst);
 	free(s);
 	return (lst);
-}	
+}

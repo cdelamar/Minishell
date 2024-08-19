@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:41:07 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/12 12:41:33 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:41:15 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**mouve_str(char **str, int i)
 	int	j;
 
 	j = i + 1;
-	while(str[j])
+	while (str[j])
 	{
 		str[i] = str[j];
 		str[j] = NULL;

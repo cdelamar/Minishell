@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:46:50 by laubry            #+#    #+#             */
-/*   Updated: 2024/07/21 15:47:56 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:49:56 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	free_split(char **strs)
 
 void	free_head(t_token *head)
 {
-    t_token *temp;
+	t_token	*temp;
 
-    while (head != NULL)
+	while (head != NULL)
 	{
-        temp = head;
-        head = head->next;
-        free(temp->content);
-        free(temp);
-    }
+		temp = head;
+		head = head->next;
+		free(temp->content);
+		free(temp);
+	}
 }
