@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 18:41:25 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/19 18:41:49 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/21 14:10:24 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,33 @@ void	tab_in_list(t_token **token, char **tab_token)
 	}
 }
 
+void	quote_sub(t_token **head, char **tab_token, int *i, int *have_quote)
+{
+	char	quote;
+
+	quote = (*head)->content[0];
+	*head = (*head)->next;
+	while (*head && (*head)->content[0] != quote)
+	{
+		tab_token[*i] = ft_strdup_for_quote((*head)->content);
+		*head = (*head)->next;
+		(*i)++;
+	}
+	if (*head)
+		*head = (*head)->next;
+	*have_quote = 1;
+}
+
+char	**finalize_tab(char **tab_token, int have_quote, t_token **token)
+{
+	if (have_quote)
+		cat_quote(tab_token, token);
+	return (delet_space_to_tab(tab_token));
+}
+
 char	**main_cat(t_token **token)
 {
 	char	**tab_token;
-	char	quote;
 	int		i;
 	int		have_quote;
 	t_token	*head;
@@ -51,19 +74,7 @@ char	**main_cat(t_token **token)
 	while (head != NULL)
 	{
 		if (head->content[0] == '\'' || head->content[0] == '"')
-		{
-			quote = head->content[0];
-			head = head->next;
-			while (head && head->content[0] != quote)
-			{
-				tab_token[i] = ft_strdup_for_quote(head->content);
-				head = head->next;
-				i++;
-			}
-			if (head)
-				head = head->next;
-			have_quote = 1;
-		}
+			quote_sub(&head, tab_token, &i, &have_quote);
 		else
 		{
 			tab_token[i] = ft_strdup(head->content);
@@ -72,8 +83,5 @@ char	**main_cat(t_token **token)
 		}
 	}
 	tab_token[i] = NULL;
-	if (have_quote == 1)
-		cat_quote(tab_token, token);
-	tab_token = delet_space_to_tab(tab_token);
-	return (tab_token);
+	return (finalize_tab(tab_token, have_quote, token));
 }

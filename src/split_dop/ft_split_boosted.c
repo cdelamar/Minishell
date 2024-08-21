@@ -6,11 +6,41 @@
 /*   By: Laubry <aubrylucas.pro@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:15 by laubry            #+#    #+#             */
-/*   Updated: 2024/08/19 19:12:27 by laubry           ###   ########.fr       */
+/*   Updated: 2024/08/21 13:46:47 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	skip_sub(char **lst, char *s, int *i, int *j)
+{
+	int	start;
+	int	word_len;
+
+	word_len = 0;
+	start = *i;
+	*i = skip_space(s, *i);
+	word_len = *i - start;
+	lst[*j] = ft_substr(s + start, 0, word_len);
+}
+
+void	skip_char(char **lst, int *j, int *i, char *s)
+{
+	free(lst[*j]);
+	*i = check_char(s, *i, lst, *j);
+}
+
+void	word_sub(char **lst, int *j, int *i, char *s)
+{
+	int	start;
+	int	word_len;
+
+	start = *i;
+	while (is_char(s[*i]))
+		(*i)++;
+	word_len = *i - start;
+	lst[*j] = ft_substr(s + start, 0, word_len);
+}
 
 void	split_in_tab(char *s, char **lst)
 {
@@ -27,23 +57,11 @@ void	split_in_tab(char *s, char **lst)
 	{
 		start = i;
 		if (skip_space(s, i) != i)
-		{
-			i = skip_space(s, i);
-			word_len = i - start;
-			lst[j] = ft_substr(s + start, 0, word_len);
-		}
+			skip_sub(lst, s, &i, &j);
 		else if (check_char(s, i, lst, j) != i)
-		{
-			free(lst[j]);
-			i = check_char(s, i, lst, j);
-		}
+			skip_char(lst, &j, &i, s);
 		else
-		{
-			while (is_char(s[i]))
-				i++;
-			word_len = i - start;
-			lst[j] = ft_substr(s + start, 0, word_len);
-		}
+			word_sub(lst, &j, &i, s);
 		j++;
 	}
 	lst[j] = NULL;
