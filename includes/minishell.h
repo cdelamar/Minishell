@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/08 13:22:12 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:04:45 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ void				sigint_handler(int sig);
 void				signals(void);
 
 //redirections
-int					handle_redirections(char **args, int status, t_cmd *cmd);
+int					handle_redirections(char **split_line, int status, t_cmd *cmd);
 int					ft_heredoc_redirect(char *delim);
-int					ft_input_redirect(char **args, int i);
-int					ft_output_redirect(char **args, int i, int append);
+int					ft_input_redirect(char **split_line, int i);
+int					ft_output_redirect(char **split_line, int i, int append);
 int					ft_heredoc(char *limit);
 
 

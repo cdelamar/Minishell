@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/07 20:31:59 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:53:22 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void sigint_handler(int sig)
     if (sig == SIGINT)
 	{
         g_signal = 1;
-        printf ("appel de signal\n");
+        //printf ("appel de signal\n");
         rl_replace_line("", 0);
         printf("\n");
         rl_on_new_line();

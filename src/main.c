@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/07 20:31:15 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:53:07 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void process_input(char *line, t_cmd *cmd)
 {
     if (line == NULL)
     {
-        printf("CTRL + D from shell_loop\n");
+        //printf("CTRL + D from shell_loop\n");
         free_structs(cmd);
         exit(0); // Handle exit on EOF (CTRL + D)
     }
@@ -88,7 +88,7 @@ static void process_input(char *line, t_cmd *cmd)
 
     if (execute(line, cmd) == EXIT_COMMAND)
     {
-        printf("FREE by EXIT COMMAND (shell_loop)\n");
+        //printf("FREE by EXIT COMMAND (shell_loop)\n");
         free_structs(cmd);
         free(line);
         exit(0); // Handle explicit exit command
@@ -116,7 +116,7 @@ void shell_exec_loop(char **envp)
     {
         if (init_shell_exec(&cmd, envp) != 0)
             return;
-        line = readline("MINISHELL>");
+        line = readline("$ ");
         process_input(line, cmd);
         cleanup(line, cmd);
     }

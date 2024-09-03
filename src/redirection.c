@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/07 20:31:50 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:30:25 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@
 
 extern sig_atomic_t g_signal;
 
-int ft_output_redirect(char **args, int i, int append)
+int ft_output_redirect(char **split_line, int i, int append)
 {
     int fd;
 	int flags;
 
+    if(ft_strcmp(split_line[0], ">") == 0 || ft_strcmp(split_line[0], ">>") == 0)
+    {
+       printf("oui\n");
+       return (EXIT_FAILURE);
+    }
+
     // (*) maybe need to merge with parsing for it
-    if (!args[i + 1])
+    if (!split_line[i + 1])
     {
         printf("Syntax error: expected file after redirection\n");
         return (EXIT_FAILURE);
@@ -35,7 +41,7 @@ int ft_output_redirect(char **args, int i, int append)
 	else
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
 
-	fd = open(args[i + 1], flags, 0644);
+	fd = open(split_line[i + 1], flags, 0644);
     if (fd < 0)
     {
         printf("ERROR opening file (line 40)\n");
@@ -43,20 +49,20 @@ int ft_output_redirect(char **args, int i, int append)
     }
     dup2(fd, STDOUT_FILENO);
     close(fd);
-    args[i] = NULL;
+    split_line[i] = NULL;
     return (EXIT_SUCCESS);
 }
 
-int ft_input_redirect(char **args, int i)
+int ft_input_redirect(char **split_line, int i)
 {
     int fd;
 
-    if (!args[i + 1])
+    if (!split_line[i + 1])
     {
         printf("Syntax error: expected file after redirection\n");
         return (EXIT_FAILURE);
     }
-    fd = open_file(args[i + 1], O_RDONLY, 0);
+    fd = open_file(split_line[i + 1], O_RDONLY, 0);
     if (fd < 0)
     {
         printf("ERROR redirection.c (line %d)\n", __LINE__);
@@ -64,7 +70,7 @@ int ft_input_redirect(char **args, int i)
     }
     dup2(fd, STDIN_FILENO);
     close(fd);
-    args[i] = NULL;
+    split_line[i] = NULL;
     return (EXIT_SUCCESS);
 }
 
@@ -78,36 +84,36 @@ int ft_heredoc_redirect(char *delim)
     return EXIT_SUCCESS;
 }
 
-int handle_redirections(char **args, int status, t_cmd *cmd)
+int handle_redirections(char **split_line, int status, t_cmd *cmd)
 {
     int i = 0;
 
-    while (args[i])
+    while (split_line[i])
 	{
-        if (ft_strcmp(args[i], ">") == 0)
+        if (ft_strcmp(split_line[i], ">") == 0)
 		{
-            if (ft_output_redirect(args, i, 0) != EXIT_SUCCESS)
+            if (ft_output_redirect(split_line, i, 0) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
         }
-		else if (ft_strcmp(args[i], ">>") == 0)
+		else if (ft_strcmp(split_line[i], ">>") == 0)
 		{
-            if (ft_output_redirect(args, i, 1) != EXIT_SUCCESS)
+            if (ft_output_redirect(split_line, i, 1) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
         }
-		else if (ft_strcmp(args[i], "<") == 0)
+		else if (ft_strcmp(split_line[i], "<") == 0)
 		{
-            if (ft_input_redirect(args, i) != EXIT_SUCCESS)
+            if (ft_input_redirect(split_line, i) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
         }
-		else if (ft_strcmp(args[i], "<<") == 0 && status == HEREDOC_ON)
+		else if (ft_strcmp(split_line[i], "<<") == 0 && status == HEREDOC_ON)
         {
             // Only process the heredoc if it hasn't been processed yet
-            if (args[i + 1] == NULL)
+            if (split_line[i + 1] == NULL)
             {
                 printf("bash: syntax error near unexpected token `newline`\n");
                 return -1;
             }
-            if (ft_heredoc(args[i + 1]) < 0)
+            if (ft_heredoc(split_line[i + 1]) < 0)
                 return -1;
 
             cmd->fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
@@ -119,15 +125,15 @@ int handle_redirections(char **args, int status, t_cmd *cmd)
 
             dup2(cmd->fd_in, STDIN_FILENO);
             close(cmd->fd_in);
-            // Remove the heredoc elements from args for further processing
-            free(args[i]);
-            free(args[i + 1]);
-            while (args[i + 2])
+            // Remove the heredoc elements from split_line for further processing
+            free(split_line[i]);
+            free(split_line[i + 1]);
+            while (split_line[i + 2])
             {
-                args[i] = args[i + 2];
+                split_line[i] = split_line[i + 2];
                 i++;
             }
-            args[i] = NULL;
+            split_line[i] = NULL;
             i = 0; // Reset to recheck for more redirections
         }
         else
