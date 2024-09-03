@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 18:30:25 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:48:45 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ int ft_heredoc_redirect(char *delim)
     // printf("Heredoc redirection handled successfully.\n");
     return EXIT_SUCCESS;
 }
+
+
+// TODO fix backup manager , < < < < ca plante et > > > > ca va, surement du a heredoc
 
 int handle_redirections(char **split_line, int status, t_cmd *cmd)
 {

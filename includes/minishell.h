@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 18:04:45 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:27:15 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void    heredoc_signals(void);
 void sigint_heredoc(int sig);
 
 int ft_isnumber(char *str);
+bool syntax_redirect(char **split_line);
 
 
 

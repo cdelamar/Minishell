@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/06 21:14:34 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:38:50 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 // attention : tres chiant
 
 #include "../includes/minishell.h"
+
+bool syntax_redirect(char **split_line)
+{
+    int i = 0;
+
+    while (split_line[i] != NULL)
+    {
+        if ((strcmp(split_line[i], ">") == 0 && split_line[i + 1] != NULL && strcmp(split_line[i + 1], ">") == 0) ||
+            (strcmp(split_line[i], "<") == 0 && split_line[i + 1] != NULL && strcmp(split_line[i + 1], "<") == 0))
+        {
+            printf("Error: consecutive redirections ('%s %s') are not allowed.\n", split_line[i], split_line[i + 1]);
+            return (true);
+        }
+        i++;
+    }
+    return false;
+}
 
 int set_command_path(t_cmd *cmd)
 {
@@ -32,6 +49,13 @@ int basic_child_process(char *line, t_cmd *cmd)
     char *command;
 
     split_line = ft_split(line, ' ');
+
+    if (syntax_redirect(split_line) == true)
+    {
+        printf ("je suis bien dans le true");
+        ft_freetab(split_line);
+        return(EXIT_FAILURE);
+    }
 
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
