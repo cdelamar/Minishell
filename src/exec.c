@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/08 13:48:49 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:40:50 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	execute(char *line, t_cmd *cmd)
 		return (pipe_execute(line, cmd));
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
 	{
-		printf("builtins succeed (exec.c line 52)\n");
+		//printf("builtins succeed (exec.c line 52)\n");
 		return (EXIT_SUCCESS);
 	}
 	/*else if (ft_strcmp(line, "exit") == 0)
