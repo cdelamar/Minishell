@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 19:38:50 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/04 22:46:42 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int basic_parent_process(pid_t pid, char **split_line) // TODO free cmd->path_sp
 {
     int status;
 
+    //printf("00 le waitpid du parent mais en basic 00\n");
+
     if (waitpid(pid, &status, 0) == -1)
     {
         printf("waitpid -1\n");
@@ -111,6 +113,7 @@ int basic_execute(char *line, t_cmd *cmd)
 		free_structs(cmd); // faut voir
         return exit_code;
     }
+    //printf("00 ca fork dans le basic 00\n");
     cmd->pid1 = fork();
     if (cmd->pid1 < 0)
     {
