@@ -6,7 +6,7 @@
 #    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/08/08 13:14:41 by cdelamar         ###   ########.fr        #
+#    Updated: 2024/09/04 17:10:10 by cdelamar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 LIBFT = lib/libft.a
 
 CC = cc
-CFLAGS = -g -Iincludes -Ilib/includes -Wall -Wextra -Werror
+CFLAGS = -g -Iincludes -Ilib/includes -Wall -Wextra -Werror -fsanitize=address
 LFLAGS = -Llib -lft -lreadline
 
 SRC_DIRS = src/ builtins/
@@ -49,7 +49,7 @@ re: fclean $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[35m✔ Compiling source files...\033[37m"
-	@$(CC) -o $@ $(OBJS) $(LFLAGS)
+	@$(CC) -o $@ $(OBJS) $(LFLAGS) $(CFLAGS)
 	@echo "\033[0;35m✔ Executable created.\033[37m"
 
 $(LIBFT):

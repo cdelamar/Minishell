@@ -21,6 +21,9 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     int ret;
 
 	ret = EXIT_FAILURE;
+
+    if (syntax_redirect(split_line) == false)
+        return (ret);
     if (ft_strcmp(split_line[0], "unset") == 0)
         ret = ft_unset(split_line, cmd);
     else if (ft_strcmp(split_line[0], "echo") == 0)

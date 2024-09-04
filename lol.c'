@@ -1,1 +1,5 @@
-'cat lol.c << cat
+heredoc> 
+heredoc> Warning: EOF received
+ERROR (basic_exec.c line 25)
+(line 91)
+$ 
