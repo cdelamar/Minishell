@@ -14,16 +14,13 @@
 
 #include "../includes/minishell.h"
 
-// TODO implement exit through builtins
-
 static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int saved_out)
 {
     int ret;
 
 	ret = EXIT_FAILURE;
 
-    if (syntax_redirect(split_line) == false)
-        return (ret);
+
     if (ft_strcmp(split_line[0], "unset") == 0)
         ret = ft_unset(split_line, cmd);
     else if (ft_strcmp(split_line[0], "echo") == 0)
@@ -40,16 +37,19 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     {
         int exit_code = ft_exit(split_line, cmd);
 
-        // If child process, directly exit
+            // If child process, directly exit
         if (cmd->pid1 == 0)
             exit(exit_code);
 
-        // If parent process, return the exit code
+            // If parent process, return the exit code
         ret = exit_code;
     }
-
     restore_fd(saved_in, saved_out);
     return (ret);
+    /*printf("avant syntax\n");
+    if (syntax_redirect(split_line) == false)
+        return (ret);
+    */
 }
 
 static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout, t_cmd *cmd)

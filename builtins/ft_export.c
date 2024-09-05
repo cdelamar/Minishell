@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:29:31 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/23 12:03:00 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/04 23:47:27 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void print_env(t_cmd *cmd)
 
 int ft_export(char **args, t_cmd *cmd)
 {
+    printf("ca passe\n");
     if (!args[1])
     {
         print_env(cmd);

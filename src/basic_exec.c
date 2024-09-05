@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/04 22:46:42 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:59:10 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int basic_child_process(char *line, t_cmd *cmd)
 
     split_line = ft_split(line, ' ');
 
-    if (syntax_redirect(split_line) == true)
+    /*if (syntax_redirect(split_line) == true)
     {
         printf ("je suis bien dans le true");
         ft_freetab(split_line);
         return(EXIT_FAILURE);
-    }
+    }*/
 
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {

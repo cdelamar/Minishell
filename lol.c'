@@ -1,3 +1,7 @@
+avant syntax
 heredoc> 
-heredoc> (line 93)
+heredoc> Warning: EOF received
+ERROR (basic_exec.c line 25)
+avant syntax
+(line 93)
 $ 

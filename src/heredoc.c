@@ -6,11 +6,13 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 18:23:32 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:55:37 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// TODO IMPORTANT : ctrl + c heredoc et variable global
 
 // TODO : handle "sort << "" "
 // handle empty delimiter
