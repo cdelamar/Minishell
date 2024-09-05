@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/06 00:29:09 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:44:21 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 
 #include "../includes/minishell.h"
 
-bool syntax_redirect(char **split_line)
+bool syntax_redirect(char *line)
 {
     int i = 0;
+    char **split_line;
 
+    split_line = ft_split(line, ' ');
     while (split_line[i] != NULL)
     {
         if ((strcmp(split_line[i], ">") == 0 && split_line[i + 1] != NULL && strcmp(split_line[i + 1], ">") == 0) ||
             (strcmp(split_line[i], "<") == 0 && split_line[i + 1] != NULL && strcmp(split_line[i + 1], "<") == 0))
         {
             printf("Error: consecutive redirections ('%s %s') are not allowed.\n", split_line[i], split_line[i + 1]);
-            return (true);
+            return (false);
         }
         i++;
     }
-    return false;
+    return (true);
 }
 
 int set_command_path(t_cmd *cmd)

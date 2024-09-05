@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/05 18:36:55 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:42:57 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ int	execute(char *line, t_cmd *cmd)
 		printf("synthax error : expected arguments with '|'\n");
 		return (0);
 	}
+
+	if (syntax_redirect(line) == false)
+		return (0);
 
 	if (line[0] == '\0')
 	{
