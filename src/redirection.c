@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 19:48:45 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:13:42 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_output_redirect(char **split_line, int i, int append)
 
     if(ft_strcmp(split_line[0], ">") == 0 || ft_strcmp(split_line[0], ">>") == 0)
     {
-       printf("oui\n");
+       //printf("oui\n");
        return (EXIT_FAILURE);
     }
 
@@ -44,7 +44,7 @@ int ft_output_redirect(char **split_line, int i, int append)
 	fd = open(split_line[i + 1], flags, 0644);
     if (fd < 0)
     {
-        printf("ERROR opening file (line 40)\n");
+        //printf("ERROR opening file (line 40)\n");
         return (EXIT_FAILURE);
     }
     dup2(fd, STDOUT_FILENO);
@@ -65,7 +65,7 @@ int ft_input_redirect(char **split_line, int i)
     fd = open_file(split_line[i + 1], O_RDONLY, 0);
     if (fd < 0)
     {
-        printf("ERROR redirection.c (line %d)\n", __LINE__);
+        //printf("ERROR redirection.c (line %d)\n", __LINE__);
         return (EXIT_FAILURE);
     }
     dup2(fd, STDIN_FILENO);

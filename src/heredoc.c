@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/05 17:55:37 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:11:05 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ extern sig_atomic_t g_signal;
 int ft_heredoc(char *limit)
 {
 
-    printf ("heredoc> \n");
+    //printf ("heredoc> \n");
     char *line;
     int heredoc_fd;
 
@@ -38,7 +38,7 @@ int ft_heredoc(char *limit)
         reset_signals();
         return -1;
     }
-
+    // TODO FIX CTRL C
     while (1)
     {
         if (g_signal == 1) // check ctrl + C
@@ -56,19 +56,16 @@ int ft_heredoc(char *limit)
         {
             free(line);
             close(heredoc_fd);
-            printf("Warning: EOF received\n");
             reset_signals();
             return -1;
         }
 
         if (ft_strcmp(line, limit) == 0)
         {
-            printf ("free line\n");
             free(line);
             break;
         }
 
-        printf ("write heredoc\n");
         write(heredoc_fd, line, ft_strlen(line));
         write(heredoc_fd, "\n", 1);
         free(line);

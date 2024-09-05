@@ -1,7 +1,1 @@
-avant syntax
-heredoc> 
-heredoc> Warning: EOF received
-ERROR (basic_exec.c line 25)
-avant syntax
-(line 93)
-$ 
+'cat lol.c << cat

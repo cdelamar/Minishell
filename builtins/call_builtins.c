@@ -20,6 +20,45 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
 
 	ret = EXIT_FAILURE;
 
+    if (ft_strcmp(split_line[0], "unset") == 0)
+        ret = ft_unset(split_line, cmd);
+    else if (ft_strcmp(split_line[0], "echo") == 0)
+        ret = ft_echo(split_line);
+    else if (ft_strcmp(split_line[0], "cd") == 0)
+        ret = ft_cd(split_line[1]);
+    else if (ft_strcmp(split_line[0], "export") == 0)
+        ret = ft_export(split_line, cmd);
+    else if (ft_strcmp(split_line[0], "env") == 0)
+        ret = ft_env(cmd);
+    else if (ft_strcmp(split_line[0], "pwd") == 0)
+        ret = ft_pwd();
+    else if (ft_strcmp(split_line[0], "exit") == 0)
+    {
+        int exit_code = ft_exit(split_line, cmd);
+
+            // If child process, directly exit
+        if (cmd->pid1 == 0)
+            exit(exit_code);
+
+            // If parent process, return the exit code
+        ret = exit_code;
+    }
+    restore_fd(saved_in, saved_out);
+    return (ret);
+    // printf("avant syntax\n");
+    // if (syntax_redirect(split_line) == false)
+    //     return (ret);
+}
+
+/*
+static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int saved_out)
+{
+    int ret;
+
+	ret = EXIT_FAILURE;
+
+    if(syntax_redirect(split_line) == false)
+        return(ret);
 
     if (ft_strcmp(split_line[0], "unset") == 0)
         ret = ft_unset(split_line, cmd);
@@ -46,11 +85,7 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     }
     restore_fd(saved_in, saved_out);
     return (ret);
-    /*printf("avant syntax\n");
-    if (syntax_redirect(split_line) == false)
-        return (ret);
-    */
-}
+}*/
 
 static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout, t_cmd *cmd)
 {

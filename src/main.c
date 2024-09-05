@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 17:53:07 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:31:44 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void shell_exec_loop(char **envp)
             return;
         line = readline("$ ");
         process_input(line, cmd);
-        cleanup(line, cmd);
+        //cleanup(line, cmd);
     }
 }
 
@@ -132,7 +132,7 @@ int main(int argc, char **argv, char **envp)
         printf("MiniSnail is supposed to work by typing './minishell'\n");
         return (0);
     }
-
+    rl_outstream = stderr;
     // Setup signal handlers
     signals();
 

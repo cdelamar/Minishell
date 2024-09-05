@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 17:40:50 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:36:55 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void cleanup(char *line, t_cmd *cmd)
 {
-    free_structs(cmd);
-    free(line);
+	if(cmd)
+    	free_structs(cmd);
+    if(line)
+		free(line);
 }
 
 void initialize_cmd(t_cmd *cmd, char *line)

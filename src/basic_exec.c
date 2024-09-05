@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/05 17:59:10 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:29:09 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int basic_child_process(char *line, t_cmd *cmd)
 
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
-        printf("ERROR (basic_exec.c line 25)\n");
+        //printf("ERROR (basic_exec.c line 25)\n");
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
@@ -108,7 +108,7 @@ int basic_execute(char *line, t_cmd *cmd)
     exit_code = set_command_path(cmd);
     if (exit_code != EXIT_SUCCESS)
     {
-        printf("exit_code != EXIT_SUCCESS\n");
+        //printf("exit_code != EXIT_SUCCESS\n");
         ft_freetab(split_line);
 		free_structs(cmd); // faut voir
         return exit_code;

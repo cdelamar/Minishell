@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:23:59 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/08/05 15:24:01 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:13:55 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int open_file(char *filename, int flags, int mode)
     int fd = open(filename, flags, mode);
     if (fd < 0)
 	{
-        printf("ERROR opening file (open_file function)\n");
+        //printf("ERROR opening file (open_file function)\n");
         return -1;
     }
     return fd;
@@ -35,7 +35,7 @@ int open_heredoc_file(void)
     int fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
 	{
-        printf("ERROR opening heredoc file \n");
+        //printf("ERROR opening heredoc file \n");
 		return -1;
 	}
 	return fd;
