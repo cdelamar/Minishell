@@ -116,13 +116,13 @@ int handle_redirections(char **split_line, int status, t_cmd *cmd)
                 printf("bash: syntax error near unexpected token `newline`\n");
                 return -1;
             }
-            if (ft_heredoc(split_line[i + 1]) < 0)
+            if ((ft_heredoc(split_line[i + 1]) < 0))
                 return -1;
 
             cmd->fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
             if (cmd->fd_in < 0)
             {
-                perror("ERROR opening heredoc temp file");
+                perror("perror ligne 125 de redirection.c");
                 return -1;
             }
 

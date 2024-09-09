@@ -146,6 +146,7 @@ void sigint_heredoc(int sig);
 int ft_isnumber(char *str);
 bool syntax_redirect(char *line);
 
+void setup_signal_handler(int signum, void (*handler)(int));
 
 
 #endif

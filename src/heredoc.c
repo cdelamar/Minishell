@@ -34,7 +34,7 @@ int ft_heredoc(char *limit)
     heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (heredoc_fd < 0)
     {
-        perror("ERROR opening heredoc file");
+        //perror("ERROR opening heredoc file");
         reset_signals();
         return -1;
     }
@@ -48,6 +48,8 @@ int ft_heredoc(char *limit)
             unlink("/tmp/heredoc_tmp");
             reset_signals();
             return (130);
+            // TEST
+            //return (-1);
             //exit (130); // Define SIGINT
         }
 

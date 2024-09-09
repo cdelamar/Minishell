@@ -85,6 +85,58 @@ extern sig_atomic_t g_signal;
 
 // MAIN SIGNAL
 
+void sigint_heredoc(int sig)
+{
+    if (sig == SIGINT)
+    {
+        g_signal = 1;
+        printf("\n");
+    }
+}
+
+void sigint_handler(int sig)
+{
+    if (sig == SIGINT)
+	{
+        g_signal = 1;
+        //printf ("appel de signal\n");
+        rl_replace_line("", 0);
+        printf("\n");
+        rl_on_new_line();
+        rl_redisplay();
+    }
+}
+
+void    heredoc_signals(void)
+{
+	signal(SIGINT, sigint_heredoc);
+	signal(SIGQUIT, SIG_IGN); // CTRL + \ interaction
+
+}
+
+void setup_signal_handler(int signum, void (*handler)(int))
+{
+    struct sigaction sa;
+    sa.sa_handler = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART; // Automatically restart interrupted system calls
+    sigaction(signum, &sa, NULL);
+}
+
+void signals(void)
+{
+    setup_signal_handler(SIGINT, sigint_handler);
+    setup_signal_handler(SIGQUIT, SIG_IGN); // Ignore CTRL+
+}
+
+void reset_signals(void)
+{
+    setup_signal_handler(SIGINT, SIG_DFL);
+    setup_signal_handler(SIGQUIT, SIG_DFL);
+}
+
+
+/*
 void sigint_handler(int sig)
 {
     if (sig == SIGINT)
@@ -128,4 +180,4 @@ void    reset_signals(void)
 {
     signal(SIGINT, SIG_DFL);
     signal(SIGQUIT, SIG_DFL); // DFL ????
-}
+}*/

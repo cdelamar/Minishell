@@ -59,22 +59,6 @@ static void parent_process(t_cmd *cmd, int *fd, int *i)
     (*i)++;             // (indexing increment)
 }
 
-
-/*
-static void parent_process(t_cmd *cmd, int *fd, int *i)
-{
-    int	status;
-
-    printf("++ waitpid du parent dans le pipe ++\n");
-
-    waitpid(cmd->pid1, &status, 0);
-    close(fd[1]);
-    if (cmd->fd_in)
-        close(cmd->fd_in);
-    cmd->fd_in = fd[0]; // save input for nxt command
-    (*i)++;				// (indexing increment)
-}*/
-
 static int create_and_fork(t_cmd *cmd, int *fd)
 {
     if (pipe(fd) < 0)
@@ -119,24 +103,3 @@ int pipe_execute(char *line, t_cmd *cmd)
     return (EXIT_SUCCESS);
 }
 
-
-/*
-int pipe_execute(char *line, t_cmd *cmd)
-{
-    int i = 0;
-
-    initialize_cmd(cmd, line);
-
-    while (cmd->path_command[i])
-	{
-        if (create_and_fork(cmd, cmd->fd) == 0)
-            child_process(cmd, cmd->fd, i);
-    	else
-            parent_process(cmd, cmd->fd, &i);
-    }
-
-    close(cmd->fd_in);
-    if (cmd->path_command)
-        ft_freetab(cmd->path_command);
-    return (EXIT_SUCCESS);
-}*/
