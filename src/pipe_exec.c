@@ -29,7 +29,7 @@ static void setup_child_pipes(t_cmd *cmd, int *fd, int i)
 static int child_process(t_cmd *cmd, int *fd, int i)
 {
     setup_child_pipes(cmd, fd, i);
-    
+
     char **split_line = ft_split(cmd->path_command[i], ' ');
 
     if (ft_strcmp(split_line[0], "exit") == 0)

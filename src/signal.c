@@ -90,7 +90,8 @@ void sigint_heredoc(int sig)
     if (sig == SIGINT)
     {
         g_signal = 1;
-        printf("\n");
+        // Close stdin to break readline
+        close(STDIN_FILENO);
     }
 }
 
