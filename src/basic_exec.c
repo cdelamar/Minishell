@@ -27,10 +27,12 @@ bool syntax_redirect(char *line)
             (strcmp(split_line[i], "<") == 0 && split_line[i + 1] != NULL && strcmp(split_line[i + 1], "<") == 0))
         {
             printf("Error: consecutive redirections ('%s %s') are not allowed.\n", split_line[i], split_line[i + 1]);
+            ft_freetab(split_line); //LEAK
             return (false);
         }
         i++;
     }
+    ft_freetab(split_line); //LEAK
     return (true);
 }
 
@@ -40,6 +42,7 @@ int set_command_path(t_cmd *cmd)
     if (!cmd->path)
     {
         printf("command not found\n");
+        // ft_freetab(cmd->path_split);  //LEAK
         return (EXIT_FAILURE);
     }
     return (EXIT_SUCCESS);
@@ -51,17 +54,8 @@ int basic_child_process(char *line, t_cmd *cmd)
     char *command;
 
     split_line = ft_split(line, ' ');
-
-    /*if (syntax_redirect(split_line) == true)
-    {
-        printf ("je suis bien dans le true");
-        ft_freetab(split_line);
-        return(EXIT_FAILURE);
-    }*/
-
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
-        //printf("ERROR (basic_exec.c line 25)\n");
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
@@ -71,7 +65,6 @@ int basic_child_process(char *line, t_cmd *cmd)
         execve(command, split_line, cmd->env);
 
     printf("command not found: %s\n", line);
-    // free(cmd->env); //des projaires
     free_structs(cmd);
     ft_freetab(split_line);
     return EXIT_FAILURE;
@@ -80,8 +73,6 @@ int basic_child_process(char *line, t_cmd *cmd)
 int basic_parent_process(pid_t pid, char **split_line) // TODO free cmd->path_split
 {
     int status;
-
-    //printf("00 le waitpid du parent mais en basic 00\n");
 
     if (waitpid(pid, &status, 0) == -1)
     {
@@ -110,12 +101,11 @@ int basic_execute(char *line, t_cmd *cmd)
     exit_code = set_command_path(cmd);
     if (exit_code != EXIT_SUCCESS)
     {
-        //printf("exit_code != EXIT_SUCCESS\n");
+        //ft_freetab(cmd->path_split); //LEAK
         ft_freetab(split_line);
 		free_structs(cmd); // faut voir
         return exit_code;
     }
-    //printf("00 ca fork dans le basic 00\n");
     cmd->pid1 = fork();
     if (cmd->pid1 < 0)
     {
