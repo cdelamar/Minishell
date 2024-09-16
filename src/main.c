@@ -58,6 +58,9 @@ void shell_exec_loop(char **envp)
             return;
         line = readline("$ ");
         process_input(line, cmd);
+        free_structs(cmd);  // LEAK : this free is necessary to avoid leaks but occurs segfaults in rare cases
+                            // check minishell tester > 'mstester m'
+
         //cleanup(line, cmd);
     }
 }

@@ -15,7 +15,8 @@ NAME = minishell
 LIBFT = lib/libft.a
 
 CC = cc
-CFLAGS = -g -Iincludes -Ilib/includes -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -g -Iincludes -Ilib/includes -Wall -Wextra -Werror
+SFLAGS = -fsanitize=address
 LFLAGS = -Llib -lft -lreadline
 
 SRC_DIRS = src/ builtins/
@@ -45,7 +46,10 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "\033[35m✔ Cleaned all files.\033[37m"
 
-re: fclean $(NAME)
+re: fclean all
+
+san: CFLAGS += $(SFLAGS)
+san: re
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[35m✔ Compiling source files...\033[37m"
@@ -87,5 +91,6 @@ gdb: $(NAME)
 
 # Avoid to rebuild the lib
 $(OBJS): | $(LIBFT)
+
 
 

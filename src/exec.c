@@ -35,17 +35,9 @@ void handle_error(char *msg, t_cmd *cmd, int *fd)
     //return(EXIT_FAILURE);
 	exit(EXIT_FAILURE);
 }
-/*
-int handle_exit_command(char *line)
-{
-    if (ft_strcmp(line, "exit") == 0)
-        return EXIT_COMMAND;
-    return 0;
-}*/
 
 int	execute(char *line, t_cmd *cmd)
 {
-	// printf ("** execute **\n");
 	if (ft_strcmp(line, "|") == 0)
 	{
 		printf("synthax error : expected arguments with '|'\n");
@@ -56,21 +48,11 @@ int	execute(char *line, t_cmd *cmd)
 		return (0);
 
 	if (line[0] == '\0')
-	{
-		printf("free : nothing outputed (exec.c : line 43)\n");
 		return (0);
-	}
 
-	//if (handle_exit_command(line) == EXIT_COMMAND)
-	//	return (EXIT_COMMAND);
 	if (ft_strchr(line, '|'))
 		return (pipe_execute(line, cmd));
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
-	{
-		//printf("builtins succeed (exec.c line 52)\n");
 		return (EXIT_SUCCESS);
-	}
-	/*else if (ft_strcmp(line, "exit") == 0)
-		return (EXIT_COMMAND);*/
 	return (basic_execute(line, cmd));
 }
