@@ -35,6 +35,7 @@ static int child_process(t_cmd *cmd, int *fd, int i)
     if (ft_strcmp(split_line[0], "exit") == 0)
     {
         int exit_code = ft_exit(split_line, cmd);
+        ft_freetab(cmd->path_command); //LEAK
         ft_freetab(split_line);
         exit(exit_code);
     }
@@ -42,9 +43,15 @@ static int child_process(t_cmd *cmd, int *fd, int i)
     // If not 'exit', execute normally
     if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
     {
+        if (cmd->path_split)
+            ft_freetab(cmd->path_split); //LEAK BOSS
+        ft_freetab(cmd->path_command); //LEAK
         ft_freetab(split_line);
         exit(EXIT_FAILURE);
     }
+    if (cmd->path_split)
+        ft_freetab(cmd->path_split); //LEAK BOSS
+    ft_freetab(cmd->path_command); //LEAK
     ft_freetab(split_line);
     exit(EXIT_SUCCESS);
 }
@@ -76,7 +83,7 @@ int pipe_execute(char *line, t_cmd *cmd)
     int i = 0;
     pid_t last_pid = -1;
 
-    initialize_cmd(cmd, line);
+    initialize_cmd(cmd, line); //ft_split a liberer dedans (cmd->path_command)
 
     while (cmd->path_command[i])
     {

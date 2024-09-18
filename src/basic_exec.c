@@ -41,7 +41,7 @@ int set_command_path(t_cmd *cmd)
     ft_path(cmd);
     if (!cmd->path)
     {
-        printf("command not found\n");
+        printf("SET COMMAND PATH command not found\n");
         // ft_freetab(cmd->path_split);  //LEAK
         return (EXIT_FAILURE);
     }
@@ -56,6 +56,7 @@ int basic_child_process(char *line, t_cmd *cmd)
     split_line = ft_split(line, ' ');
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
+        ft_freetab(cmd->path_command);//LEAK
         ft_freetab(split_line);
         return EXIT_FAILURE;
     }
@@ -70,7 +71,7 @@ int basic_child_process(char *line, t_cmd *cmd)
     return EXIT_FAILURE;
 }
 
-int basic_parent_process(pid_t pid, char **split_line) // TODO free cmd->path_split
+int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free cmd->path_split
 {
     int status;
 
@@ -79,15 +80,20 @@ int basic_parent_process(pid_t pid, char **split_line) // TODO free cmd->path_sp
         printf("waitpid -1\n");
         if (split_line)
             ft_freetab(split_line);
+        if (cmd->path_split)
+            ft_freetab(cmd->path_split); //LEAK BOSS
         return EXIT_FAILURE;
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE) // cest la que ca peche ft_peche
     {
-        printf("(line %d)\n", __LINE__);
+        if (cmd->path_split)
+            ft_freetab(cmd->path_split); //LEAK BOSS
         if (split_line)
           ft_freetab(split_line);
         return EXIT_FAILURE;
     }
+    //if (cmd->path_split)
+    //    ft_freetab(cmd->path_split); //LEAK BOSS
     ft_freetab(split_line);
     return EXIT_SUCCESS;
 }
@@ -98,7 +104,7 @@ int basic_execute(char *line, t_cmd *cmd)
     char **split_line = NULL;
 
     split_line = ft_split(line, ' ');
-    exit_code = set_command_path(cmd);
+    exit_code = set_command_path(cmd); // liberer ft_split de cmd->path_split
     if (exit_code != EXIT_SUCCESS)
     {
         //ft_freetab(cmd->path_split); //LEAK
@@ -116,10 +122,16 @@ int basic_execute(char *line, t_cmd *cmd)
 	{
         exit_code = basic_child_process(line, cmd);
         ft_freetab(split_line);
+        //ft_freetab(cmd->path_split); //LEAK
         exit(exit_code); // sans ca le code se dedouble en cas de fausse commande
     }
 	else
-        return basic_parent_process(cmd->pid1, split_line);
+    {
+        // if (cmd->path_split)
+        //   ft_freetab(cmd->path_split); //LEAK BOSS
+        return basic_parent_process(cmd->pid1, split_line, cmd);
+    }
+    ft_freetab(cmd->path_split); //LEAK
     ft_freetab(split_line);
     return EXIT_SUCCESS;
 }

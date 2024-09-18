@@ -16,6 +16,8 @@ volatile sig_atomic_t g_signal = 0;
 
 static void process_input(char *line, t_cmd *cmd)
 {
+    int ret;
+
     if (line == NULL)
     {
         //printf("CTRL + D from shell_loop\n");
@@ -26,13 +28,18 @@ static void process_input(char *line, t_cmd *cmd)
     if (*line)
         add_history(line);
 
-    if (execute(line, cmd) == EXIT_COMMAND)
+    ret = execute(line,cmd);
+
+    if (ret == EXIT_COMMAND)
     {
         //printf("FREE by EXIT COMMAND (shell_loop)\n");
         free_structs(cmd);
         free(line);
         exit(0); // Handle explicit exit command
     }
+
+    else if (ret == EXIT_SUCCESS)
+        free_structs(cmd);
 }
 
 static int init_shell_exec(t_cmd **cmd, char **envp)
@@ -58,10 +65,11 @@ void shell_exec_loop(char **envp)
             return;
         line = readline("$ ");
         process_input(line, cmd);
-        free_structs(cmd);  // LEAK : this free is necessary to avoid leaks but occurs segfaults in rare cases
+        //free_structs(cmd);  // LEAK : this free is necessary to avoid leaks but occurs segfaults in rare cases
                             // check minishell tester > 'mstester m'
 
         //cleanup(line, cmd);
+        // rl_clear_history();
     }
 }
 
@@ -76,10 +84,9 @@ int main(int argc, char **argv, char **envp)
         return (0);
     }
     rl_outstream = stderr;
-    // Setup signal handlers
+
     signals();
 
-    // Start shell loop
     shell_exec_loop(envp);
 
     return 0;

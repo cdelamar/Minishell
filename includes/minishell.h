@@ -126,7 +126,7 @@ int					open_heredoc_file(void);
 int					handle_exit_command(char *line);
 int					set_command_path(t_cmd *cmd);
 int					basic_child_process(char *line, t_cmd *cmd);
-int					basic_parent_process(pid_t pid, char **split_line);
+int					basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd);
 int					basic_execute(char *line, t_cmd *cmd);
 
 //pipe executing
