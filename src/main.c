@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// TODO handle 'exit 0 | exit 1'
+// handle 'space only input'
+// handle 'sort << "" '
+// handle 'qwwqls | wc' : FIND OUT WHY PIPE DOESNT CHECK 1ST COMMAND
+// handle '< test.txt cat' (*)
+// handle 'cat <test.txt'
+
 #include "../includes/minishell.h"
 
 volatile sig_atomic_t g_signal = 0;

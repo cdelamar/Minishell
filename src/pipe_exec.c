@@ -13,10 +13,6 @@
 
 #include "../includes/minishell.h"
 
-
-// TODO : fix   MINISHELL>qwwqls | wc
-//              1       4      27
-
 static void setup_child_pipes(t_cmd *cmd, int *fd, int i)
 {
     dup2(cmd->fd_in, 0); // Get input from the previous command

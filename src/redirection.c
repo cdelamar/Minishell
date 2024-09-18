@@ -12,10 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// TODO : handle '< test.txt cat' (*)
-// TODO : handle 'cat <test.txt'
-// TODO : handle ctrl+c in heredocs
-
 extern sig_atomic_t g_signal;
 
 int ft_output_redirect(char **split_line, int i, int append)
@@ -83,9 +79,6 @@ int ft_heredoc_redirect(char *delim)
     // printf("Heredoc redirection handled successfully.\n");
     return EXIT_SUCCESS;
 }
-
-
-// TODO fix backup manager , < < < < ca plante et > > > > ca va, surement du a heredoc
 
 int handle_redirections(char **split_line, int status, t_cmd *cmd)
 {

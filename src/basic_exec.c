@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// TODO handle exit 0 | exit 1
-// attention : tres chiant
-
 #include "../includes/minishell.h"
 
 bool syntax_redirect(char *line)

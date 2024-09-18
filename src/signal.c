@@ -12,10 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// CTRL + C interaction
-
-// TODO handle exit codes
-
 /*
 
     SIGINT (Interrupt Signal)
