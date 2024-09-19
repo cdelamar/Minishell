@@ -51,11 +51,17 @@ int basic_child_process(char *line, t_cmd *cmd)
     char *command;
 
     split_line = ft_split(line, ' ');
+
+    //LEAK
+    if (!split_line)
+        return (EXIT_FAILURE);
+    //SEGFAULT DEBUG ATTEMPT
+
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
-        ft_freetab(cmd->path_command);//LEAK
         ft_freetab(split_line);
-        return EXIT_FAILURE;
+        ft_freetab(cmd->path_command);
+        return (EXIT_FAILURE);
     }
 
     command = cmd_finder(split_line, cmd);
@@ -65,7 +71,8 @@ int basic_child_process(char *line, t_cmd *cmd)
     printf("command not found: %s\n", line);
     free_structs(cmd);
     ft_freetab(split_line);
-    return EXIT_FAILURE;
+    ft_freetab(cmd->path_command);//LEAK
+    return (EXIT_FAILURE);
 }
 
 int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free cmd->path_split

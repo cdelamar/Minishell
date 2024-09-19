@@ -49,6 +49,7 @@ static int child_process(t_cmd *cmd, int *fd, int i)
         ft_freetab(cmd->path_split); //LEAK BOSS
     ft_freetab(cmd->path_command); //LEAK
     ft_freetab(split_line);
+    free_structs(cmd); //LEAKTEST
     exit(EXIT_SUCCESS);
 }
 
@@ -98,7 +99,7 @@ int pipe_execute(char *line, t_cmd *cmd)
         waitpid(last_pid, &status, 0);
 
     // Reap any remaining child processes to avoid zombies
-    while (waitpid(-1, NULL, WNOHANG) > 0);
+    while (waitpid(-1, NULL, WNOHANG) > 0); // ca va falloir le defendre
 
     close(cmd->fd_in);
     if (cmd->path_command)

@@ -24,20 +24,3 @@ void	ft_freetab(char **tab)
 	}
 	free(tab);
 }
-/*
-void ft_freetab(char **tab)
-{
-    int i;
-
-    if (!tab)
-        return;
-    i = 0;
-    while (tab[i])
-    {
-        free(tab[i]);
-        tab[i] = NULL;  // Ensure pointers inside tab are NULL'd after freeing
-        i++;
-    }
-    free(tab);
-    tab = NULL;  // Ensure the main pointer is NULL'd after freeing
-}*/

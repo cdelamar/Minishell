@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 // TODO handle 'exit 0 | exit 1'
-// handle 'space only input'
+// handle 'space only input' SEGFAULT
 // handle 'sort << "" '
 // handle 'qwwqls | wc' : FIND OUT WHY PIPE DOESNT CHECK 1ST COMMAND
 // handle '< test.txt cat' (*)
@@ -30,6 +30,12 @@ static void process_input(char *line, t_cmd *cmd)
         //printf("CTRL + D from shell_loop\n");
         free_structs(cmd);
         exit(0); // Handle exit on EOF (CTRL + D)
+    }
+
+    if (space_only(line) == true)
+    {
+        free_structs(cmd);
+        return;
     }
 
     if (*line)
@@ -77,6 +83,7 @@ void shell_exec_loop(char **envp)
 
         //cleanup(line, cmd);
         // rl_clear_history();
+        free(line); // LEAK
     }
 }
 
@@ -87,7 +94,7 @@ int main(int argc, char **argv, char **envp)
 
     if (argc != 1)
     {
-        printf("MiniSnail is supposed to work by typing './minishell'\n");
+        printf("invalid argument.\n");
         return (0);
     }
     rl_outstream = stderr;

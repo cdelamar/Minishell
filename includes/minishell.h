@@ -136,6 +136,10 @@ void	execute_child_process(t_cmd *cmd, int *fd, int i);
 void	init_cmd(t_cmd *cmd, char *line);
 int		pipe_execute(char *line, t_cmd *cmd);
 
+//safety
+
+bool space_only (char *line);
+
 //WIP
 int		handle_path(t_cmd *cmd);
 void	cleanup(char *line, t_cmd *cmd);

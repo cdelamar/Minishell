@@ -33,27 +33,6 @@ void free_structs(t_cmd *cmd)
 	if(cmd)
 		free(cmd);
 }
-/*
-void free_structs(t_cmd *cmd)
-{
-    if (cmd)
-    {
-        if (cmd->path_split)
-        {
-            ft_freetab(cmd->path_split);  // Free path_split array safely
-            cmd->path_split = NULL;  // Set to NULL to prevent double free
-        }
-
-        // You might want to free other dynamically allocated fields here
-        // if(cmd->path_command)
-        //    ft_freetab(cmd->path_command);
-        // if(cmd->env)
-        //    ft_freetab(cmd->env);
-
-        free(cmd);  // Finally free the main cmd structure
-        cmd = NULL;
-    }
-}*/
 
 static int	env_count(char **envp)
 {
