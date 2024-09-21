@@ -92,6 +92,7 @@ int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free 
             ft_freetab(cmd->path_split);
         if (split_line)
           ft_freetab(split_line);
+        free(cmd); //tentative le 22/09
         return EXIT_FAILURE;
     }
     ft_freetab(split_line);
