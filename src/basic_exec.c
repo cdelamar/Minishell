@@ -52,11 +52,8 @@ int basic_child_process(char *line, t_cmd *cmd)
     char *command;
 
     split_line = ft_split(line, ' ');
-
-    //LEAK
     if (!split_line)
         return (EXIT_FAILURE);
-    //SEGFAULT DEBUG ATTEMPT
 
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
@@ -70,11 +67,9 @@ int basic_child_process(char *line, t_cmd *cmd)
         execve(command, split_line, cmd->env);
 
     printf("command not found: %s\n", line);
-    printf("est ce aue cest la qui faut free\n");
-    free_structs(cmd);
-    ft_freetab(cmd->path_split); //LEAK INESPERE
     ft_freetab(split_line);
-    ft_freetab(cmd->path_command);
+    ft_freetab(cmd->path_split); //LEAK INESPERE
+    free(cmd);
     return (EXIT_FAILURE);
 }
 
@@ -88,19 +83,17 @@ int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free 
         if (split_line)
             ft_freetab(split_line);
         if (cmd->path_split)
-            ft_freetab(cmd->path_split); //LEAK BOSS
+            ft_freetab(cmd->path_split);
         return EXIT_FAILURE;
     }
-    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE) // cest la que ca peche ft_peche
+    if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
         if (cmd->path_split)
-            ft_freetab(cmd->path_split); //LEAK BOSS
+            ft_freetab(cmd->path_split);
         if (split_line)
           ft_freetab(split_line);
         return EXIT_FAILURE;
     }
-    //if (cmd->path_split)
-    //    ft_freetab(cmd->path_split); //LEAK BOSS
     ft_freetab(split_line);
     return EXIT_SUCCESS;
 }
@@ -111,34 +104,28 @@ int basic_execute(char *line, t_cmd *cmd)
     char **split_line = NULL;
 
     split_line = ft_split(line, ' ');
-    exit_code = set_command_path(cmd); // liberer ft_split de cmd->path_split
+    exit_code = set_command_path(cmd);
     if (exit_code != EXIT_SUCCESS)
     {
-        //ft_freetab(cmd->path_split); //LEAK
         ft_freetab(split_line);
-		free_structs(cmd); // faut voir
+		free_structs(cmd);
         return exit_code;
     }
     cmd->pid1 = fork();
     if (cmd->pid1 < 0)
     {
-        printf("ca fork pas chef\n");
+        printf("fork error\n");
         return EXIT_FAILURE; //Error forking
     }
     else if (cmd->pid1 == 0)
 	{
         exit_code = basic_child_process(line, cmd);
         ft_freetab(split_line);
-        //ft_freetab(cmd->path_split); //LEAK
         exit(exit_code); // sans ca le code se dedouble en cas de fausse commande
     }
 	else
-    {
-        // if (cmd->path_split)
-        //   ft_freetab(cmd->path_split); //LEAK BOSS
         return basic_parent_process(cmd->pid1, split_line, cmd);
-    }
-    ft_freetab(cmd->path_split); //LEAK
+    ft_freetab(cmd->path_split);
     ft_freetab(split_line);
     return EXIT_SUCCESS;
 }

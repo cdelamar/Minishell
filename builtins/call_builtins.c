@@ -35,19 +35,12 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     else if (ft_strcmp(split_line[0], "exit") == 0)
     {
         int exit_code = ft_exit(split_line, cmd);
-
-            // If child process, directly exit
         if (cmd->pid1 == 0)
             exit(exit_code);
-
-            // If parent process, return the exit code
         ret = exit_code;
     }
     restore_fd(saved_in, saved_out);
     return (ret);
-    // printf("avant syntax\n");
-    // if (syntax_redirect(split_line) == false)
-    //     return (ret);
 }
 
 static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout, t_cmd *cmd)
@@ -55,7 +48,6 @@ static int redirect_manager(char **split_line, int saved_stdin, int saved_stdout
     if (handle_redirections(split_line, 0, cmd) == EXIT_FAILURE)
 	{
         restore_fd(saved_stdin, saved_stdout);
-        //ft_freetab(split_line); obsolete ?
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
