@@ -49,7 +49,9 @@ static int child_process(t_cmd *cmd, int *fd, int i)
         ft_freetab(cmd->path_split); //LEAK BOSS
     ft_freetab(cmd->path_command); //LEAK
     ft_freetab(split_line);
-    free_structs(cmd); //LEAKTEST
+    free(cmd);
+   // if (cmd->path_split)
+   //     free_structs(cmd); //LEAKTEST
     exit(EXIT_SUCCESS);
 }
 

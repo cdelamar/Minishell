@@ -35,6 +35,7 @@ bool syntax_redirect(char *line)
 
 int set_command_path(t_cmd *cmd)
 {
+    //printf ("cest set_command path qui cree path_split\n");
     ft_path(cmd);
     if (!cmd->path)
     {
@@ -69,9 +70,11 @@ int basic_child_process(char *line, t_cmd *cmd)
         execve(command, split_line, cmd->env);
 
     printf("command not found: %s\n", line);
+    printf("est ce aue cest la qui faut free\n");
     free_structs(cmd);
+    ft_freetab(cmd->path_split); //LEAK INESPERE
     ft_freetab(split_line);
-    ft_freetab(cmd->path_command);//LEAK
+    ft_freetab(cmd->path_command);
     return (EXIT_FAILURE);
 }
 

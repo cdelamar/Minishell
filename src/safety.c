@@ -13,3 +13,14 @@ bool space_only (char *line)
 	}
 	return (true);
 }
+
+void print_tab(char **tab)
+{
+	int i = 0;
+
+	while(tab[i])
+	{
+		printf("array 1 : %s/n", tab[i]);
+		i++;
+	}
+}

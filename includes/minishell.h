@@ -139,6 +139,7 @@ int		pipe_execute(char *line, t_cmd *cmd);
 //safety
 
 bool space_only (char *line);
+void print_tab(char **tab);
 
 //WIP
 int		handle_path(t_cmd *cmd);

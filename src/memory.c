@@ -24,14 +24,21 @@ int malloc_structs(t_cmd **cmd)
 
 void free_structs(t_cmd *cmd)
 {
-	if(cmd->path_split)
-		ft_freetab(cmd->path_split);
-	//if(cmd->path_command)
-    //    ft_freetab(cmd->path_command);//LEAK
-	//if(cmd->env)
-	//	ft_freetab(cmd->env);
-	if(cmd)
-		free(cmd);
+	if(cmd->path_split != NULL)
+	{
+		/*int i = 0;
+		while (cmd->path_split[i])
+		{
+			printf ("je libere : %s\n", cmd->path_split[i]);
+			i++;
+		}*/
+			ft_freetab(cmd->path_split);
+			cmd->path_split = NULL;
+		if(cmd)
+			free(cmd);
+		cmd = NULL;
+	}
+	//printf ("lets go\n\n");
 }
 
 static int	env_count(char **envp)
