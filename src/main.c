@@ -42,7 +42,6 @@ static void process_input(char *line, t_cmd *cmd)
         add_history(line);
 
     ret = execute(line,cmd);
-
     if (ret == EXIT_COMMAND)
     {
         //printf("FREE by EXIT COMMAND (shell_loop)\n");
@@ -52,7 +51,17 @@ static void process_input(char *line, t_cmd *cmd)
     }
 
     else if (ret == EXIT_SUCCESS)
-        free_structs(cmd);
+    {
+        if (cmd->path_command)
+            ft_freetab(cmd->path_command);
+        if(cmd->path_split)
+            ft_freetab(cmd->path_split);
+        if (cmd)
+            free(cmd); // POSSIBLE SUCCESS ??????
+            /*
+        if (cmd)
+            free_structs(cmd); //degueulasse un peu nan*/
+    }
 }
 
 static int init_shell_exec(t_cmd **cmd, char **envp)
@@ -75,14 +84,12 @@ void shell_exec_loop(char **envp)
     while (1)
     {
         if (init_shell_exec(&cmd, envp) != 0)
+        {
+            printf("init return here\n");
             return;
+        }
         line = readline("$ ");
         process_input(line, cmd);
-        //free_structs(cmd);  // LEAK : this free is necessary to avoid leaks but occurs segfaults in rare cases
-                            // check minishell tester > 'mstester m'
-
-        //cleanup(line, cmd);
-        // rl_clear_history();
         free(line); // LEAK
     }
 }

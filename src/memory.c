@@ -28,10 +28,13 @@ void free_structs(t_cmd *cmd)
 	{
 			ft_freetab(cmd->path_split);
 			cmd->path_split = NULL;
-		if(cmd)
+	/*	if(cmd)
 			free(cmd);
-		cmd = NULL;
+		cmd = NULL;*/
 	}
+	if(cmd)
+		free(cmd);
+	cmd = NULL;
 }
 
 static int	env_count(char **envp)

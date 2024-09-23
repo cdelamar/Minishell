@@ -36,7 +36,12 @@ static int builtin_commands(char **split_line, t_cmd *cmd, int saved_in, int sav
     {
         int exit_code = ft_exit(split_line, cmd);
         if (cmd->pid1 == 0)
+        {
+            ft_freetab(split_line);
+            free(cmd);
+            restore_fd(saved_in, saved_out); //fd test
             exit(exit_code);
+        }
         ret = exit_code;
     }
     restore_fd(saved_in, saved_out);

@@ -40,7 +40,7 @@ static int child_process(t_cmd *cmd, int *fd, int i)
     if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
     {
         if (cmd->path_split)
-            ft_freetab(cmd->path_split); //LEAK BOSS
+           ft_freetab(cmd->path_split); //LEAK BOSS
         ft_freetab(cmd->path_command); //LEAK
         ft_freetab(split_line);
         exit(EXIT_FAILURE);
@@ -50,8 +50,6 @@ static int child_process(t_cmd *cmd, int *fd, int i)
     ft_freetab(cmd->path_command); //LEAK
     ft_freetab(split_line);
     free(cmd);
-   // if (cmd->path_split)
-   //     free_structs(cmd); //LEAKTEST
     exit(EXIT_SUCCESS);
 }
 
@@ -82,7 +80,7 @@ int pipe_execute(char *line, t_cmd *cmd)
     int i = 0;
     pid_t last_pid = -1;
 
-    initialize_cmd(cmd, line); //ft_split a liberer dedans (cmd->path_command)
+    initialize_cmd(cmd, line); //(cmd->path_command)
 
     while (cmd->path_command[i])
     {
@@ -104,8 +102,12 @@ int pipe_execute(char *line, t_cmd *cmd)
     while (waitpid(-1, NULL, WNOHANG) > 0); // ca va falloir le defendre
 
     close(cmd->fd_in);
-    if (cmd->path_command)
-        ft_freetab(cmd->path_command);
+    //if (cmd->path_command)
+    //    ft_freetab(cmd->path_command);
+    //if(cmd->path_split)
+    //    ft_freetab(cmd->path_split);
+    //if (cmd)
+    //    free(cmd); // POSSIBLE SUCCESS ??????
     return (EXIT_SUCCESS);
 }
 
