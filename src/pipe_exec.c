@@ -95,7 +95,7 @@ int pipe_execute(char *line, t_cmd *cmd)
     int i = 0;
     pid_t last_pid = -1;
 
-    initialize_cmd(cmd, line); //(cmd->path_command)
+    ft_path_command(cmd, line); //(cmd->path_command)
 
     while (cmd->path_command[i])
     {
@@ -118,13 +118,7 @@ int pipe_execute(char *line, t_cmd *cmd)
     // Reap any remaining child processes to avoid zombies
     while (waitpid(-1, NULL, WNOHANG) > 0); // ca va falloir le defendre
     close(cmd->fd_in);
-    //if (cmd->path_command)
-    //    ft_freetab(cmd->path_command);
-    //if(cmd->path_split)
-    //    ft_freetab(cmd->path_split);
-    //if (cmd)
-    //    free(cmd); // POSSIBLE SUCCESS ??????
-    printf("return success\n");
+    //eviter de free ici, vaut mieux le faire une fois return
     return (EXIT_SUCCESS);
 }
 

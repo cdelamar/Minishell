@@ -33,9 +33,8 @@ bool syntax_redirect(char *line)
     return (true);
 }
 
-int set_command_path(t_cmd *cmd)
+int ft_path_split(t_cmd *cmd)
 {
-    //printf ("cest set_command path qui cree path_split\n");
     ft_path(cmd);
     if (!cmd->path)
     {
@@ -87,17 +86,12 @@ int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free 
         printf("waitpid -1\n");
         if (split_line)
             ft_freetab(split_line);
-        //if (cmd->path_split)
-        //    ft_freetab(cmd->path_split);
         return EXIT_FAILURE;
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
-        //if (cmd->path_split)
-         //   ft_freetab(cmd->path_split);
         if (split_line)
           ft_freetab(split_line);
-        //free(cmd); //LEAK CERTIANEMENT DETERMINANT je sais plus
         return EXIT_FAILURE;
     }
     ft_freetab(split_line);
@@ -110,7 +104,7 @@ int basic_execute(char *line, t_cmd *cmd)
     char **split_line = NULL;
 
     split_line = ft_split(line, ' ');
-    exit_code = set_command_path(cmd);
+    exit_code = ft_path_split(cmd); // path_split via ft_path
     if (exit_code != EXIT_SUCCESS)
     {
         ft_freetab(split_line);
@@ -125,24 +119,16 @@ int basic_execute(char *line, t_cmd *cmd)
     }
     else if (cmd->pid1 == 0)
 	{
-        //printf("LE FAMEUX ELSE IF LA |||||||||||||||||\n\n");
-        // gestion de leak du soir, bonsoir TODO
         exit_code = basic_child_process(line, cmd);
         ft_freetab(split_line);
         ft_freetab(cmd->path_split);
+        // MAJOR PROBLEM : FIX path_command free
         ft_freetab(cmd->path_command);
         free(cmd);
-        //free_structs(cmd);
-        printf("je casse mes oeuf ou alors putaaaaaain\n");
         exit(exit_code); // sans ca le code se dedouble en cas de fausse commande
     }
 	else
-    {
-        printf("ici je retourne mais je free pas\n");
         return basic_parent_process(cmd->pid1, split_line, cmd);
-    }
-    //ft_freetab(cmd->path_split); // peut etre pas necessaire
     ft_freetab(split_line);
-    printf ("genre cest un succes ??? \n");
     return EXIT_SUCCESS;
 }

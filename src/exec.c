@@ -20,10 +20,12 @@ void cleanup(char *line, t_cmd *cmd)
 		free(line);
 }
 
-void initialize_cmd(t_cmd *cmd, char *line)
+void ft_path_command(t_cmd *cmd, char *line)
 {
     cmd->fd_in = 0; // Initialize the input for the first commad
-    cmd->path_command = ft_split(line, '|'); // maybe the issue of '|' = ctrl + d.
+    cmd->path_command = ft_split(line, '|'); 
+	printf ("CREATED path_command\n");
+	print_tab(cmd->path_command);
 }
 
 void handle_error(char *msg, t_cmd *cmd, int *fd)
@@ -32,7 +34,6 @@ void handle_error(char *msg, t_cmd *cmd, int *fd)
     close_fds(fd);
 	if (cmd->path_command)
         ft_freetab(cmd->path_command);
-    //return(EXIT_FAILURE);
 	exit(EXIT_FAILURE);
 }
 
@@ -54,5 +55,9 @@ int	execute(char *line, t_cmd *cmd)
 		return (pipe_execute(line, cmd));
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
-	return (basic_execute(line, cmd));
+	else
+	{
+		// ca leak en cas de commande invalide, pourquoi pas liberer ici jsp
+		return (basic_execute(line, cmd));
+	}
 }

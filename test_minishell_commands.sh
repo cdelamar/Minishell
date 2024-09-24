@@ -4,6 +4,7 @@
 cat <<EOL > commands.txt
 ls
 ls -lathr
+ 
 ls | wc
 ls -l | wc -l
 echo salut > test.txt
@@ -27,6 +28,7 @@ cd src
 ls
 cd ..
 lsdfk
+LIONEL JOSPIN
 exit
 EOL
 

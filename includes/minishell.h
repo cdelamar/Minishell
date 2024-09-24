@@ -71,9 +71,11 @@ typedef struct s_cmd
 	int		export_added;
 }	t_cmd;
 
+void				ft_path_command(t_cmd *cmd, char *line); 	// PATH_COMMAND ('ls -lathr' 'wc' 'cat -e'....)
+int					ft_path_split(t_cmd *cmd);					// PATH_SPLIT ('usr/local/sbin' '/sbin' 'snap/bin'....)
+
 // excecuting
 void 				shell_exec_loop(char **envp); // WIP
-void				initialize_cmd(t_cmd *cmd, char *line);
 void				handle_error(char *msg, t_cmd *cmd, int *fd);
 int					execute(char *line, t_cmd *cmd);
 
@@ -124,7 +126,6 @@ int					open_heredoc_file(void);
 
 //basic executing
 int					handle_exit_command(char *line);
-int					set_command_path(t_cmd *cmd);
 int					basic_child_process(char *line, t_cmd *cmd);
 int					basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd);
 int					basic_execute(char *line, t_cmd *cmd);
