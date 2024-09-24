@@ -26,7 +26,14 @@ static int child_process(t_cmd *cmd, int *fd, int i)
 {
     setup_child_pipes(cmd, fd, i);
 
-    char **split_line = ft_split(cmd->path_command[i], ' ');
+    char **split_line;
+
+    split_line = ft_split(cmd->path_command[i], ' ');
+    // le split est pas bon :
+    // en cas de commande erronee avec argument (ls | wc -dqwwqdqwd)
+    // pas de leaks
+    // en cas de commande erronee sans argument (ls | dqwwqdqwd)
+    // ft_freetab libere pas correctement
 
     if (ft_strcmp(split_line[0], "exit") == 0)
     {
@@ -36,12 +43,20 @@ static int child_process(t_cmd *cmd, int *fd, int i)
         exit(exit_code);
     }
 
+
+    // TODO FIX CE FOUTU INVALID READ QUAND ls | wc -dwqklwdqkqwd
+
     // If not 'exit', execute normally
     if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
     {
-        if (cmd->path_split)
-           ft_freetab(cmd->path_split); //LEAK BOSS
-        ft_freetab(cmd->path_command); //LEAK
+        //printf("EXECUTION FAILURE. ON FREE\n\n");
+        //print_tab(split_line);
+        if (cmd->path_split != NULL)
+           ft_freetab(cmd->path_split); //LEAK BOSS*/
+        if (cmd->path_command != NULL)
+            ft_freetab(cmd->path_command); //LEAK
+        free(cmd);
+        //print_tab(split_line);
         ft_freetab(split_line);
         exit(EXIT_FAILURE);
     }
@@ -92,15 +107,16 @@ int pipe_execute(char *line, t_cmd *cmd)
             parent_process(cmd, cmd->fd, &i);
         }
     }
-
+    printf("waitpid\n");
     // Wait for the last command in the pipeline to finish
     int status;
     if (last_pid > 0)
+    {
+        printf ("lastpid = %d\n", last_pid);
         waitpid(last_pid, &status, 0);
-
+    }
     // Reap any remaining child processes to avoid zombies
     while (waitpid(-1, NULL, WNOHANG) > 0); // ca va falloir le defendre
-
     close(cmd->fd_in);
     //if (cmd->path_command)
     //    ft_freetab(cmd->path_command);
@@ -108,6 +124,7 @@ int pipe_execute(char *line, t_cmd *cmd)
     //    ft_freetab(cmd->path_split);
     //if (cmd)
     //    free(cmd); // POSSIBLE SUCCESS ??????
+    printf("return success\n");
     return (EXIT_SUCCESS);
 }
 

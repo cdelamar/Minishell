@@ -23,4 +23,5 @@ void	ft_freetab(char **tab)
 		i++;
 	}
 	free(tab);
+	tab = NULL;
 }

@@ -20,7 +20,8 @@ void print_tab(char **tab)
 
 	while(tab[i])
 	{
-		printf("array 1 : %s/n", tab[i]);
+		printf("array NUMBER %d : %s\n\n",i , tab[i]);
 		i++;
 	}
+	printf("END OF PRINT TAB\n");
 }
