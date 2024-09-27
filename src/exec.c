@@ -24,8 +24,8 @@ void ft_path_command(t_cmd *cmd, char *line)
 {
     cmd->fd_in = 0; // Initialize the input for the first commad
     cmd->path_command = ft_split(line, '|'); 
-	printf ("CREATED path_command\n");
-	print_tab(cmd->path_command);
+	//printf ("CREATED path_command\n");
+	// print_tab(cmd->path_command);
 }
 
 void handle_error(char *msg, t_cmd *cmd, int *fd)
@@ -57,6 +57,7 @@ int	execute(char *line, t_cmd *cmd)
 		return (EXIT_SUCCESS);
 	else
 	{
+		//printf("basic through exec\n\n");
 		// ca leak en cas de commande invalide, pourquoi pas liberer ici jsp
 		return (basic_execute(line, cmd));
 	}

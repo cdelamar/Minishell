@@ -11,10 +11,17 @@
 /* ************************************************************************** */
 
 // TODO handle 'exit 0 | exit 1'
-// handle 'space only input' SEGFAULT
-// handle 'sort << "" '
+
+// memory :
+// still reachable :    'ls | dqwdqwdqwd'
+// still reachable :	'qdwdqwqdwqwd | ls"
+// invalid read :       'wfekljfweljkljkwef'
+
+// major :
 // handle 'qwwqls | wc' : FIND OUT WHY PIPE DOESNT CHECK 1ST COMMAND
-// handle '< test.txt cat' (*)
+
+// minor :
+// handle 'sort << "" '
 // handle 'cat <test.txt'
 
 #include "../includes/minishell.h"

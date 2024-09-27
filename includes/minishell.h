@@ -126,7 +126,7 @@ int					open_heredoc_file(void);
 
 //basic executing
 int					handle_exit_command(char *line);
-int					basic_child_process(char *line, t_cmd *cmd);
+int					basic_child_process(char **free_line, char *line, t_cmd *cmd);
 int					basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd);
 int					basic_execute(char *line, t_cmd *cmd);
 
@@ -153,6 +153,7 @@ int ft_isnumber(char *str);
 bool syntax_redirect(char *line);
 
 void setup_signal_handler(int signum, void (*handler)(int));
+bool freeable_tab (char **tab);
 
 
 #endif

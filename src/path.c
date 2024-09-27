@@ -32,9 +32,7 @@ void	ft_path(t_cmd *cmd)
 	if (cmd->path)
 	{
 		cmd->path_split = ft_split(cmd->path, ':');
-		printf("CREATED path_split :\n");
-		print_tab(cmd->path_split);
-	//	printf("ca path\n");
+		//printf("CREATED path_split :\n");
+		// print_tab(cmd->path_split);
 	}
-	//printf ("ou ca cath\n");
 }

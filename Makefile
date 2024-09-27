@@ -82,6 +82,11 @@ tester: $(NAME)
 	@chmod +x test_minishell_commands.sh
 	@./test_minishell_commands.sh
 
+leak_test: $(NAME)
+	@echo "Running Valgrind memory leak test..."
+	@chmod +x debug_valgrind_test.sh
+	@./debug_valgrind_test.sh
+
 # Debug with GDB
 gdb: $(NAME)
 	@echo "\033[35m✔ Launching GDB...\033[37m"

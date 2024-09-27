@@ -25,3 +25,16 @@ void print_tab(char **tab)
 	}
 	printf("END OF PRINT TAB\n");
 }
+
+bool freeable_tab (char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	while(tab[i])
+		i++;
+
+	if (i <= 1)
+		return (false);
+	return(true);
+}

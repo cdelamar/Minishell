@@ -47,6 +47,7 @@ static int child_process(t_cmd *cmd, int *fd, int i)
     // TODO FIX CE FOUTU INVALID READ QUAND ls | wc -dwqklwdqkqwd
 
     // If not 'exit', execute normally
+    // printf("basic through pipe\n\n");
     if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
     {
         //printf("EXECUTION FAILURE. ON FREE\n\n");
@@ -60,8 +61,8 @@ static int child_process(t_cmd *cmd, int *fd, int i)
         ft_freetab(split_line);
         exit(EXIT_FAILURE);
     }
-    if (cmd->path_split)
-        ft_freetab(cmd->path_split); //LEAK BOSS
+    //if (cmd->path_split)
+    ft_freetab(cmd->path_split); //LEAK BOSS
     ft_freetab(cmd->path_command); //LEAK
     ft_freetab(split_line);
     free(cmd);

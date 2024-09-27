@@ -76,7 +76,7 @@ void print_env(t_cmd *cmd)
 
 int ft_export(char **args, t_cmd *cmd)
 {
-    printf("ft_export\n");
+    //printf("ft_export\n");
     if (!args[1])
     {
         print_env(cmd);
