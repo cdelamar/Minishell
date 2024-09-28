@@ -154,6 +154,7 @@ bool syntax_redirect(char *line);
 
 void setup_signal_handler(int signum, void (*handler)(int));
 bool freeable_tab (char **tab);
+void free_cmd(t_cmd *cmd);
 
 
 #endif

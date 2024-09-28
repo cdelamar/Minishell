@@ -15,6 +15,7 @@
 
 static void setup_child_pipes(t_cmd *cmd, int *fd, int i)
 {
+    printf("\n\n dup2 \n\n");
     dup2(cmd->fd_in, 0); // Get input from the previous command
     if (cmd->path_command[i + 1])
         dup2(fd[1], 1); // Output to the next command
@@ -29,11 +30,6 @@ static int child_process(t_cmd *cmd, int *fd, int i)
     char **split_line;
 
     split_line = ft_split(cmd->path_command[i], ' ');
-    // le split est pas bon :
-    // en cas de commande erronee avec argument (ls | wc -dqwwqdqwd)
-    // pas de leaks
-    // en cas de commande erronee sans argument (ls | dqwwqdqwd)
-    // ft_freetab libere pas correctement
 
     if (ft_strcmp(split_line[0], "exit") == 0)
     {
@@ -43,29 +39,16 @@ static int child_process(t_cmd *cmd, int *fd, int i)
         exit(exit_code);
     }
 
-
-    // TODO FIX CE FOUTU INVALID READ QUAND ls | wc -dwqklwdqkqwd
-
-    // If not 'exit', execute normally
-    // printf("basic through pipe\n\n");
-    if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE)
+    if (basic_execute(cmd->path_command[i], cmd) == EXIT_FAILURE) // EXIT SUCCES OR EXIT FAILURE
     {
-        //printf("EXECUTION FAILURE. ON FREE\n\n");
-        //print_tab(split_line);
-        if (cmd->path_split != NULL)
-           ft_freetab(cmd->path_split); //LEAK BOSS*/
-        if (cmd->path_command != NULL)
-            ft_freetab(cmd->path_command); //LEAK
-        free(cmd);
-        //print_tab(split_line);
         ft_freetab(split_line);
-        exit(EXIT_FAILURE);
+        free_cmd(cmd);
+        printf("i aspire to the purity\n");
+        exit(EXIT_SUCCESS); // MAJOR success OR failure
     }
-    //if (cmd->path_split)
-    ft_freetab(cmd->path_split); //LEAK BOSS
-    ft_freetab(cmd->path_command); //LEAK
+    printf("of the blessed machine\n");
     ft_freetab(split_line);
-    free(cmd);
+    free_cmd(cmd);
     exit(EXIT_SUCCESS);
 }
 
@@ -105,6 +88,7 @@ int pipe_execute(char *line, t_cmd *cmd)
         else
         {
             last_pid = cmd->pid1; // Store the last child's PID
+            printf("but i am already saved\n");
             parent_process(cmd, cmd->fd, &i);
         }
     }
@@ -119,6 +103,7 @@ int pipe_execute(char *line, t_cmd *cmd)
     // Reap any remaining child processes to avoid zombies
     while (waitpid(-1, NULL, WNOHANG) > 0); // ca va falloir le defendre
     close(cmd->fd_in);
+    printf ("for the machine is immortal\n");
     //eviter de free ici, vaut mieux le faire une fois return
     return (EXIT_SUCCESS);
 }

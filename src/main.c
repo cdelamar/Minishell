@@ -49,25 +49,25 @@ static void process_input(char *line, t_cmd *cmd)
         add_history(line);
 
     ret = execute(line,cmd);
+
+    /* OBSOLETE COMMAND : MAY CONSIDER REMOVE / REUSE IT */
     if (ret == EXIT_COMMAND)
     {
-        //printf("FREE by EXIT COMMAND (shell_loop)\n");
         free_structs(cmd);
         free(line);
-        exit(0); // Handle explicit exit command
+        exit(0);
     }
+    /* -------------------------------------------------*/
 
-    else if (ret == EXIT_SUCCESS)
+    else if (ret == EXIT_SUCCESS || ret == EXIT_FAILURE)
     {
+        printf("as if it will not decay and fail you\n\n");
         if (cmd->path_command)
             ft_freetab(cmd->path_command);
         if(cmd->path_split)
             ft_freetab(cmd->path_split);
         if (cmd)
-            free(cmd); // POSSIBLE SUCCESS ??????
-            /*
-        if (cmd)
-            free_structs(cmd); //degueulasse un peu nan*/
+            free(cmd);
     }
 }
 
@@ -97,7 +97,9 @@ void shell_exec_loop(char **envp)
         }
         line = readline("$ ");
         process_input(line, cmd);
+        printf ("THE PROCESS RETURN \n\n");
         free(line); // LEAK
+        printf("one day the crude biomass that you called a temple will wither\n\n\n");
     }
 }
 
@@ -116,7 +118,7 @@ int main(int argc, char **argv, char **envp)
     signals();
 
     shell_exec_loop(envp);
-
+    printf ("\n\n LEFT THE LOOP \n\n");
     return 0;
 }
 

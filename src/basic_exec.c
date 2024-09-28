@@ -39,7 +39,8 @@ int ft_path_split(t_cmd *cmd)
     if (!cmd->path)
     {
         printf("SET COMMAND PATH command not found\n");
-        return (EXIT_FAILURE);
+        return (EXIT_FAILURE); // 1011010101010011001010101010101010101100101010101100110
+        //EXIT SUCCESS
     }
     return (EXIT_SUCCESS);
 }
@@ -58,13 +59,14 @@ int basic_child_process(char **free_line, char *line, t_cmd *cmd)
     if (handle_redirections(split_line, HEREDOC_ON, cmd) != 0)
     {
         ft_freetab(split_line);
-        ft_freetab(cmd->path_command);
         return (EXIT_FAILURE);
     }
 
     command = cmd_finder(split_line, cmd);
     if (command)
         execve(command, split_line, cmd->env);
+
+    printf ("\n\n\n\n missing the execve command seems to occurs memory issues, but why\n\n\n\n");
 
     printf("%s : command not found\n", line);
     ft_freetab(split_line);
@@ -74,7 +76,7 @@ int basic_child_process(char **free_line, char *line, t_cmd *cmd)
     if (cmd->path_command)
         ft_freetab(cmd->path_command);
     free(cmd);
-    free(line);
+    //free(line);
     printf("\n\n\n EXIT CHILD PROC \n\n\n");
     //return (EXIT_FAILURE);
     //exit ?
@@ -88,19 +90,20 @@ int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free 
     if (waitpid(pid, &status, 0) == -1)
     {
         printf("waitpid -1\n");
-        if (split_line)
-            ft_freetab(split_line);
+        //if (split_line)
+        //    ft_freetab(split_line);
         return EXIT_FAILURE;
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
-        if (split_line)
-          ft_freetab(split_line);
-        ft_freetab(cmd->path_split);
+        printf("the weakness of my flesh\n");
+        //if (split_line)
+        //  ft_freetab(split_line);
+        //ft_freetab(cmd->path_split);
         return EXIT_FAILURE;
     }
     printf("je suis le succes\n");
-    ft_freetab(split_line);
+    //ft_freetab(split_line);
     return EXIT_SUCCESS;
 }
 
@@ -113,9 +116,9 @@ int basic_execute(char *line, t_cmd *cmd)
     exit_code = ft_path_split(cmd); // path_split via ft_path
     if (exit_code != EXIT_SUCCESS)
     {
-        printf("je suis peut etre la\n");
+        printf("\n\n\nje suis peut etre la\n");
         ft_freetab(split_line);
-		free_structs(cmd);
+		//free_structs(cmd);
         return exit_code;
     }
     cmd->pid1 = fork();
@@ -124,6 +127,7 @@ int basic_execute(char *line, t_cmd *cmd)
     if (cmd->pid1 < 0)
     {
         printf("fork error\n");
+        ft_freetab(split_line);
         return EXIT_FAILURE; //Error forking
     }
     else if (cmd->pid1 == 0)
@@ -140,9 +144,15 @@ int basic_execute(char *line, t_cmd *cmd)
 	else
     {
         printf("je suis peut etre la alors nan\n");
-
-        return basic_parent_process(cmd->pid1, split_line, cmd);
+        //ft_freetab(split_line);
+        //ft_freetab(cmd->path_split);
+        //ft_freetab(cmd->path_command);
+        //free(cmd);
+        ft_freetab(split_line);
+        return basic_parent_process(cmd->pid1, split_line, cmd); // EXIT_SUCCESS OR EXIT_FAILURE
     }
+    printf("from the moment i understood\n");
+
     if (freeable_tab(split_line) == true)
         ft_freetab(split_line);
     else

@@ -28,9 +28,6 @@ void free_structs(t_cmd *cmd)
 	{
 			ft_freetab(cmd->path_split);
 			cmd->path_split = NULL;
-	/*	if(cmd)
-			free(cmd);
-		cmd = NULL;*/
 	}
 	if(cmd)
 		free(cmd);

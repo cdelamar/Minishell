@@ -52,13 +52,16 @@ int	execute(char *line, t_cmd *cmd)
 		return (0);
 
 	if (ft_strchr(line, '|'))
+	{
+		printf("your kind cling to your flesh\n");
 		return (pipe_execute(line, cmd));
+	}
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
 	else
 	{
 		//printf("basic through exec\n\n");
 		// ca leak en cas de commande invalide, pourquoi pas liberer ici jsp
-		return (basic_execute(line, cmd));
+		return (basic_execute(line, cmd)); // EXIT_SUCCESS OR EXIT_FAILURE
 	}
 }
