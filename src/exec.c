@@ -53,7 +53,7 @@ int	execute(char *line, t_cmd *cmd)
 
 	if (ft_strchr(line, '|'))
 	{
-		printf("your kind cling to your flesh\n");
+		printf("pipe_execute return here ::::::::::::::::::\n");
 		return (pipe_execute(line, cmd));
 	}
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)

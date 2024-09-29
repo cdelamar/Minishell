@@ -40,8 +40,10 @@ int ft_heredoc(char *limit)
         }
 
         line = readline("heredoc> ");
+        // ctrl + c
         if (!line)
         {
+            printf("ctrl + c\n");
             close(heredoc_fd);
             reset_signals();
             return -1;

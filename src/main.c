@@ -28,6 +28,9 @@
 
 volatile sig_atomic_t g_signal = 0;
 
+
+// ??? faut free dans pipe exec cest sur
+
 static void process_input(char *line, t_cmd *cmd)
 {
     int ret;
@@ -48,18 +51,24 @@ static void process_input(char *line, t_cmd *cmd)
     if (*line)
         add_history(line);
 
-    ret = execute(line,cmd);
+    ret = execute(line,cmd); // execute retourne un int mais je men sert pas
+
 
     /* OBSOLETE COMMAND : MAY CONSIDER REMOVE / REUSE IT */
-    if (ret == EXIT_COMMAND)
-    {
-        free_structs(cmd);
-        free(line);
-        exit(0);
-    }
+    // if (ret == EXIT_COMMAND)
+    // {
+    //     free_structs(cmd);
+    //     free(line);
+    //     exit(0);
+    // }
     /* -------------------------------------------------*/
+    /// YA UN MONDE ///
+    // printf ("\n\n\n ************ RET == %d \n\n\n", ret);
+    free_cmd(cmd);
+    return;
 
-    else if (ret == EXIT_SUCCESS || ret == EXIT_FAILURE)
+    //// ALTERNATIVE DE : ////
+    /*else if (ret == EXIT_SUCCESS || ret == EXIT_FAILURE)
     {
         printf("as if it will not decay and fail you\n\n");
         if (cmd->path_command)
@@ -68,7 +77,7 @@ static void process_input(char *line, t_cmd *cmd)
             ft_freetab(cmd->path_split);
         if (cmd)
             free(cmd);
-    }
+    }*/
 }
 
 static int init_shell_exec(t_cmd **cmd, char **envp)
@@ -99,7 +108,7 @@ void shell_exec_loop(char **envp)
         process_input(line, cmd);
         printf ("THE PROCESS RETURN \n\n");
         free(line); // LEAK
-        printf("one day the crude biomass that you called a temple will wither\n\n\n");
+        printf("end of while1 loop\n\n\n");
     }
 }
 

@@ -42,10 +42,19 @@ bool freeable_tab (char **tab)
 void free_cmd(t_cmd *cmd)
 {
 	if (cmd->path_command)
+	{
+		// printf("\n\n\n\n ________________FREEING PATH_COMD\n");
+		// print_tab(cmd->path_command);
 		ft_freetab(cmd->path_command);
+	}
 	if (cmd->path_split)
+	{
+		// printf("\n\n\n\n ________________FREEING PATH_SPLIT\n");
+		// print_tab(cmd->path_split);
 		ft_freetab(cmd->path_split);
-	if (cmd)
-		free(cmd);
-	cmd = NULL;
+	}
+
+	printf("i free cmd\n");
+	free(cmd);
+	//cmd = NULL;
 }

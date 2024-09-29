@@ -1,0 +1,20 @@
+pipe_execute return here ::::::::::::::::::
+
+
+ dup2 
+
+
+
+
+
+ missing the execve command seems to occurs memory issues, but why
+
+
+
+' cat > lol.c" : command not found
+
+
+
+ EXIT CHILD PROC 
+
+

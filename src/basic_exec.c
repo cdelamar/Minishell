@@ -39,7 +39,7 @@ int ft_path_split(t_cmd *cmd)
     if (!cmd->path)
     {
         printf("SET COMMAND PATH command not found\n");
-        return (EXIT_FAILURE); // 1011010101010011001010101010101010101100101010101100110
+        return (EXIT_FAILURE);
         //EXIT SUCCESS
     }
     return (EXIT_SUCCESS);
@@ -96,17 +96,20 @@ int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free 
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
-        printf("the weakness of my flesh\n");
+        printf("WIFEXITED STATUS\n");
         //if (split_line)
         //  ft_freetab(split_line);
         //ft_freetab(cmd->path_split);
         return EXIT_FAILURE;
     }
-    printf("je suis le succes\n");
+    // printf("je suis le succes\n");
     //ft_freetab(split_line);
     return EXIT_SUCCESS;
 }
 
+// quel con, basic_execute est utilisee par pipe_exec si ya un pipe
+// du coup, je libere pas squi ya dans pipe
+/*
 int basic_execute(char *line, t_cmd *cmd)
 {
     int exit_code;
@@ -135,10 +138,10 @@ int basic_execute(char *line, t_cmd *cmd)
         exit_code = basic_child_process(split_line, line, cmd);
         printf("exit code = %d\n", exit_code);
         ft_freetab(split_line);
-        ft_freetab(cmd->path_split);
+        //ft_freetab(cmd->path_split);
         // MAJOR PROBLEM : FIX path_command free
-        ft_freetab(cmd->path_command);
-        free(cmd);
+        //ft_freetab(cmd->path_command);
+        //free(cmd);
         exit(exit_code); // sans ca le code se dedouble en cas de fausse commande
     }
 	else
@@ -151,11 +154,50 @@ int basic_execute(char *line, t_cmd *cmd)
         ft_freetab(split_line);
         return basic_parent_process(cmd->pid1, split_line, cmd); // EXIT_SUCCESS OR EXIT_FAILURE
     }
-    printf("from the moment i understood\n");
+    printf("ca libere OKLM dans basic_exec\n");
 
     if (freeable_tab(split_line) == true)
         ft_freetab(split_line);
     else
         free(split_line);
     return EXIT_SUCCESS;
+}*/
+
+
+int basic_execute(char *line, t_cmd *cmd)
+{
+    int exit_code;
+    char **split_line = NULL;
+
+    split_line = ft_split(line, ' ');
+    exit_code = ft_path_split(cmd); // Find command path
+
+    if (exit_code != EXIT_SUCCESS)
+    {
+        printf("Command not found: %s\n", line);
+        ft_freetab(split_line); // Free command split
+        return exit_code;
+    }
+
+    cmd->pid1 = fork();
+    if (cmd->pid1 < 0)
+    {
+        printf("Fork error\n");
+        ft_freetab(split_line);
+        return EXIT_FAILURE;
+    }
+    else if (cmd->pid1 == 0)
+    {
+        // Child process
+        exit_code = basic_child_process(split_line, line, cmd);
+        ft_freetab(split_line); // Free split in child process
+        exit(exit_code);        // Avoid duplicate execution
+    }
+    else
+    {
+        // Parent process
+        exit_code = basic_parent_process(cmd->pid1, split_line, cmd);
+        ft_freetab(split_line); // Free split in parent process
+        return exit_code;       // Return success or failure
+    }
 }
