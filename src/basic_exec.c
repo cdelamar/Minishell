@@ -77,7 +77,6 @@ int basic_child_process(char **free_line, char *line, t_cmd *cmd)
         ft_freetab(cmd->path_command);
     free(cmd);
     //free(line);
-    printf("\n\n\n EXIT CHILD PROC \n\n\n");
     //return (EXIT_FAILURE);
     //exit ?
     exit (EXIT_FAILURE);

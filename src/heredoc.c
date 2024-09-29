@@ -46,7 +46,7 @@ int ft_heredoc(char *limit)
             printf("ctrl + c\n");
             close(heredoc_fd);
             reset_signals();
-            return -1;
+            return 0; // 0 ou -1
         }
 
         if (ft_strcmp(line, limit) == 0)
