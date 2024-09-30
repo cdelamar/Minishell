@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/03 17:53:22 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:52:26 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ void setup_signal_handler(int signum, void (*handler)(int))
 void signals(void)
 {
     setup_signal_handler(SIGINT, sigint_handler);
-    setup_signal_handler(SIGQUIT, SIG_IGN); // Ignore CTRL+
+    setup_signal_handler(SIGQUIT, SIG_IGN); // Ignore CTRL+'\'
+    setup_signal_handler(SIGPIPE, SIG_IGN); // Ignore CTRL+'\'
 }
 
 void reset_signals(void)
