@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/06 00:31:44 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:12:39 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,8 @@ static void process_input(char *line, t_cmd *cmd)
         add_history(line);
 
     ret = execute(line,cmd); // execute retourne un int mais je men sert pas
-
-
-    /* OBSOLETE COMMAND : MAY CONSIDER REMOVE / REUSE IT */
-    // if (ret == EXIT_COMMAND)
-    // {
-    //     free_structs(cmd);
-    //     free(line);
-    //     exit(0);
-    // }
-    /* -------------------------------------------------*/
-    /// YA UN MONDE ///
-    // printf ("\n\n\n ************ RET == %d \n\n\n", ret);
     free_cmd(cmd);
     return;
-
-    //// ALTERNATIVE DE : ////
-    /*else if (ret == EXIT_SUCCESS || ret == EXIT_FAILURE)
-    {
-        printf("as if it will not decay and fail you\n\n");
-        if (cmd->path_command)
-            ft_freetab(cmd->path_command);
-        if(cmd->path_split)
-            ft_freetab(cmd->path_split);
-        if (cmd)
-            free(cmd);
-    }*/
 }
 
 static int init_shell_exec(t_cmd **cmd, char **envp)
@@ -101,14 +77,11 @@ void shell_exec_loop(char **envp)
     {
         if (init_shell_exec(&cmd, envp) != 0)
         {
-            printf("init return here\n");
             return;
         }
         line = readline("$ ");
         process_input(line, cmd);
-        printf ("THE PROCESS RETURN \n\n");
         free(line); // LEAK
-        printf("end of while1 loop\n\n\n");
     }
 }
 
@@ -127,7 +100,6 @@ int main(int argc, char **argv, char **envp)
     signals();
 
     shell_exec_loop(envp);
-    printf ("\n\n LEFT THE LOOP \n\n");
     return 0;
 }
 

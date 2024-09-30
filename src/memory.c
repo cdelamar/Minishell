@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:59:13 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/07/22 18:51:06 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:14:51 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int env_lines_copy(char **envp, int count, t_cmd *cmd)
 		cmd->env[i] = strdup(envp[i]);
 		if (!cmd->env[i])
 		{
-			printf("malloc issues at memory.c (line 76)\n");
 			while (i > 0)
 			{
 				free(cmd->env[i - 1]);

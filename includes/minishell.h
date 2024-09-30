@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/06 00:41:41 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:31:39 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int					open_heredoc_file(void);
 //basic executing
 int					handle_exit_command(char *line);
 int					basic_child_process(char **free_line, char *line, t_cmd *cmd);
-int					basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd);
+int					basic_parent_process(pid_t pid);
 int					basic_execute(char *line, t_cmd *cmd);
 
 //pipe executing

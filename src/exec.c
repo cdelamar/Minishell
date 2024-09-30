@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:32:50 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/06 00:42:57 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:12:47 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	execute(char *line, t_cmd *cmd)
 
 	if (ft_strchr(line, '|'))
 	{
-		printf("pipe_execute return here ::::::::::::::::::\n");
 		return (pipe_execute(line, cmd));
 	}
 	else if (ft_builtin(line, cmd) == EXIT_SUCCESS)

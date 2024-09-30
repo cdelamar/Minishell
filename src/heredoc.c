@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:59:33 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/05 18:11:05 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:14:35 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int ft_heredoc(char *limit)
         // ctrl + c
         if (!line)
         {
-            printf("ctrl + c\n");
             close(heredoc_fd);
             reset_signals();
             return 0; // 0 ou -1

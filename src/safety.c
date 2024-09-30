@@ -54,7 +54,6 @@ void free_cmd(t_cmd *cmd)
 		ft_freetab(cmd->path_split);
 	}
 
-	printf("i free cmd\n");
 	free(cmd);
 	//cmd = NULL;
 }

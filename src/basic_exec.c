@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:24:07 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/06 00:44:21 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:08:23 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int basic_child_process(char **free_line, char *line, t_cmd *cmd)
     char **split_line;
     char *command;
 
-    // printf("basic child\n\n");
-
     split_line = ft_split(line, ' ');
     if (!split_line)
         return (EXIT_FAILURE);
@@ -64,10 +62,10 @@ int basic_child_process(char **free_line, char *line, t_cmd *cmd)
 
     command = cmd_finder(split_line, cmd);
     if (command)
-        execve(command, split_line, cmd->env);
-
-    printf ("\n\n\n\n missing the execve command seems to occurs memory issues, but why\n\n\n\n");
-
+    {
+        //printf("execve\n");
+        execve(command, split_line, cmd->env); // exit
+    }
     printf("%s : command not found\n", line);
     ft_freetab(split_line);
     ft_freetab(free_line);
@@ -82,7 +80,7 @@ int basic_child_process(char **free_line, char *line, t_cmd *cmd)
     exit (EXIT_FAILURE);
 }
 
-int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free cmd->path_split
+int basic_parent_process(pid_t pid) // TODO free cmd->path_split
 {
     int status;
 
@@ -95,7 +93,7 @@ int basic_parent_process(pid_t pid, char **split_line, t_cmd *cmd) // TODO free 
     }
     if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
     {
-        printf("WIFEXITED STATUS\n");
+        //printf("WIFEXITED STATUS\n");
         //if (split_line)
         //  ft_freetab(split_line);
         //ft_freetab(cmd->path_split);
@@ -195,7 +193,7 @@ int basic_execute(char *line, t_cmd *cmd)
     else
     {
         // Parent process
-        exit_code = basic_parent_process(cmd->pid1, split_line, cmd);
+        exit_code = basic_parent_process(cmd->pid1);
         ft_freetab(split_line); // Free split in parent process
         return exit_code;       // Return success or failure
     }

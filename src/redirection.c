@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:01:29 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/06 00:13:42 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:08:35 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,10 @@ int ft_input_redirect(char **split_line, int i)
 
 int ft_heredoc_redirect(char *delim)
 {
-    printf("REDIRECt\n");
     if (!delim)
         return EXIT_FAILURE;
     if (ft_heredoc(delim) != 0)
         return EXIT_FAILURE;
-    printf("Heredoc redirection handled successfully.\n");
     return EXIT_SUCCESS;
 }
 
@@ -85,7 +83,7 @@ int handle_redirections(char **split_line, int status, t_cmd *cmd)
 {
     int i = 0;
 
-    printf("handle here\n");
+    // printf("handle here\n");
 
     while (split_line[i])
 	{
