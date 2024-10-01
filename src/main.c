@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:06:47 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/30 13:12:39 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:10:12 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,73 +33,75 @@ volatile sig_atomic_t g_signal = 0;
 
 static void process_input(char *line, t_cmd *cmd)
 {
-    int ret;
+	if (line == NULL)
+	{
+		//printf("CTRL + D from shell_loop\n");
+		ft_freetab(cmd->env);
+		free_structs(cmd);
+		exit(0); // Handle exit on EOF (CTRL + D)
+	}
 
-    if (line == NULL)
-    {
-        //printf("CTRL + D from shell_loop\n");
-        free_structs(cmd);
-        exit(0); // Handle exit on EOF (CTRL + D)
-    }
+	if (space_only(line) == true)
+	{
+		//free_structs(cmd);
+		return;
+	}
 
-    if (space_only(line) == true)
-    {
-        free_structs(cmd);
-        return;
-    }
+	if (*line)
+		add_history(line);
 
-    if (*line)
-        add_history(line);
-
-    ret = execute(line,cmd); // execute retourne un int mais je men sert pas
-    free_cmd(cmd);
-    return;
+	execute(line,cmd); // execute retourne un int mais je men sert pas
 }
 
-static int init_shell_exec(t_cmd **cmd, char **envp)
+char **cpy_tab(char **dest, char **src)
 {
-    if (malloc_structs(cmd) != 0)
-    {
-        ft_putendl_fd(MALLOC_FAILURE, 2);
-        return 1;
-    }
-    (*cmd)->env = envp;
-    (*cmd)->heredoc_processed = FALSE;
-    return 0;
+	int len = -1;
+	while (src[++len])
+		dest[len] = ft_strdup(src[len]);
+	dest[len] = NULL;
+	return dest;
 }
 
 void shell_exec_loop(char **envp)
 {
-    char *line;
-    t_cmd *cmd;
+	char	*line;
+	t_cmd	*cmd = NULL;
+	int		len = -1;
 
-    while (1)
-    {
-        if (init_shell_exec(&cmd, envp) != 0)
-        {
-            return;
-        }
-        line = readline("$ ");
-        process_input(line, cmd);
-        free(line); // LEAK
-    }
+	while (envp[++len]) {}
+	char **tab = malloc(sizeof(char *) * (len + 1));
+	cpy_tab(tab, envp);
+	while (1)
+	{
+		if (malloc_structs(&cmd) != 0)
+		{
+			ft_putendl_fd(MALLOC_FAILURE, 2);
+			return ;
+		}
+		cmd->heredoc_processed = FALSE;
+		cmd->env = tab;
+		line = readline("$ ");
+		process_input(line, cmd);
+		free(line); // LEAK
+		tab = cmd->env;
+	}
 }
 
 int main(int argc, char **argv, char **envp)
 {
-   // g_signal = 0;
-    (void)argv;
+	// g_signal = 0;
+	(void)argv;
 
-    if (argc != 1)
-    {
-        printf("invalid argument.\n");
-        return (0);
-    }
-    rl_outstream = stderr;
+	if (argc != 1)
+	{
+		printf("invalid argument.\n");
+		return (0);
+	}
+	rl_outstream = stderr;
 
-    signals();
+	signals();
 
-    shell_exec_loop(envp);
-    return 0;
+	shell_exec_loop(envp);
+	return 0;
 }
 

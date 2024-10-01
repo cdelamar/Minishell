@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:59:13 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/30 13:14:51 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:05:09 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int malloc_structs(t_cmd **cmd)
 {
+	if (*cmd)
+		free_cmd(*cmd);
 	*cmd = NULL;
 
 	*cmd = malloc(sizeof(t_cmd));

@@ -6,7 +6,7 @@
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:05:45 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/09/30 11:31:39 by cdelamar         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:32:51 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ void setup_signal_handler(int signum, void (*handler)(int));
 bool freeable_tab (char **tab);
 void free_cmd(t_cmd *cmd);
 
+char **cpy_tab(char **dest, char **src);
 
 #endif
