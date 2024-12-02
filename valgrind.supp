@@ -1,0 +1,18 @@
+{
+   ignore_readlines_errors
+   Memcheck:Leak
+   ...
+   obj:*/libreadline.so.*
+}
+{
+   ignore_ls_leaks
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/ls
+}
+{
+   ignore_grep_leaks
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/grep
+}

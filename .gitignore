@@ -1,0 +1,9 @@
+*.out
+*.swp
+*.o
+*.a
+*.json
+*.sh
+*.txt
+*.text
+
