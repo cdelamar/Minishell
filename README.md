@@ -1,9 +1,14 @@
-**FONCTIONNEMENT DU PARSING** 🔄:
+## Credits and Acknowledgments
 
-Le parsing prend un char **
-- Ajout des nodes
-  - : `add_node(token_list, argc, argv, i)`
-- Lexer (metre tout dans une liste chainee et metre des enum sur les nodes)
-  - : `lexer(t_token *token, int argc, char **argv)`
-  - dans le lexer assigner les enum `assign_enum(token, index)`
-  - path_main remplae le `$exemple` par sont path exemple `$USER = laubry`
+This project, **Minishell**, was developed as part of the 42 curriculum by me and [Lucas Aubry](https://github.com/LucasAubry)
+
+We are especially grateful to the following individuals for their invaluable guidance, support, and contributions during the development process:
+
+- [Acasamit](https://github.com/acasamit)
+For providing critical feedback and insightful suggestions on the program's architecture, including linked lists, error management, and merges.  
+
+- [DinoMalin](https://github.com/DinoMalin)
+For assisting with memory leak debugging in the execution component, offering constructive feedback on the parsing process, and providing guidance during the project correction phase.
+
+Thanks a lot guys, and thank you to everyone who contributed directly or indirectly to this project.
+
